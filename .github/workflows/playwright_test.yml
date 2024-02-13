@@ -11,9 +11,10 @@ on:
         required: false
         default: "0"
       trace:
+        type: choice
         description: 'Choose trace option: on \ off \ retain-on-failure'
         required: false
-        # default: "retain-on-failure"
+        default: "retain-on-failure"
         options:
           - "retain-on-failure"
           - "on"
@@ -24,9 +25,10 @@ on:
         required: true
         default: ""
       where_to_deploy:
+        type: choice
         description: 'Choose where to deploy:'
         required: true
-        # default: "github_pages"
+        default: "github_pages"
         options:
           - "github_pages"
           - "github_repo"
