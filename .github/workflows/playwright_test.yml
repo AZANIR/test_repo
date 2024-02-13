@@ -14,6 +14,22 @@ on:
         description: 'Choose trace option: on \ off \ retain-on-failure'
         required: false
         default: "retain-on-failure"
+        options:
+          - "on"
+          - "off"
+          - "retain-on-failure"
+      api_token_github:
+        description: 'GitHub token'
+        required: true
+        default: ""
+      where_to_deploy:
+        description: 'Choose where to deploy:'
+        required: true
+        default: "github_pages"
+        options:
+          - "github_pages"
+          - "github_repo"
+
 
   # push:
   #     branches: [master]
@@ -28,7 +44,8 @@ jobs:
       STAGE_URL: ${{ inputs.stage_url }}
       QASE_REPORT: ${{ inputs.qase_report }}
       TRACE: ${{ inputs.trace }}
-      
+      API_TOKEN_GITHUB: ${{ inputs.api_token_github }}
+      WHERE_TO_DEPLOY: ${{ inputs.where_to_deploy }}
     permissions:
       contents: write
     steps:
@@ -102,8 +119,21 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v4
+        if: env.WHERE_TO_DEPLOY == 'github_pages'
         with:
           target_branch: gh-pages
           build_dir: ./reports
         env:
           GITHUB_TOKEN: ${{secrets.ACCES_TOKEN}}
+
+      - name: Pushes playwright-report to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        if: env.WHERE_TO_DEPLOY == 'github_repo'
+        env:
+          API_TOKEN_GITHUB: ${{ env.API_TOKEN_GITHUB }}
+        with:
+          source-directory: "test/playwright-report"
+          destination-github-username: "ballerine-io"
+          destination-repository-name: "test_repo"
+          user-email: ${{ env.USER_EMAIL}}
+          target-branch: gh-pages
