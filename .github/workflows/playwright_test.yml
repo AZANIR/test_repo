@@ -13,11 +13,12 @@ on:
       trace:
         description: 'Choose trace option: on \ off \ retain-on-failure'
         required: false
-        default: "retain-on-failure"
+        # default: "retain-on-failure"
         options:
+          - "retain-on-failure"
           - "on"
           - "off"
-          - "retain-on-failure"
+          
       api_token_github:
         description: 'GitHub token'
         required: true
@@ -25,7 +26,7 @@ on:
       where_to_deploy:
         description: 'Choose where to deploy:'
         required: true
-        default: "github_pages"
+        # default: "github_pages"
         options:
           - "github_pages"
           - "github_repo"
