@@ -37,15 +37,11 @@ jobs:
         with:
           node-version: 20
       - name: set work directory
-        run: cd test 
-      - name: Install dependencies
-        run: npm i -g npm@latest
-      - name: Install dependencies
-        run: npm i
-      - name: Install Allure
-        run: npm install allure-commandline --save-dev
-      - name: Install new browsers
-        run: npx playwright install --with-deps
+        run: cd test |
+            npm i -g npm@latest
+            npm i
+            npm install allure-commandline --save-dev
+            npx playwright install --with-deps
       - name: Run tests
         run: export BASE_URL="$STAGE_URL" && npx playwright test --trace "$TRACE"
       - uses: actions/upload-artifact@v3
