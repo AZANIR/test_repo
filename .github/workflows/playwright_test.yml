@@ -39,7 +39,7 @@ jobs:
       - name: set work directory
         run: cd test && ls -la && npm i -g npm@latest && npm i && npm install allure-commandline --save-dev && npx playwright install --with-deps
       - name: Run tests
-        run: export BASE_URL="$STAGE_URL" npx playwright test --trace "$TRACE"
+        run: export BASE_URL="$STAGE_URL" && npx playwright test --trace "$TRACE" test
       - uses: actions/upload-artifact@v3
         if: always()
         with:
