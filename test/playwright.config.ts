@@ -16,7 +16,7 @@ export default defineConfig({
     //Global Setup to run before all tests
     globalSetup: `./global-setup`,
     //Global Teardown to run after all tests
-    globalTeardown: `./global-teardown`,
+    // globalTeardown: `./global-teardown`,
     expect: {
         /**
          * Maximum time expect() should wait for the condition to be met.
