@@ -1,0 +1,103 @@
+name: Playwright Tests
+on:
+  workflow_dispatch:
+    inputs:
+      stage_url:
+        description: 'Select an environment: "dev" , "local"'
+        required: true
+        default: "https://backoffice-dev.eu.ballerine.io"
+      qase_report:
+        description: 'Choose qase report option: on(1) \ off(0)'
+        required: false
+        default: "0"
+      trace:
+        description: 'Choose trace option: on \ off \ retain-on-failure'
+        required: false
+        default: "retain-on-failure"
+
+  # push:
+  #     branches: [master]
+  # schedule:
+  #   - cron: "0 1 * * *" # every day at 1:00 UTC
+
+jobs:
+  Run_tests:
+    timeout-minutes: 300
+    runs-on: ubuntu-20.04
+    env:
+      STAGE_URL: ${{ inputs.stage_url }}
+      QASE_REPORT: ${{ inputs.qase_report }}
+      TRACE: ${{ inputs.trace }}
+      
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+      - name: Install new browsers
+        run: npx playwright install
+      - name: Run tests
+        run: export BASE_URL="$STAGE_URL" && npx playwright test --trace "$TRACE" test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: test/playwright-report/
+          retention-days: 5
+
+  download_and_deploy_report:
+    if: always()
+    needs: Run_tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Wait for Artifacts to be ready
+        run: sleep 60
+
+      - name: Download Artifact Main Scope
+        uses: actions/download-artifact@v3
+        with:
+          name: playwright-report
+          path: reports
+
+      # - name: Generate Index HTML with Bootstrap for 'reports' directory
+      #   run: |
+      #     cd reports
+
+      #     echo '<!DOCTYPE html>' > index.html
+      #     echo '<html lang="en">' >> index.html
+      #     echo '<head>' >> index.html
+      #     echo '    <meta charset="UTF-8">' >> index.html
+      #     echo '    <meta name="viewport" content="width=device-width, initial-scale=1.0">' >> index.html
+      #     echo '    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">' >> index.html
+      #     echo '    <title>Tests Results QPilot</title>' >> index.html
+      #     echo '</head>' >> index.html
+      #     echo '<body>' >> index.html
+      #     echo '    <div class="container mt-5">' >> index.html
+      #     echo '        <h1 class="mb-4">Tests Results QPilot</h1>' >> index.html
+      #     echo '        <div class="list-group">' >> index.html
+
+      #     for folder in $(ls -d */); do
+      #       echo "            <a href=\"$folder\" class=\"list-group-item list-group-item-action\">$(basename $folder)</a>" >> index.html
+      #     done
+
+      #     echo '        </div>' >> index.html
+      #     echo '    </div>' >> index.html
+      #     echo '    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>' >> index.html
+      #     echo '    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>' >> index.html
+      #     echo '</body>' >> index.html
+      #     echo '</html>' >> index.html
+
+      - name: Deploy to GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: gh-pages
+          build_dir: ./reports
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
