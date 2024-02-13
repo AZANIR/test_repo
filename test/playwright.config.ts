@@ -87,7 +87,7 @@ export default defineConfig({
                 channel: `chrome`,
 
                 //Browser height and width
-                viewport: null,
+                // viewport: { width: 1920, height: 1080 },
                 ignoreHTTPSErrors: true,
 
                 //Enable File Downloads in Chrome
@@ -95,8 +95,17 @@ export default defineConfig({
 
                 //Slows down execution by ms
                 launchOptions: {
-                    args: [`--start-maximized`, `--disable-web-security`]
-                    //slowMo: 0
+                    args: [
+                        `--start-maximized`,
+                        `--disable-web-security`,
+                        `--no-sandbox`,
+                        `--disable-gpu`,
+                        `--disable-dev-shm-usage`,
+                        `--window-size=1900,1000`,
+                        `--allow-insecure-localhost`,
+                        `--ignore-certificate-error`
+                    ]
+                    //slowMo: 50
                 }
             }
         }

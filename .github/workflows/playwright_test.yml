@@ -37,9 +37,18 @@ jobs:
         with:
           node-version: 20
       - name: set work directory
-        run: cd test && ls -la && npm i -g npm@latest && npm i && npm install allure-commandline --save-dev && npx playwright install --with-deps
+        run: |
+          cd test
+          npm i -g npm@latest
+          npm i
+          npm install allure-commandline --save-dev
+          npx playwright install --with-deps
+        working-directory: ./test
       - name: Run tests
-        run: cd test && export BASE_URL="$STAGE_URL" && npx playwright test --trace "$TRACE"
+        run: |
+          export BASE_URL="$STAGE_URL"
+          npx playwright test --trace "$TRACE"
+        working-directory: ./test
       - uses: actions/upload-artifact@v3
         if: always()
         with:

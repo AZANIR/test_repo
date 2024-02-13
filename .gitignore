@@ -42,6 +42,8 @@ stats.html
 /test-results/
 /playwright-report/
 /playwright/.cache/
+allure-report/
+allure-results/
 
 # System Files
 .DS_Store
