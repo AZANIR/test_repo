@@ -17,8 +17,8 @@ test(qase([1], `Home page login to dashboard`), async ({ page }) => {
         await expect(page.getByPlaceholder('Search by user info')).toBeVisible();
     });
     await test.step('Switch to the Individuals tab', async () => {
-        await page.getByRole('button', { name: 'Individuals' }).click();
-        await page.getByRole('link', { name: 'Risk Score Improvement - Individuals', exact: true }).click();
+        await page.getByRole('button', { name: 'Individuals', exact: true }).click();
+        await page.getByRole('link', { name: 'Onboarding - Individuals', exact: true }).click();
     });
     await test.step('Check the Individuals tab', async () => {
         await page.getByPlaceholder('Search by user info').click();
