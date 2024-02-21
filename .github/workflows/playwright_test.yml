@@ -19,6 +19,14 @@ on:
           - "retain-on-failure"
           - "on"
           - "off"
+      login:
+        description: 'Set login option: default or custom'
+        required: true
+        default: "admin@admin.com"
+      password:
+        description: 'Set password option: default or custom'
+        required: true
+        default: "admin"
           
       # api_token_github:
       #   description: 'GitHub token'
@@ -47,6 +55,8 @@ jobs:
       STAGE_URL: ${{ inputs.stage_url }}
       QASE_REPORT: ${{ inputs.qase_report }}
       TRACE: ${{ inputs.trace }}
+      LOGIN: ${{ inputs.login }}
+      PASSWORD: ${{ inputs.password }}
     permissions:
       contents: write
     steps:
@@ -61,7 +71,7 @@ jobs:
           npm install allure-commandline --save-dev
           npx playwright install --with-deps
       - name: Run tests
-        run: export BASE_URL="$STAGE_URL" && npx playwright test --trace "$TRACE"
+        run: export BASE_URL="$STAGE_URL" LOGIN="$LOGIN" PASSWORD="$PASSWORD" && && npx playwright test --trace "$TRACE"
       - uses: actions/upload-artifact@v3
         if: always()
         with:
