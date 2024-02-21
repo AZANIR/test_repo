@@ -20,18 +20,18 @@ on:
           - "on"
           - "off"
           
-      api_token_github:
-        description: 'GitHub token'
-        required: true
-        default: ""
-      where_to_deploy:
-        type: choice
-        description: 'Choose where to deploy:'
-        required: true
-        default: "github_pages"
-        options:
-          - "github_pages"
-          - "github_repo"
+      # api_token_github:
+      #   description: 'GitHub token'
+      #   required: true
+      #   default: ""
+      # where_to_deploy:
+      #   type: choice
+      #   description: 'Choose where to deploy:'
+      #   required: true
+      #   default: "github_pages"
+      #   options:
+      #     - "github_pages"
+      #     - "github_repo"
 
 
   # push:
@@ -54,23 +54,19 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-      - name: set work directory
+      - name: install dependencies
         run: |
           npm i -g npm@latest
           npm i
           npm install allure-commandline --save-dev
           npx playwright install --with-deps
-        working-directory: ./test
       - name: Run tests
-        run: |
-          export BASE_URL="$STAGE_URL"
-          npx playwright test --trace "$TRACE"
-        working-directory: ./test
+        run: export BASE_URL="$STAGE_URL" && npx playwright test --trace "$TRACE"
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report
-          path: test/playwright-report/
+          path: playwright-report/
           retention-days: 5
 
   download_and_deploy_report:
@@ -92,34 +88,6 @@ jobs:
         with:
           name: playwright-report
           path: reports
-
-      # - name: Generate Index HTML with Bootstrap for 'reports' directory
-      #   run: |
-      #     cd reports
-
-      #     echo '<!DOCTYPE html>' > index.html
-      #     echo '<html lang="en">' >> index.html
-      #     echo '<head>' >> index.html
-      #     echo '    <meta charset="UTF-8">' >> index.html
-      #     echo '    <meta name="viewport" content="width=device-width, initial-scale=1.0">' >> index.html
-      #     echo '    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">' >> index.html
-      #     echo '    <title>Tests Results QPilot</title>' >> index.html
-      #     echo '</head>' >> index.html
-      #     echo '<body>' >> index.html
-      #     echo '    <div class="container mt-5">' >> index.html
-      #     echo '        <h1 class="mb-4">Tests Results QPilot</h1>' >> index.html
-      #     echo '        <div class="list-group">' >> index.html
-
-      #     for folder in $(ls -d */); do
-      #       echo "            <a href=\"$folder\" class=\"list-group-item list-group-item-action\">$(basename $folder)</a>" >> index.html
-      #     done
-
-      #     echo '        </div>' >> index.html
-      #     echo '    </div>' >> index.html
-      #     echo '    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>' >> index.html
-      #     echo '    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>' >> index.html
-      #     echo '</body>' >> index.html
-      #     echo '</html>' >> index.html
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v4
