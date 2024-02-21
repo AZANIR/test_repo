@@ -28,18 +28,18 @@ on:
         required: true
         default: "admin"
           
-      # api_token_github:
-      #   description: 'GitHub token'
-      #   required: true
-      #   default: ""
-      # where_to_deploy:
-      #   type: choice
-      #   description: 'Choose where to deploy:'
-      #   required: true
-      #   default: "github_pages"
-      #   options:
-      #     - "github_pages"
-      #     - "github_repo"
+      api_token_github:
+        description: 'GitHub token'
+        required: true
+        default: ""
+      where_to_deploy:
+        type: choice
+        description: 'Choose where to deploy:'
+        required: true
+        default: "github_pages"
+        options:
+          - "github_pages"
+          - "github_repo"
 
 
   # push:
