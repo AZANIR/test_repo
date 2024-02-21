@@ -95,6 +95,6 @@ export class DashboardPage extends BasePage {
         await this.page.waitForTimeout(1000);
         await this.searchedElements.first().waitFor({ state: 'visible' });
         await this.searchedElements.first().click();
-        await this.waitForPageIsLoaded();
+        await this.page.waitForTimeout(500);
     }
 }
