@@ -50,7 +50,14 @@ on:
 jobs:
   Run_tests:
     timeout-minutes: 300
-    runs-on: mcr.microsoft.com/playwright:v1.41.1-jammy # ubuntu-20.04
+    runs-on:
+    # runs-on: mcr.microsoft.com/playwright:v1.41.1-jammy # ubuntu-20.04
+      using: docker
+      image: docker://mcr.microsoft.com/playwright:v1.34.3-jammy
+      args:
+        - npx
+        - playwright
+        - test
     env:
       STAGE_URL: ${{ inputs.stage_url }}
       QASE_REPORT: ${{ inputs.qase_report }}
