@@ -1,4 +1,5 @@
 name: Playwright Tests - Playwright test report
+  
 on:
   workflow_dispatch:
     inputs:
@@ -36,7 +37,6 @@ jobs:
   Run_tests:
     timeout-minutes: 300
     runs-on: ubuntu-20.04
-
     env:
       STAGE_URL: ${{ inputs.stage_url }}
       QASE_REPORT: ${{ inputs.qase_report }}
