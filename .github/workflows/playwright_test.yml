@@ -31,9 +31,8 @@ on:
 jobs:
   Run_tests:
     timeout-minutes: 300
-    runs-on: ubuntu-latest
-    container: 
-      image: mcr.microsoft.com/playwright:v1.34.3-jammy
+    runs-on: ubuntu-20.04
+
     env:
       STAGE_URL: ${{ inputs.stage_url }}
       QASE_REPORT: ${{ inputs.qase_report }}
@@ -47,10 +46,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-      - name: Install dependencies
+      - name: install dependencies
         run: |
           npm i
           npm install allure-commandline --save-dev
+          npx playwright install --with-deps
       - name: Run tests
         run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" && npx playwright test --trace "$TRACE"
       - uses: actions/upload-artifact@v3
