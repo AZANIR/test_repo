@@ -63,6 +63,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 5
-      - uses: sidharthv96/playwright-report-action
-        with:
-          github-token: ${{ env.API_TOKEN_GITHUB }}
