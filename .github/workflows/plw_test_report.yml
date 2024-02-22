@@ -45,7 +45,10 @@ jobs:
       PASSWORD: ${{ inputs.password }}
       API_TOKEN_GITHUB: ${{ inputs.api_token_github }}
     permissions:
-      contents: write
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
