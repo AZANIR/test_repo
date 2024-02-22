@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm i
-          npx playwright install --with-deps
+          npm install allure-commandline --save-dev
       - name: Run tests
         run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" && npx playwright test --trace "$TRACE"
       - uses: actions/upload-artifact@v3
