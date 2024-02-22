@@ -64,7 +64,11 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 5
-      - uses: sidharthv96/playwright-report-action
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          github-token: ${{ env.API_TOKEN_GITHUB }}
+          files: |
+            junit-report/junit-report.xml
+            test-results/**/*.trx
+            test-results/**/*.json

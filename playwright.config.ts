@@ -42,6 +42,7 @@ export default defineConfig({
           ]
         : [
               ['list'],
+              ['junit', { outputFile: 'junit-report/junit-report.xml', open: 'never' }],
               ['allure-playwright'],
               ['html', { open: 'never' }],
               [
