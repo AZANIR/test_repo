@@ -1,0 +1,455 @@
+{
+  "config": {
+    "configFile": "D:\\QA_A\\ballerine_WR\\test_repo\\playwright.config.ts",
+    "rootDir": "D:/QA_A/ballerine_WR/test_repo/tests/specs",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "D:\\QA_A\\ballerine_WR\\test_repo\\global-setup.ts",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "D:/QA_A/ballerine_WR/test_repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "id": "Chrome",
+        "name": "Chrome",
+        "testDir": "D:/QA_A/ballerine_WR/test_repo/tests/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.41.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "bacoffice\\bacoffice-001.spec.ts",
+      "file": "bacoffice/bacoffice-001.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Login with invalid email @login (Qase ID: 1)",
+          "ok": true,
+          "tags": [
+            "login"
+          ],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chrome",
+              "projectName": "Chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 1181,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Fill input fields",
+                      "duration": 266
+                    },
+                    {
+                      "title": "Click on the button",
+                      "duration": 553
+                    },
+                    {
+                      "title": "Check the error email notice is displayed",
+                      "duration": 32
+                    }
+                  ],
+                  "startTime": "2024-02-22T15:12:06.115Z",
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-001-Login-with-invalid-email-login-Qase-ID-1--Chrome\\test-finished-1.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-001-Login-with-invalid-email-login-Qase-ID-1--Chrome\\trace.zip"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-001-Login-with-invalid-email-login-Qase-ID-1--Chrome\\test-finished-2.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7acaca5ad46d3050d9a2-3a2a576ebe25b2b74d75",
+          "file": "bacoffice/bacoffice-001.spec.ts",
+          "line": 18,
+          "column": 5
+        },
+        {
+          "title": "Login with invalid password @login (Qase ID: 2)",
+          "ok": true,
+          "tags": [
+            "login"
+          ],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chrome",
+              "projectName": "Chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 806,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Fill input fields",
+                      "duration": 171
+                    },
+                    {
+                      "title": "Click on the button",
+                      "duration": 112
+                    },
+                    {
+                      "title": "Check the error message is displayed",
+                      "duration": 235
+                    }
+                  ],
+                  "startTime": "2024-02-22T15:12:09.523Z",
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-001-Login-with-invalid-password-login-Qase-ID-2--Chrome\\test-finished-1.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-001-Login-with-invalid-password-login-Qase-ID-2--Chrome\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7acaca5ad46d3050d9a2-f99a70669b40f3711200",
+          "file": "bacoffice/bacoffice-001.spec.ts",
+          "line": 31,
+          "column": 5
+        },
+        {
+          "title": "Login with valid credential @login (Qase ID: 3)",
+          "ok": true,
+          "tags": [
+            "login"
+          ],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chrome",
+              "projectName": "Chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 986,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Fill input fields",
+                      "duration": 161
+                    },
+                    {
+                      "title": "Click on the button",
+                      "duration": 125
+                    },
+                    {
+                      "title": "Check the dashboard is displayed",
+                      "duration": 290
+                    }
+                  ],
+                  "startTime": "2024-02-22T15:12:10.331Z",
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-001-Login-with-valid-credential-login-Qase-ID-3--Chrome\\test-finished-1.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-001-Login-with-valid-credential-login-Qase-ID-3--Chrome\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7acaca5ad46d3050d9a2-b02c07bc1689cfe0ac0c",
+          "file": "bacoffice/bacoffice-001.spec.ts",
+          "line": 44,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "bacoffice\\bacoffice-002.spec.ts",
+      "file": "bacoffice/bacoffice-002.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Exact Match Search @search (Qase ID: 4)",
+          "ok": true,
+          "tags": [
+            "search"
+          ],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chrome",
+              "projectName": "Chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 5268,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Enter an exact id into the search field and initiate the search",
+                      "duration": 753
+                    },
+                    {
+                      "title": "Enter an exact lastName into the search field and initiate the search.",
+                      "duration": 816
+                    },
+                    {
+                      "title": "Enter an exact ballerineEntityId into the search field and initiate the search.",
+                      "duration": 2463
+                    }
+                  ],
+                  "startTime": "2024-02-22T15:12:11.326Z",
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Exact-Match-Search-search-Qase-ID-4--Chrome\\test-finished-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Exact-Match-Search-search-Qase-ID-4--Chrome\\test-finished-2.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Exact-Match-Search-search-Qase-ID-4--Chrome\\trace.zip"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Exact-Match-Search-search-Qase-ID-4--Chrome\\test-finished-3.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Exact-Match-Search-search-Qase-ID-4--Chrome\\test-finished-4.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f826209ce416474b235-9e492653f6d30ae85ac5",
+          "file": "bacoffice/bacoffice-002.spec.ts",
+          "line": 35,
+          "column": 5
+        },
+        {
+          "title": "Combined Fields Search @search (Qase ID: 5)",
+          "ok": true,
+          "tags": [
+            "search"
+          ],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chrome",
+              "projectName": "Chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 7635,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Enter a combination of firstName and email into the search field and initiate the search.",
+                      "duration": 2358
+                    },
+                    {
+                      "title": "Enter a combination of lastName and phone into the search field and initiate the search.",
+                      "duration": 2319
+                    },
+                    {
+                      "title": "Enter a combination of firstName and middleName into the search field and initiate the search.",
+                      "duration": 2295
+                    }
+                  ],
+                  "startTime": "2024-02-22T15:12:20.836Z",
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Combined-Fields-Search-search-Qase-ID-5--Chrome\\test-finished-2.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Combined-Fields-Search-search-Qase-ID-5--Chrome\\test-finished-1.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Combined-Fields-Search-search-Qase-ID-5--Chrome\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f826209ce416474b235-9976347c51d40eea1a70",
+          "file": "bacoffice/bacoffice-002.spec.ts",
+          "line": 71,
+          "column": 5
+        },
+        {
+          "title": "Special Characters and Whitespace Handling @search (Qase ID: 6)",
+          "ok": true,
+          "tags": [
+            "search"
+          ],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Chrome",
+              "projectName": "Chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 7880,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Enter an email address with special characters (like a period or underscore) into the search field and initiate the search.",
+                      "duration": 4671
+                    },
+                    {
+                      "title": "Enter a phone number with whitespace and special characters (like parentheses and hyphens) into the search field and initiate the search.",
+                      "duration": 2024
+                    }
+                  ],
+                  "startTime": "2024-02-22T15:12:28.473Z",
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Special-Characters-and-Whitespace-Handling-search-Qase-ID-6--Chrome\\test-finished-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Special-Characters-and-Whitespace-Handling-search-Qase-ID-6--Chrome\\test-finished-2.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\QA_A\\ballerine_WR\\test_repo\\test-results\\bacoffice-bacoffice-002-Special-Characters-and-Whitespace-Handling-search-Qase-ID-6--Chrome\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f826209ce416474b235-51025eba41a8ec4d63c4",
+          "file": "bacoffice/bacoffice-002.spec.ts",
+          "line": 114,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2024-02-22T15:12:05.520Z",
+    "duration": 31206.150999999998,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

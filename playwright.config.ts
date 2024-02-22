@@ -36,7 +36,7 @@ export default defineConfig({
     reporter: process.env.CI
         ? [
               ['junit', { outputFile: 'junit-report/junit-report.xml', open: 'never' }],
-              ['html', { open: 'never' }],
+              //   ['html', { open: 'never' }],
               ['allure-playwright'],
               ['list']
           ]
@@ -44,7 +44,7 @@ export default defineConfig({
               ['list'],
               ['junit', { outputFile: 'junit-report/junit-report.xml', open: 'never' }],
               ['allure-playwright'],
-              ['html', { open: 'never' }],
+              //   ['html', { open: 'never' }],
               [
                   'playwright-qase-reporter',
                   {

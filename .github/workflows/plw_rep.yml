@@ -1,4 +1,4 @@
-name: 'playwright'
+name: 'Playwright Report Summary'
 on:
   workflow_dispatch:
     inputs:
@@ -31,19 +31,45 @@ on:
         description: 'GitHub token'
         required: true
         default: ""
+
 jobs:
-    playwright:
-        runs-on: ubuntu-latest
-        env:
-          STAGE_URL: ${{ inputs.stage_url }}
-          QASE_REPORT: ${{ inputs.qase_report }}
-          TRACE: ${{ inputs.trace }}
-          LOGIN: ${{ inputs.login }}
-          PASSWORD: ${{ inputs.password }}
-          API_TOKEN_GITHUB: ${{ inputs.api_token_github }}
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
-        steps:
-            - uses: actions/checkout@v1
-            - uses: sidharthv96/playwright-report-action
-              with:
-                  github-token: ${{ env.API_TOKEN_GITHUB }}
+  Run_tests:
+    timeout-minutes: 300
+    runs-on: ubuntu-20.04
+    env:
+      STAGE_URL: ${{ inputs.stage_url }}
+      QASE_REPORT: ${{ inputs.qase_report }}
+      TRACE: ${{ inputs.trace }}
+      LOGIN: ${{ inputs.login }}
+      PASSWORD: ${{ inputs.password }}
+      API_TOKEN_GITHUB: ${{ inputs.api_token_github }}
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: install dependencies
+        run: |
+          npm i
+          npm install allure-commandline --save-dev
+          npx playwright install --with-deps
+      - name: Run tests
+        run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 5
+      - name: Publish Test Report
+        uses: daun/playwright-report-summary@v3
+        if: always()
+        with:
+          report-file: 'results.json'
+          job-summary: true
+          icon-style: 'emojis'

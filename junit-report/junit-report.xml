@@ -1,6 +1,6 @@
-<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="32.284772">
-<testsuite name="bacoffice\bacoffice-001.spec.ts" timestamp="2024-02-22T14:41:23.634Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="2.781" errors="0">
-<testcase name="Login with invalid email @login (Qase ID: 1)" classname="bacoffice\bacoffice-001.spec.ts" time="1.122">
+<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="31.718643">
+<testsuite name="bacoffice\bacoffice-001.spec.ts" timestamp="2024-02-22T15:08:04.154Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="3.057" errors="0">
+<testcase name="Login with invalid email @login (Qase ID: 1)" classname="bacoffice\bacoffice-001.spec.ts" time="1.253">
 <system-out>
 <![CDATA[
 [[ATTACHMENT|..\test-results\bacoffice-bacoffice-001-Login-with-invalid-email-login-Qase-ID-1--Chrome\test-finished-1.png]]
@@ -11,7 +11,7 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="Login with invalid password @login (Qase ID: 2)" classname="bacoffice\bacoffice-001.spec.ts" time="0.671">
+<testcase name="Login with invalid password @login (Qase ID: 2)" classname="bacoffice\bacoffice-001.spec.ts" time="0.702">
 <system-out>
 <![CDATA[
 [[ATTACHMENT|..\test-results\bacoffice-bacoffice-001-Login-with-invalid-password-login-Qase-ID-2--Chrome\test-finished-1.png]]
@@ -20,7 +20,7 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="Login with valid credential @login (Qase ID: 3)" classname="bacoffice\bacoffice-001.spec.ts" time="0.988">
+<testcase name="Login with valid credential @login (Qase ID: 3)" classname="bacoffice\bacoffice-001.spec.ts" time="1.102">
 <system-out>
 <![CDATA[
 [[ATTACHMENT|..\test-results\bacoffice-bacoffice-001-Login-with-valid-credential-login-Qase-ID-3--Chrome\test-finished-1.png]]
@@ -30,8 +30,8 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="bacoffice\bacoffice-002.spec.ts" timestamp="2024-02-22T14:41:23.634Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="21.923" errors="0">
-<testcase name="Exact Match Search @search (Qase ID: 4)" classname="bacoffice\bacoffice-002.spec.ts" time="5.233">
+<testsuite name="bacoffice\bacoffice-002.spec.ts" timestamp="2024-02-22T15:08:04.154Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="21.093" errors="0">
+<testcase name="Exact Match Search @search (Qase ID: 4)" classname="bacoffice\bacoffice-002.spec.ts" time="5.078">
 <system-out>
 <![CDATA[
 [[ATTACHMENT|..\test-results\bacoffice-bacoffice-002-Exact-Match-Search-search-Qase-ID-4--Chrome\test-finished-1.png]]
@@ -46,18 +46,18 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="Combined Fields Search @search (Qase ID: 5)" classname="bacoffice\bacoffice-002.spec.ts" time="7.772">
+<testcase name="Combined Fields Search @search (Qase ID: 5)" classname="bacoffice\bacoffice-002.spec.ts" time="7.775">
 <system-out>
 <![CDATA[
-[[ATTACHMENT|..\test-results\bacoffice-bacoffice-002-Combined-Fields-Search-search-Qase-ID-5--Chrome\test-finished-2.png]]
-
 [[ATTACHMENT|..\test-results\bacoffice-bacoffice-002-Combined-Fields-Search-search-Qase-ID-5--Chrome\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\bacoffice-bacoffice-002-Combined-Fields-Search-search-Qase-ID-5--Chrome\test-finished-2.png]]
 
 [[ATTACHMENT|..\test-results\bacoffice-bacoffice-002-Combined-Fields-Search-search-Qase-ID-5--Chrome\trace.zip]]
 ]]>
 </system-out>
 </testcase>
-<testcase name="Special Characters and Whitespace Handling @search (Qase ID: 6)" classname="bacoffice\bacoffice-002.spec.ts" time="8.918">
+<testcase name="Special Characters and Whitespace Handling @search (Qase ID: 6)" classname="bacoffice\bacoffice-002.spec.ts" time="8.24">
 <system-out>
 <![CDATA[
 [[ATTACHMENT|..\test-results\bacoffice-bacoffice-002-Special-Characters-and-Whitespace-Handling-search-Qase-ID-6--Chrome\test-finished-1.png]]

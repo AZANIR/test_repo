@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "npx playwright test",
+        "test:json-report": "PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json",
         "test:headed": "npx playwright test --headed",
         "test:headed:one": "npx playwright test --headed tests/specs/bacoffice/bacoffice-002.spec.ts",
         "test:headed:qase": "export QASE_REPORT=1 && npx playwright test --headed",
