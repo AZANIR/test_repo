@@ -43,6 +43,7 @@ jobs:
       TRACE: ${{ inputs.trace }}
       LOGIN: ${{ inputs.login }}
       PASSWORD: ${{ inputs.password }}
+      API_TOKEN_GITHUB: ${{ inputs.api_token_github }}
     permissions:
       contents: write
     steps:
@@ -63,3 +64,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 5
+      - uses: sidharthv96/playwright-report-action
+        if: always()
+        with:
+          github-token: ${{ env.API_TOKEN_GITHUB }}
