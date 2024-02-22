@@ -69,6 +69,4 @@ jobs:
         if: always()
         with:
           files: |
-            junit-report/junit-report.xml
-            test-results/**/*.trx
-            test-results/**/*.json
+            ./junit-report/junit-report.xml
