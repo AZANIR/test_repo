@@ -37,6 +37,7 @@ export class BasePage {
      */
     async navigate(path) {
         await this.page.goto(path);
+        await this.waitForPageIsLoaded();
         // const localStorage = await this.page.evaluate(() => localStorage.getItem('location'));
         // if (localStorage === null) {
         //     await this.setLocalStorage();

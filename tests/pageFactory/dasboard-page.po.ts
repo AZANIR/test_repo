@@ -1,6 +1,5 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './base-page.po';
-import { Timeout } from '../enums/timeouts.enum';
 
 export class DashboardPage extends BasePage {
     private readonly lastName: Locator;

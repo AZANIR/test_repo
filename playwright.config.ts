@@ -36,15 +36,14 @@ export default defineConfig({
     reporter: process.env.CI
         ? [
               ['junit', { outputFile: 'junit-report/junit-report.xml', open: 'never' }],
-              //   ['html', { open: 'never' }],
+              ['html', { open: 'never' }],
               ['allure-playwright'],
               ['list']
           ]
         : [
               ['list'],
-              ['junit', { outputFile: 'junit-report/junit-report.xml', open: 'never' }],
               ['allure-playwright'],
-              //   ['html', { open: 'never' }],
+              ['html', { open: 'never' }],
               [
                   'playwright-qase-reporter',
                   {
@@ -65,15 +64,15 @@ export default defineConfig({
         actionTimeout: 30 * 1000,
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: process.env.BASE_URL || 'http://localhost:5137',
-        viewport: { width: 1920, height: 1080 },
+        // viewport: { width: 1920, height: 1080 },
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: process.env.CI ? 'on-first-retry' : 'on',
         screenshot: process.env.CI ? 'only-on-failure' : 'on',
-        video: process.env.CI ? 'retain-on-failure' : 'on',
+        video: process.env.CI ? 'retain-on-failure' : 'on'
 
         /* Set the timezone for the browser context */
         //timezoneId: process.env.CI ? 'UTC' : process.env.TIMEZONE_ID || 'UTC',
-        headless: process.env.CI ? true : false
+        //headless: process.env.CI ? true : false
     },
 
     /* Configure projects for major browsers */
@@ -114,16 +113,16 @@ export default defineConfig({
                 //Slows down execution by ms
                 launchOptions: {
                     args: [
-                        '--start-maximized',
+                        // '--start-maximized',
                         '--disable-web-security',
                         '--no-sandbox',
                         '--disable-gpu',
                         '--disable-dev-shm-usage',
-                        '--window-size=1900,1000',
+                        '--window-size=1440,980', // '--window-size=1900,1000',
                         '--allow-insecure-localhost',
                         '--ignore-certificate-error'
                     ],
-                    slowMo: 50
+                    slowMo: 100
                 }
             }
         }

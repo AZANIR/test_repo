@@ -13,7 +13,8 @@ const configData = {
     FIRST_NAME: 'Dorothea',
     LAST_NAME: 'Maggio',
     EMAIL: 'Nakia71@yahoo.com',
-    PHONE: '991-382-8483 x75169'
+    PHONE: '991-382-8483 x75169',
+    PARTIAL_NAME: 'Trev'
 };
 let page: Page;
 
@@ -136,8 +137,6 @@ test(qase([6], 'Special Characters and Whitespace Handling @search'), async () =
         expect(await dashboardPage.isSearchInputVisible()).toBe(true);
         await dashboardPage.setSearchInputValue('');
         await dashboardPage.setSearchInputValue(phone);
-        // const response = await dashboardPage.catchIncludesResponse(phone, 200, 20000);
-        // expect(response.status()).toBe(200);
         await dashboardPage.clickSearchedElement();
         expect(await dashboardPage.getPhone(), `Expected: phone with hyphens - ${phone}`).toBe(phone);
     });
@@ -160,4 +159,70 @@ test(qase([6], 'Special Characters and Whitespace Handling @search'), async () =
     //     await dashboardPage.clickSearchedElement();
     //     expect(await dashboardPage.getFirstName(), `Expected: firstName - ${firstName}`).toBe(firstName);
     // });
+});
+
+test(qase([7], 'Search Functionality - Partial Data Matching @search'), async () => {
+    await test.step('Enter a partial first name into the search field and initiate the search.', async () => {
+        const partialName = configData.PARTIAL_NAME;
+        expect(await dashboardPage.isSearchInputVisible()).toBe(true);
+        await dashboardPage.setSearchInputValue('');
+        await dashboardPage.setSearchInputValue(partialName);
+        const response = await dashboardPage.catchIncludesResponse(partialName, 200, 20000);
+        expect(response.status()).toBe(200);
+        await dashboardPage.clickSearchedElement();
+        expect(
+            await dashboardPage.getFirstName(),
+            `Expected: firstName contains - ${configData.PARTIAL_NAME}`
+        ).toContain(configData.PARTIAL_NAME);
+    });
+
+    await test.step('Enter a partial combination of first name and middle name "German Ja" into the search field and initiate the search.', async () => {
+        const partialName = 'German Ja';
+        expect(await dashboardPage.isSearchInputVisible()).toBe(true);
+        await dashboardPage.setSearchInputValue('');
+        await dashboardPage.setSearchInputValue(partialName);
+        const encodedPartialName = encodeURIComponent(partialName);
+        const response = await dashboardPage.catchIncludesResponse(encodedPartialName, 200, 20000);
+        expect(response.status()).toBe(200);
+        await dashboardPage.clickSearchedElement();
+        const name = partialName.split(' ')[0];
+        expect(await dashboardPage.getFirstName(), `Expected: firstName - ${name}`).toBe(name);
+        const lastName = partialName.split(' ')[1];
+        expect(await dashboardPage.getLastName(), `Expected: lastName contains - ${lastName}`).toContain(lastName);
+    });
+
+    await test.step('Enter a partial email address  which is also a first name, into the search field and initiate the search.', async () => {
+        const partialEmail = 'Paxton.Halvorson70@yahoo.com';
+        expect(await dashboardPage.isSearchInputVisible()).toBe(true);
+        await dashboardPage.setSearchInputValue('');
+        await dashboardPage.setSearchInputValue(partialEmail.slice(0, 9));
+        const response = await dashboardPage.catchIncludesResponse(partialEmail.slice(0, 9), 200, 20000);
+        expect(response.status()).toBe(200);
+        await dashboardPage.clickSearchedElement();
+        expect(await dashboardPage.getEmail(), `Expected: email contains - ${partialEmail}`).toContain(partialEmail);
+    });
+
+    await test.step('Enter a partial phone number "382-8483" into the search field and initiate the search.', async () => {
+        const phone = '(398) 676-7505 x345';
+        expect(await dashboardPage.isSearchInputVisible()).toBe(true);
+        await dashboardPage.setSearchInputValue('');
+        await dashboardPage.setSearchInputValue(phone.slice(6, 14));
+        await dashboardPage.clickSearchedElement();
+        expect(await dashboardPage.getPhone(), `Expected: phone contains - ${phone}`).toContain(phone);
+    });
+});
+
+test(qase([8], 'Fuzzy Search and Auto-Correction @search'), async () => {
+    await test.step('Enter a partial first name into the search field and initiate the search.', async () => {
+        const misspelledName = 'Doroth';
+        expect(await dashboardPage.isSearchInputVisible()).toBe(true);
+        await dashboardPage.setSearchInputValue('');
+        await dashboardPage.setSearchInputValue(misspelledName);
+        const response = await dashboardPage.catchIncludesResponse(misspelledName, 200, 20000);
+        expect(response.status()).toBe(200);
+        await dashboardPage.clickSearchedElement();
+        expect(await dashboardPage.getFirstName(), `Expected: firstName - ${configData.FIRST_NAME}`).toBe(
+            configData.FIRST_NAME
+        );
+    });
 });
