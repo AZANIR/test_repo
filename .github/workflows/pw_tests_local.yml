@@ -78,7 +78,7 @@ jobs:
                 sudo pnpm monorepo:init
                 sudo git clone https://$API_TOKEN_GITHUB@github.com/ballerine-io/wf-data-migration.git services/workflows-service/prisma/data-migrations
                 npm run docker:db --prefix ./services/workflows-service
-                npm run db:reset:dev:with-data --prefix ./services/workflows-service
+                sudo npm run db:reset:dev:with-data --prefix ./services/workflows-service
             - name: install dependencies
               run: |
                   npm i
