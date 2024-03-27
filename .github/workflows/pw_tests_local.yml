@@ -67,10 +67,12 @@ jobs:
               run: |
                 sudo mkdir app
                 ls -la
-            - name: Setup and run local env 
+            - name: Load local env 
               working-directory: ./app
+              run: sudo git clone https://github.com/ballerine-io/ballerine.git --recursive
+            - name: Setup and run local env
+              working-directory: ./app/ballerine
               run: |
-                sudo git clone https://github.com/ballerine-io/ballerine.git --recursive
                 sudo npm install -g pnpm
                 sudo pnpm install
                 sudo pnpm monorepo:init
