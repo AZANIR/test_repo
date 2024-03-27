@@ -43,7 +43,7 @@ on:
 jobs:
     Run_tests:
         timeout-minutes: 360
-        runs-on: cimg/node:21.6.2-browsers
+        runs-on: ubuntu-20.04
         env:
             STAGE_URL: ${{ inputs.stage_url }}
             QASE_REPORT: ${{ inputs.qase_report }}
