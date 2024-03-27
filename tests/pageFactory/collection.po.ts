@@ -78,7 +78,6 @@ export class CollectionPage extends BasePage {
     private readonly estMonthlySalesVolumeInput: Locator;
     private readonly estMonthlyNumberOfTransactionsInput: Locator;
     private readonly averageTicketAmountInput: Locator;
-    private readonly averageTicketAmountRequired: Locator;
     private readonly minimumTicketAmountInput: Locator;
     private readonly maximumTicketAmountInput: Locator;
     private readonly asia70Europe30Input: Locator;
@@ -100,9 +99,11 @@ export class CollectionPage extends BasePage {
     private readonly interiorOfficePhoto2Input: Locator;
     private readonly transactionDataInput: Locator;
     private readonly iConfirmCheckbox: Locator;
+    private readonly checkedIConfirmImage: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.checkedIConfirmImage = this.page.locator('div>img[src*="checked"]');
         this.certificateOfIncorporationInput = this.page.locator(
             '[for="root_document-certificates-of-incorporation"]+div [data-testid="file-uploader-field"]'
         );
@@ -148,7 +149,6 @@ export class CollectionPage extends BasePage {
         this.estMonthlySalesVolumeInput = this.page.locator('[name="est-monthly-sales-volume-input"]');
         this.estMonthlyNumberOfTransactionsInput = this.page.locator('[name="est-monthly-transactions-input"]');
         this.averageTicketAmountInput = this.page.locator('[name="average-ticket-sales-input"]');
-        this.averageTicketAmountRequired = this.page.locator('[name="average-ticket-amount-required"]');
         this.minimumTicketAmountInput = this.page.locator('[name="minimum-ticket-sales-input"]');
         this.maximumTicketAmountInput = this.page.locator('[name="maximum-ticket-sales-input"]');
         this.asia70Europe30Input = this.page.locator('[name="volume-in-region"]');
@@ -523,72 +523,148 @@ export class CollectionPage extends BasePage {
         ];
     }
 
-    // Certificate of Incorporation
+    /**
+     * Checks if the papers checked confirmation image is visible.
+     * @returns A promise that resolves to a boolean indicating whether the image is visible.
+     */
+    public async papersCheckedIsVisible(): Promise<boolean> {
+        return this.checkedIConfirmImage.isVisible();
+    }
+
+    /**
+     * Uploads a certificate of incorporation file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadCertificateOfIncorporation(filePath: string): Promise<void> {
         await this.certificateOfIncorporationInput.waitFor({ state: 'visible' });
         await this.certificateOfIncorporationInput.setInputFiles(filePath);
     }
-    // Business Registration Certificate
+
+    /**
+     * Uploads a business registration certificate file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadBusinessRegistrationCertificate(filePath: string): Promise<void> {
         await this.businessRegistrationCertificateInput.waitFor({ state: 'visible' });
         await this.businessRegistrationCertificateInput.setInputFiles(filePath);
     }
-    // Corporate Tax Certificate (optional)
+
+    /**
+     * Uploads a corporate tax certificate file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadCorporateTaxCertificate(filePath: string): Promise<void> {
         await this.corporateTaxCertificateInput.waitFor({ state: 'visible' });
         await this.corporateTaxCertificateInput.setInputFiles(filePath);
     }
-    // Certificate of Good Standing (optional)
+
+    /**
+     * Uploads a certificate of good standing file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadCertificateOfGoodStanding(filePath: string): Promise<void> {
         await this.certificateOfGoodStandingInput.waitFor({ state: 'visible' });
         await this.certificateOfGoodStandingInput.setInputFiles(filePath);
     }
-    // Certificate of Directors and Shareholders (optional)
+
+    /**
+     * Uploads a certificate of directors and shareholders file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadCertificateOfDirectorsAndShareholders(filePath: string): Promise<void> {
         await this.certificateOfDirectorsAndShareholdersInput.waitFor({ state: 'visible' });
         await this.certificateOfDirectorsAndShareholdersInput.setInputFiles(filePath);
     }
-    // Picture of the company seal
+
+    /**
+     * Uploads a company seal picture file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadCompanySealPicture(filePath: string): Promise<void> {
         await this.companySealPictureInput.waitFor({ state: 'visible' });
         await this.companySealPictureInput.setInputFiles(filePath);
     }
-    // Proof of bank account (optional)
+
+    /**
+     * Uploads a proof of bank account file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadProofOfBankAccount(filePath: string): Promise<void> {
         await this.proofOfBankAccountInput.waitFor({ state: 'visible' });
         await this.proofOfBankAccountInput.setInputFiles(filePath);
     }
-    // Other supplementary information (Supplement according to the onboarding document checklist) (optional)
+
+    /**
+     * Uploads an other supplementary information file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadOtherSupplementaryInformation(filePath: string): Promise<void> {
         await this.otherSupplementaryInformationInput.waitFor({ state: 'visible' });
         await this.otherSupplementaryInformationInput.setInputFiles(filePath);
     }
-    // Domain purchase record / certificate
+
+    /**
+     * Uploads a domain purchase record certificate file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadDomainPurchaseRecordCertificate(filePath: string): Promise<void> {
         await this.domainPurchaseRecordCertificateInput.waitFor({ state: 'visible' });
         await this.domainPurchaseRecordCertificateInput.setInputFiles(filePath);
     }
-    // Front door photo showing the company name
+
+    /**
+     * Uploads a front door photo file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadFrontDoorPhoto(filePath: string): Promise<void> {
         await this.frontDoorPhotoInput.waitFor({ state: 'visible' });
         await this.frontDoorPhotoInput.setInputFiles(filePath);
     }
-    // Photo showing interior of the office - #1
+
+    /**
+     * Uploads an interior office photo 1 file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadInteriorOfficePhoto1(filePath: string): Promise<void> {
         await this.interiorOfficePhoto1Input.waitFor({ state: 'visible' });
         await this.interiorOfficePhoto1Input.setInputFiles(filePath);
     }
-    // Photo showing interior of the office - #2
+
+    /**
+     * Uploads an interior office photo 2 file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadInteriorOfficePhoto2(filePath: string): Promise<void> {
         await this.interiorOfficePhoto2Input.waitFor({ state: 'visible' });
         await this.interiorOfficePhoto2Input.setInputFiles(filePath);
     }
-    // Transaction data for the last 3-6 months
+
+    /**
+     * Uploads a transaction data file.
+     * @param filePath - The path of the file to upload.
+     * @returns A promise that resolves when the file is uploaded successfully.
+     */
     public async uploadTransactionData(filePath: string): Promise<void> {
         await this.transactionDataInput.waitFor({ state: 'visible' });
         await this.transactionDataInput.setInputFiles(filePath);
     }
-    // I confirm
+
+    /**
+     * Clicks the I confirm checkbox.
+     * @returns A promise that resolves once the checkbox is clicked.
+     */
     public async clickIConfirmCheckbox(): Promise<void> {
         await this.iConfirmCheckbox.waitFor({ state: 'visible' });
         await this.iConfirmCheckbox.click();

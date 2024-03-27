@@ -1,6 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 import { qase } from 'playwright-qase-reporter/dist/playwright';
-//import { preSetupApi } from '../../pageFactory/preSetupApi.po';
+import { preSetupApi } from '../../pageFactory/preSetupApi.po';
 import { CollectionPage } from '../../pageFactory/collection.po';
 import { faker } from '@faker-js/faker';
 const path = require('path');
@@ -8,37 +8,37 @@ require('dotenv').config();
 
 let page: Page;
 let collectionPage: CollectionPage;
-// let workflowRuntimeId: string;
-// let endUserId: string;
-// let collectionFlowUrl: string;
+let workflowRuntimeId: string;
+let endUserId: string;
+let collectionFlowUrl: string;
 
 test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
-    // const preSetupApiPage = new preSetupApi();
-    // const responseRun = await preSetupApiPage.externalWorkflowsRun();
-    // workflowRuntimeId = responseRun.data.data.workflowRuntimeId;
-    // endUserId = responseRun.data.data.entities[0].id;
-    // const responseCollRun = await preSetupApiPage.externalWorkflowsCreateCollectionFlowRun(
-    //     responseRun.data.data.workflowRuntimeId,
-    //     responseRun.data.data.entities[0].id
-    // );
-    // await test.step('Open the page', async () => {
-    //     collectionFlowUrl = responseCollRun.data.data.collectionFlowUrl;
-    //     collectionPage = new CollectionPage(page);
-    //     await collectionPage.navigate(responseCollRun.data.data.collectionFlowUrl);
-    // });
-    // const dataRequired = `*DATAREQUIRED:*
-
-    //         Workflow Runtime ID: ${workflowRuntimeId},
-    //         End User ID: ${endUserId},
-    //         Collection Flow URL: ${collectionFlowUrl},
-    //         `;
-    // console.log(dataRequired);
-    //https://collection-dev.eu.ballerine.io/collection-flow?token=e8165dc5-b92f-4da1-8ad9-b4c2d6c813dd
-    collectionPage = new CollectionPage(page);
-    await collectionPage.navigate(
-        'https://collection-dev.eu.ballerine.io/collection-flow?token=e8165dc5-b92f-4da1-8ad9-b4c2d6c813dd'
+    const preSetupApiPage = new preSetupApi();
+    const responseRun = await preSetupApiPage.externalWorkflowsRun();
+    workflowRuntimeId = responseRun.data.data.workflowRuntimeId;
+    endUserId = responseRun.data.data.entities[0].id;
+    const responseCollRun = await preSetupApiPage.externalWorkflowsCreateCollectionFlowRun(
+        responseRun.data.data.workflowRuntimeId,
+        responseRun.data.data.entities[0].id
     );
+    await test.step('Open the page', async () => {
+        collectionFlowUrl = responseCollRun.data.data.collectionFlowUrl;
+        collectionPage = new CollectionPage(page);
+        await collectionPage.navigate(responseCollRun.data.data.collectionFlowUrl);
+    });
+    const dataRequired = `*DATAREQUIRED:*
+
+            Workflow Runtime ID: ${workflowRuntimeId},
+            End User ID: ${endUserId},
+            Collection Flow URL: ${collectionFlowUrl},
+            `;
+    console.log(dataRequired);
+    // //https://collection-dev.eu.ballerine.io/collection-flow?token=e8165dc5-b92f-4da1-8ad9-b4c2d6c813dd
+    //collectionPage = new CollectionPage(page);
+    // await collectionPage.navigate(
+    //     'https://collection-dev.eu.ballerine.io/collection-flow?token=e8165dc5-b92f-4da1-8ad9-b4c2d6c813dd'
+    // );
 });
 
 test(qase([9], 'Fill data for create collection @collection'), async () => {
@@ -166,20 +166,32 @@ test(qase([9], 'Fill data for create collection @collection'), async () => {
 
     await test.step('Fill Company Documents', async () => {
         expect(await collectionPage.isFieldSetRootVisible()).toBe(true);
-        // Certificate of Incorporation
-        // Business Registration Certificate
-        // Corporate Tax Certificate (optional)
-        // Certificate of Good Standing (optional)
-        // Certificate of Directors and Shareholders (optional)
-        // Picture of the company seal
-        // Proof of bank account (optional)
-        // Other supplementary information (Supplement according to the onboarding document checklist) (optional)
-        // Domain purchase record / certificate
-        // Front door photo showing the company name
-        // Photo showing interior of the office - #1
-        // Photo showing interior of the office - #2
-        // Transaction data for the last 3-6 months
-        // I confirm
+        await collectionPage.uploadCertificateOfIncorporation(path.join(__dirname, 'upload/cer_verif.jpg'));
+        await collectionPage.uploadBusinessRegistrationCertificate(path.join(__dirname, 'upload/cer_verif.jpg'));
+        await collectionPage.uploadCorporateTaxCertificate(path.join(__dirname, 'upload/cer_verif.jpg'));
+        await collectionPage.uploadCertificateOfGoodStanding(path.join(__dirname, 'upload/cer_verif.jpg'));
+        await collectionPage.uploadCertificateOfDirectorsAndShareholders(path.join(__dirname, 'upload/cer_verif.jpg'));
+        await collectionPage.uploadCompanySealPicture(path.join(__dirname, 'upload/company_seal.jpg'));
+        await collectionPage.uploadProofOfBankAccount(path.join(__dirname, 'upload/bank_verif.jpg'));
+        await collectionPage.uploadOtherSupplementaryInformation(path.join(__dirname, 'upload/cer_verif.jpg'));
+        await collectionPage.uploadDomainPurchaseRecordCertificate(path.join(__dirname, 'upload/domai_pushare.jpg'));
+        await collectionPage.uploadFrontDoorPhoto(path.join(__dirname, 'upload/office1.jpg'));
+        await collectionPage.uploadInteriorOfficePhoto1(path.join(__dirname, 'upload/office2.jpg'));
+        await collectionPage.uploadInteriorOfficePhoto2(path.join(__dirname, 'upload/office3.jpg'));
+        await collectionPage.uploadTransactionData(path.join(__dirname, 'upload/finantial.pdf'));
+        await collectionPage.clickIConfirmCheckbox();
         await collectionPage.clickContinueButton();
+        await expect
+            .poll(
+                async () => {
+                    const response = await collectionPage.papersCheckedIsVisible();
+                    return response;
+                },
+                {
+                    intervals: [1_000, 2_000, 10_000],
+                    timeout: 60_000
+                }
+            )
+            .toBe(true);
     });
 });
