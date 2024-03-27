@@ -64,7 +64,9 @@ jobs:
               with:
                   node-version: 20
             - name : Create app directory
-              run: sudo mkdir /app
+              run: |
+                mkdir /app
+                ls -la
             - name: Setup and run local env 
               working-directory: ./app
               run: |
