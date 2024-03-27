@@ -65,6 +65,7 @@ jobs:
                   node-version: 20
             - name : Create app directory
               run: |
+                sudo chown -R $USER:$USER .
                 sudo mkdir app
                 ls -la
             - name: Load local env 
@@ -82,7 +83,7 @@ jobs:
               working-directory: ./app/ballerine/services/workflows-service
               run: |
                 npm run db:reset:dev
-                sudo rimraf ./dist && npm run build && nest start --entryFile ./src/data-migration/scripts/migrate
+                sudo rm -rf ./dist && npm run build && nest start --entryFile ./src/data-migration/scripts/migrate
             - name: install dependencies
               run: |
                   npm i
