@@ -1,4 +1,4 @@
-name: 'Playwright = Test Reporting'
+name: 'Playwright = Test Reporting222'
 on:
     workflow_dispatch:
         inputs:
