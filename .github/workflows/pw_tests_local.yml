@@ -87,6 +87,13 @@ jobs:
               run: |
                 sudo chown -R $USER:$USER .
                 npm run db:data-migration:migrate --prefix ./services/workflows-service
+            - name: Run environment
+              working-directory: ./app/ballerine
+              run: |
+                sudo chown -R $USER:$USER .
+                concurrently \"nx run @ballerine/workflows-service:dev\" \"wait-on http://localhost:3000/api/v1/_health/ready && nx run-many --target=dev --projects=@ballerine/kyb-app,@ballerine/backoffice-v2\" &
+                sleep 60
+            
             # - name: install dependencies
             #   run: |
             #       npm i
