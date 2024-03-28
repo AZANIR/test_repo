@@ -74,18 +74,12 @@ jobs:
             - name: Setup and run local env
               working-directory: ./app/ballerine
               run: |
+                sudo chown -R $USER:$USER .
                 sudo npm install -g pnpm
                 sudo pnpm install
                 sudo pnpm monorepo:init
                 sudo git clone https://$API_TOKEN_GITHUB@github.com/ballerine-io/wf-data-migration.git services/workflows-service/prisma/data-migrations
                 npm run docker:db --prefix ./services/workflows-service
-            - name: Setup db
-              working-directory: ./app/ballerine/services/workflows-service
-              run: npm run db:reset:dev
-            - name: Run data migration
-              working-directory: ./app/ballerine
-              run: |
-                sudo chown -R $USER:$USER .
                 npm run db:data-migration:migrate --prefix ./services/workflows-service
             # - name: install dependencies
             #   run: |
