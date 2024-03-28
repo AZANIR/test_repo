@@ -84,7 +84,9 @@ jobs:
               run: npm run db:reset:dev
             - name: Run data migration
               working-directory: ./app/ballerine
-              run: npm run db:data-migration:migrate --prefix ./services/workflows-service
+              run: |
+                sudo chown -R $USER:$USER .
+                npm run db:data-migration:migrate --prefix ./services/workflows-service
             # - name: install dependencies
             #   run: |
             #       npm i
