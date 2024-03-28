@@ -84,7 +84,7 @@ jobs:
               working-directory: ./app/ballerine/services/workflows-service
               run: |
                 sudo chown -R $USER:$USER .
-                pnpm run db:data-migration:migrate
+                sudo pnpm run db:data-migration:migrate
             # - name: install dependencies
             #   run: |
             #       npm i
