@@ -84,25 +84,26 @@ jobs:
               run: |
                 sudo chown -R $USER:$USER .
                 npm run db:reset:dev
-                sudo rm -rf ./dist && sudo npm run build && nest start --entryFile ./src/data-migration/scripts/migrate
-            - name: install dependencies
-              run: |
-                  npm i
-                  npm install allure-commandline --save-dev
-                  npx playwright install --with-deps
-            - name: Run tests
-              run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
-            - uses: actions/upload-artifact@v3
-              if: always()
-              with:
-                  name: playwright-report
-                  path: playwright-report/
-                  retention-days: 5
-            - name: Test Report
-              uses: phoenix-actions/test-reporting@v8
-              id: test-report # Set ID reference for step
-              if: success() || failure() # run this step even if previous step failed
-              with:
-                  name: JEST Tests # Name of the check run which will be created
-                  path: junit-report/junit-report.xml # Path to test results
-                  reporter: jest-junit
+                sudo ls -la ./prisma/data-migrations
+                # sudo rm -rf ./dist && sudo npm run build && nest start --entryFile ./src/data-migration/scripts/migrate
+            # - name: install dependencies
+            #   run: |
+            #       npm i
+            #       npm install allure-commandline --save-dev
+            #       npx playwright install --with-deps
+            # - name: Run tests
+            #   run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
+            # - uses: actions/upload-artifact@v3
+            #   if: always()
+            #   with:
+            #       name: playwright-report
+            #       path: playwright-report/
+            #       retention-days: 5
+            # - name: Test Report
+            #   uses: phoenix-actions/test-reporting@v8
+            #   id: test-report # Set ID reference for step
+            #   if: success() || failure() # run this step even if previous step failed
+            #   with:
+            #       name: JEST Tests # Name of the check run which will be created
+            #       path: junit-report/junit-report.xml # Path to test results
+            #       reporter: jest-junit
