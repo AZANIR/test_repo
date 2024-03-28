@@ -86,7 +86,7 @@ jobs:
                 npm run db:reset:dev
                 # sudo ls -la ./prisma/data-migrations
                 # sudo ls -la
-                npm install
+                pnpm install
                 npm install --save-dev @nestjs/cli
                 rm -rf ./dist && npm run build && nest start --entryFile ./src/data-migration/scripts/migrate
             # - name: install dependencies
