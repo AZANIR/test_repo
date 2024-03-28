@@ -82,8 +82,9 @@ jobs:
             - name: Setup db
               working-directory: ./app/ballerine/services/workflows-service
               run: |
+                sudo chown -R $USER:$USER .
                 npm run db:reset:dev
-                sudo rm -rf ./dist && sudo npm run build && sudo find /home/runner/work/test_repo/test_repo/app/ballerine/services/workflows-service/dist -type d -exec chmod 755 {} \; && find /home/runner/work/test_repo/test_repo/app/ballerine/services/workflows-service/dist -type f -exec chmod 644 {} \; && nest start --entryFile ./src/data-migration/scripts/migrate --no-optional-permissions
+                sudo rm -rf ./dist && sudo npm run build && nest start --entryFile ./src/data-migration/scripts/migrate
             - name: install dependencies
               run: |
                   npm i
