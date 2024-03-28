@@ -81,10 +81,10 @@ jobs:
                 sudo git clone https://$API_TOKEN_GITHUB@github.com/ballerine-io/wf-data-migration.git services/workflows-service/prisma/data-migrations
                 npm run docker:db --prefix ./services/workflows-service
             - name: Run data migration
-              working-directory: ./app/ballerine
+              working-directory: ./app/ballerine/services/workflows-service
               run: |
                 sudo chown -R $USER:$USER .
-                sudo npm run db:data-migration:migrate --prefix ./services/workflows-service
+                pnpm run db:data-migration:migrate
             # - name: install dependencies
             #   run: |
             #       npm i
