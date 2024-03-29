@@ -76,6 +76,7 @@ jobs:
               run: |
                 sudo chown -R $USER:$USER .
                 sudo npm install -g pnpm
+                sudo pnpm install -g concurrently
                 sudo git clone https://$API_TOKEN_GITHUB@github.com/ballerine-io/wf-data-migration.git services/workflows-service/prisma/data-migrations
             - name: Checkout data migration
               working-directory: ./app/ballerine/services/workflows-service/prisma/data-migrations
