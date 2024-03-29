@@ -108,14 +108,14 @@ jobs:
                   npm i
                   npm install allure-commandline --save-dev
                   npx playwright install --with-deps
-            # - name: Run tests
-            #   run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
-            # - uses: actions/upload-artifact@v3
-            #   if: always()
-            #   with:
-            #       name: playwright-report
-            #       path: playwright-report/
-            #       retention-days: 5
+            - name: Run tests
+              run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
+            - uses: actions/upload-artifact@v3
+              if: always()
+              with:
+                  name: playwright-report
+                  path: playwright-report/
+                  retention-days: 25
             # - name: Test Report
             #   uses: phoenix-actions/test-reporting@v8
             #   id: test-report # Set ID reference for step
