@@ -91,11 +91,12 @@ jobs:
               run: |
                 sudo chown -R $USER:$USER .
                 sudo pnpm run db:data-migration:migrate
-            # - name: install dependencies
-            #   run: |
-            #       npm i
-            #       npm install allure-commandline --save-dev
-            #       npx playwright install --with-deps
+            - name: install dependencies
+              if: always()
+              run: |
+                  npm i
+                  npm install allure-commandline --save-dev
+                  npx playwright install --with-deps
             # - name: Run tests
             #   run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
             # - uses: actions/upload-artifact@v3
