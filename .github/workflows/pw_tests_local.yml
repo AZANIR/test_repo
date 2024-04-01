@@ -109,6 +109,7 @@ jobs:
                   npm install allure-commandline --save-dev
                   npx playwright install --with-deps
             - name: Run tests
+              if: always()
               run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
             - uses: actions/upload-artifact@v3
               if: always()
