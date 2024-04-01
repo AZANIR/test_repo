@@ -180,6 +180,7 @@ test(qase([9], 'Fill data for create collection @collection'), async () => {
         await collectionPage.uploadInteriorOfficePhoto2(path.join(__dirname, 'upload/office3.jpg'));
         await collectionPage.uploadTransactionData(path.join(__dirname, 'upload/finantial.pdf'));
         await collectionPage.clickIConfirmCheckbox();
+        await page.waitForTimeout(2000);
         await collectionPage.clickContinueButton();
         await expect
             .poll(

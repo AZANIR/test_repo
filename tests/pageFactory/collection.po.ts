@@ -105,43 +105,43 @@ export class CollectionPage extends BasePage {
         super(page);
         this.checkedIConfirmImage = this.page.locator('div>img[src*="checked"]');
         this.certificateOfIncorporationInput = this.page.locator(
-            '[for="root_document-certificates-of-incorporation"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-certificates-of-incorporation"]+div [type="file"]'
         );
         this.businessRegistrationCertificateInput = this.page.locator(
-            '[for="root_document-business-registration-certificate"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-business-registration-certificate"]+div [type="file"]'
         );
         this.corporateTaxCertificateInput = this.page.locator(
-            '[for="root_document-corporate-tax-certificate"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-corporate-tax-certificate"]+div [type="file"]'
         );
         this.certificateOfGoodStandingInput = this.page.locator(
-            '[for="root_document-certificate-of-good-standing"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-certificate-of-good-standing"]+div [type="file"]'
         );
         this.certificateOfDirectorsAndShareholdersInput = this.page.locator(
-            '[for="root_document-certificate-of-directors-and-shareholders"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-certificate-of-directors-and-shareholders"]+div [type="file"]'
         );
         this.companySealPictureInput = this.page.locator(
-            '[for="root_document-picture-of-company-seal"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-picture-of-company-seal"]+div [type="file"]'
         );
         this.proofOfBankAccountInput = this.page.locator(
-            '[for="root_document-proof-of-bank-account"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-proof-of-bank-account"]+div [type="file"]'
         );
         this.otherSupplementaryInformationInput = this.page.locator(
-            '[for="root_document-other-supplementary-information"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-other-supplementary-information"]+div [type="file"]'
         );
         this.domainPurchaseRecordCertificateInput = this.page.locator(
-            '[for="root_document-website-pictures-domain-certificate"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-website-pictures-domain-certificate"]+div [type="file"]'
         );
         this.frontDoorPhotoInput = this.page.locator(
-            '[for="root_document-office-front-door-pictures-1"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-office-front-door-pictures-1"]+div [type="file"]'
         );
         this.interiorOfficePhoto1Input = this.page.locator(
-            '[for="root_document-office-interior-pictures-2"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-office-interior-pictures-2"]+div [type="file"]'
         );
         this.interiorOfficePhoto2Input = this.page.locator(
-            '[for="root_document-office-interior-pictures-3"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-office-interior-pictures-3"]+div [type="file"]'
         );
         this.transactionDataInput = this.page.locator(
-            '[for="root_document-transaction-data-last-months"]+div [data-testid="file-uploader-field"]'
+            '[for="root_document-transaction-data-last-months"]+div [type="file"]'
         );
         this.iConfirmCheckbox = this.page.locator('button[role="checkbox"]');
         this.monthlySalesVolumeInput = this.page.locator('[name="monthly-sales-volume-input"]');
@@ -228,10 +228,10 @@ export class CollectionPage extends BasePage {
         this.directorsIdentityNumberInput = this.page.locator('[name="directors:identity-number-input"]');
         this.directorsFullAddressInput = this.page.locator('[name="directors:address-of-residence-input"]');
         this.directorsIDPhotoFileInput = this.page.locator(
-            '[for="root_0_directors:passport-document"]+div [data-testid="file-uploader-field"]'
+            '[for="root_0_directors:passport-document"]+div [type="file"]'
         );
         this.directorsSelfieIDPhotoFileInput = this.page.locator(
-            '[for="root_0_directors:passport-selfie"]+div [data-testid="file-uploader-field"]'
+            '[for="root_0_directors:passport-selfie"]+div [type="file"]'
         );
         this.contatcsFirstNameInput = this.page.locator('[name="contact-first-name-input"]');
         this.contatcsLastNameInput = this.page.locator('[name="contact-last-name-input"]');
