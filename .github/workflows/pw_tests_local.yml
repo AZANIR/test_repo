@@ -101,7 +101,7 @@ jobs:
                 sudo chown -R $USER:$USER .
                 npm pkg set scripts.testrun="concurrently \"nx run @ballerine/workflows-service:dev\" \"wait-on http://localhost:3000/api/v1/_health/ready && nx run-many --target=dev --projects=@ballerine/kyb-app,@ballerine/backoffice-v2\""
                 pnpm run testrun &
-                sleep 60
+                sleep 120
             - name: install dependencies
               if: always()
               run: |
