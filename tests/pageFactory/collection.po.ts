@@ -100,9 +100,16 @@ export class CollectionPage extends BasePage {
     private readonly transactionDataInput: Locator;
     private readonly iConfirmCheckbox: Locator;
     private readonly checkedIConfirmImage: Locator;
+    private readonly destructiveText: Locator;
+
+    private readonly destructiveDocumentInput: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.destructiveDocumentInput = this.page
+            .locator('//p[contains(@class,"text-destructive")]/../../../input')
+            .first();
+        this.destructiveText = this.page.locator('p.text-destructive').first();
         this.checkedIConfirmImage = this.page.locator('div>img[src*="checked"]');
         this.certificateOfIncorporationInput = this.page.locator(
             '[for="root_document-certificates-of-incorporation"]+div [type="file"]'
@@ -237,7 +244,7 @@ export class CollectionPage extends BasePage {
         this.contatcsLastNameInput = this.page.locator('[name="contact-last-name-input"]');
         this.contatcsEmailInput = this.page.locator('[name="contact-email-input"]');
         this.contatcsPhoneInput = this.page.locator('input[type="tel"]');
-        this.continueButton = this.page.locator('div.grid>button');
+        this.continueButton = this.page.locator('[data-testid="next-page-button"]');
         this.customCategoryArr = ['B2C', 'B2B', 'C2C', 'Other'];
         this.corporateArr = [
             'Sole Proprietorship',
@@ -524,6 +531,14 @@ export class CollectionPage extends BasePage {
     }
 
     /**
+     * Checks if the destructive text is visible.
+     * @returns A promise that resolves to a boolean indicating whether the text is visible or not.
+     */
+    public async isDestructiveTextVisible(): Promise<boolean> {
+        return this.destructiveText.isVisible();
+    }
+
+    /**
      * Checks if the papers checked confirmation image is visible.
      * @returns A promise that resolves to a boolean indicating whether the image is visible.
      */
@@ -539,6 +554,11 @@ export class CollectionPage extends BasePage {
     public async uploadCertificateOfIncorporation(filePath: string): Promise<void> {
         await this.certificateOfIncorporationInput.waitFor({ state: 'visible' });
         await this.certificateOfIncorporationInput.setInputFiles(filePath);
+    }
+
+    public async reuploadDestructiveDocument(filePath: string): Promise<void> {
+        await this.destructiveDocumentInput.waitFor({ state: 'visible' });
+        await this.destructiveDocumentInput.setInputFiles(filePath);
     }
 
     /**
@@ -920,6 +940,14 @@ export class CollectionPage extends BasePage {
     }
 
     /**
+     * Retrieves the value of the industry select button.
+     * @returns A promise that resolves to a string representing the industry value.
+     */
+    public async getIndustryValue(): Promise<string> {
+        return await this.industrySelectButton.textContent();
+    }
+
+    /**
      * Fills the product description input field with the specified value.
      * @param productDescription - The product description to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
@@ -1125,6 +1153,18 @@ export class CollectionPage extends BasePage {
     }
 
     /**
+     * Clicks the continue button if it is displayed.
+     * !!! will be fixed in the future
+     * @returns A promise that resolves once the continue button is clicked.
+     */
+    public async clickContinueButtonIfDisplayed(): Promise<void> {
+        while ((await this.continueButton.innerText()).includes('Continue')) {
+            await this.continueButton.click();
+            await this.waitForPageIsLoaded();
+        }
+    }
+
+    /**
      * Fills the registration number input field with the provided value.
      * @param registrationNumber - The registration number to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
@@ -1138,7 +1178,7 @@ export class CollectionPage extends BasePage {
      * Retrieves the company name from the input field.
      * @returns A promise that resolves to the company name as a string.
      */
-    public async getCompanyName(): Promise<string> {
+    public async getCompanyNameInputValue(): Promise<string> {
         return this.companyNameInput.inputValue();
     }
 
@@ -1194,6 +1234,14 @@ export class CollectionPage extends BasePage {
         await this.corporateTypeInput.click();
         const randomItem = this.corporateArr[Math.floor(Math.random() * this.corporateArr.length)];
         await this.corporateTypeInput.fill(randomItem);
+    }
+
+    /**
+     * Retrieves the input value of the corporate type.
+     * @returns A promise that resolves to the input value of the corporate type.
+     */
+    public async getCorporateTypeInputValue(): Promise<string> {
+        return this.corporateTypeInput.inputValue();
     }
 
     /**

@@ -29,13 +29,13 @@ export default defineConfig({
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
-    retries: process.env.CI ? 1 : 0,
+    retries: process.env.CI ? 0 : 0,
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : 1,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: process.env.CI
         ? [
-              ['junit', { outputFile: 'junit-report/junit-report.xml', open: 'never' }],
+              ['junit', { outputFile: 'junit-report/junit-report.xml' }],
               ['html', { open: 'never' }],
               ['allure-playwright'],
               ['list']
@@ -43,6 +43,7 @@ export default defineConfig({
         : [
               ['list'],
               ['allure-playwright'],
+              ['junit', { outputFile: 'junit-report/junit-report.xml' }],
               ['html', { open: 'never' }],
               [
                   'playwright-qase-reporter',
@@ -64,7 +65,7 @@ export default defineConfig({
         actionTimeout: 30 * 1000,
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: process.env.BASE_URL || 'http://localhost:5137',
-        // viewport: { width: 1920, height: 1080 },
+        viewport: { width: 1920, height: 1080 },
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: process.env.CI ? 'on-first-retry' : 'on',
         screenshot: process.env.CI ? 'only-on-failure' : 'on',

@@ -17,22 +17,27 @@ class requestMethod extends Base {
     //     return res;
     // }
 
-    // get(endPoint: string, queryParams: string = '', requestHeaders: object = {}): object {
-    //     requestHeaders['Authorization'] = `Bearer ${this.clipsPayToken}`;
-    //     return {
-    //         method: 'get',
-    //         maxBodyLength: Infinity,
-    //         url: `${this.baseApiUrl}${endPoint}${queryParams}`,
-    //         headers: requestHeaders
-    //     };
-    // }
+    get(
+        endPoint: string,
+        queryParams: string = '',
+        requestHeaders: object = {},
+        baseUrl: string = this.baseApiUrl
+    ): object {
+        requestHeaders['Authorization'] = `Bearer ${this.clipsPayToken}`;
+        return {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}${endPoint}${queryParams}`,
+            headers: requestHeaders
+        };
+    }
 
-    post(endPoint: string, payload: object = {}, requestHeaders = {}): object {
+    post(endPoint: string, payload: object = {}, requestHeaders = {}, baseUrl: string = this.baseApiUrl): object {
         requestHeaders['Authorization'] = `Bearer ${this.clipsPayToken}`;
         return {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${this.baseApiUrl}${endPoint}`,
+            url: `${baseUrl}${endPoint}`,
             headers: requestHeaders,
             data: payload
         };
