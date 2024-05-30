@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './base-page.po';
-
+import { step } from '../source/step';
 export class DashboardPage extends BasePage {
     private readonly lastName: Locator;
     private readonly firstName: Locator;
@@ -17,6 +17,7 @@ export class DashboardPage extends BasePage {
     private readonly reUploadSendMailButton: Locator;
     private readonly rejectButton: Locator;
     private readonly rejectStatusLabel: Locator;
+
     constructor(page: Page) {
         super(page);
         this.rejectButton = this.page.locator('//button[text()="Reject"]');
@@ -45,9 +46,99 @@ export class DashboardPage extends BasePage {
     }
 
     /**
+     * Checks if the specified data with legend is displayed on the page.
+     *
+     * @param legend - The legend of the data, which can be one of the following:
+     *   - 'Business Information'
+     *   - 'Banking details'
+     *   - 'Store Info'
+     *   - 'Processing details'
+     *   - 'Website Basic Requirement'
+     * @param innerText - The inner text of the data to check for.
+     * @returns A promise that resolves to a boolean indicating whether the data with legend is displayed.
+     */
+    @step()
+    public async isDataWithLegendDisplayed(
+        legend:
+            | 'Business Information'
+            | 'Banking details'
+            | 'Store Info'
+            | 'Processing details'
+            | 'Website Basic Requirement',
+        innerText: string
+    ): Promise<boolean> {
+        const element = this.page.locator(
+            `//h2[text()="${legend}"]/../..//form//div[@role="textbox" and @aria-readonly="true" and text()="${innerText}"]`
+        );
+        await element.scrollIntoViewIfNeeded();
+        return await element.isVisible();
+    }
+
+    /**
+     * Checks if a link with the specified legend and inner text is displayed.
+     *
+     * @param legend - The legend of the link. Possible values are:
+     *   - 'Business Information'
+     *   - 'Banking details'
+     *   - 'Store Info'
+     *   - 'Processing details'
+     *   - 'Website Basic Requirement'
+     * @param innerText - The inner text of the link.
+     * @returns A promise that resolves to a boolean indicating whether the link is displayed.
+     */
+    @step()
+    public async isLinkWithLegendDisplayed(
+        legend:
+            | 'Business Information'
+            | 'Banking details'
+            | 'Store Info'
+            | 'Processing details'
+            | 'Website Basic Requirement',
+        innerText: string
+    ): Promise<boolean> {
+        return this.page
+            .locator(`//h2[text()="${legend}"]/../..//form//a[@target="_blank" and text()="${innerText}"]`)
+            .isVisible();
+    }
+
+    /**
+     * Clicks on a specific tab in the dashboard page.
+     *
+     * @param tab - The tab to click on. Possible values are:
+     *   - 'summary'
+     *   - 'company_information'
+     *   - 'store_info'
+     *   - 'documents'
+     *   - 'ubos'
+     *   - 'associated_companies'
+     *   - 'directors'
+     *   - 'website_monitoring'
+     *
+     * @returns A promise that resolves when the tab is clicked.
+     */
+    @step()
+    public async clickTab(
+        tab:
+            | 'summary'
+            | 'company_information'
+            | 'store_info'
+            | 'documents'
+            | 'ubos'
+            | 'associated_companies'
+            | 'directors'
+            | 'website_monitoring'
+    ): Promise<void> {
+        await this.page.locator(`[id$="trigger-${tab}"]`).hover();
+        await this.page.click(`[id$="trigger-${tab}"]`);
+        await this.page.waitForTimeout(1000);
+        await this.page.mouse.move(100, 200);
+    }
+
+    /**
      * Clicks on the reject button.
      * @returns A promise that resolves when the button is clicked.
      */
+    @step()
     public async clickRejectButton(): Promise<void> {
         await this.rejectButton.click();
         await this.page.waitForTimeout(500);
@@ -57,6 +148,7 @@ export class DashboardPage extends BasePage {
      * Checks if the rejected status is visible.
      * @returns A promise that resolves to a boolean indicating whether the rejected status is visible.
      */
+    @step()
     public async isRejectedStatusVisible(): Promise<boolean> {
         return this.rejectStatusLabel.isVisible();
     }
@@ -65,6 +157,7 @@ export class DashboardPage extends BasePage {
      * Clicks on the send email button.
      * @returns A promise that resolves when the button is clicked.
      */
+    @step()
     public async clickSendEmailButton(): Promise<void> {
         await this.reUploadSendMailButton.click();
         await this.page.waitForTimeout(500);
@@ -74,6 +167,7 @@ export class DashboardPage extends BasePage {
      * Clicks on the ask for re-upload button.
      * @returns A promise that resolves when the button is clicked.
      */
+    @step()
     public async clickAskForReUploadButton(): Promise<void> {
         await this.askForReUploadButton.click();
         await this.page.waitForTimeout(500);
@@ -83,6 +177,7 @@ export class DashboardPage extends BasePage {
      * Clicks on the assign button.
      * @returns A promise that resolves when the button is clicked.
      */
+    @step()
     public async assignToFirstUser(): Promise<void> {
         await this.assignButton.click();
         await this.SelectFirstOption.click();
@@ -93,6 +188,7 @@ export class DashboardPage extends BasePage {
      * Checks if the re-upload modal is visible.
      * @returns A promise that resolves to a boolean indicating whether the modal is visible or not.
      */
+    @step()
     public async isReUploadModalVisible(): Promise<boolean> {
         return this.reUploadModal.isVisible();
     }
@@ -102,6 +198,7 @@ export class DashboardPage extends BasePage {
      * @param comment - The comment to enter.
      * @returns A promise that resolves when the comment is entered.
      */
+    @step()
     public async enterReUploadComment(comment: string): Promise<void> {
         await this.reUploadCommentInput.fill(comment);
     }
@@ -110,6 +207,7 @@ export class DashboardPage extends BasePage {
      * Clicks on the re-upload confirm button.
      * @returns A promise that resolves when the button is clicked.
      */
+    @step()
     public async clickReUploadConfirmButton(): Promise<void> {
         await this.reUploadConfirmButton.click();
         await this.page.waitForTimeout(500);
@@ -119,6 +217,7 @@ export class DashboardPage extends BasePage {
      * Clicks on the re-upload button.
      * @returns A promise that resolves when the button is clicked.
      */
+    @step()
     public async clickReUploadButton(): Promise<void> {
         await this.reUploadButton.first().click();
         await this.page.waitForTimeout(500);
@@ -129,6 +228,7 @@ export class DashboardPage extends BasePage {
      * @param buttonName - The name of the button to click.
      * @returns A promise that resolves when the button is clicked.
      */
+    @step()
     public async clickSideMenuButton(buttonName: string): Promise<void> {
         await this.page.getByRole('button', { name: buttonName }).click();
     }
@@ -139,6 +239,7 @@ export class DashboardPage extends BasePage {
      * @param linkName - The name of the link menu button to click.
      * @returns A promise that resolves once the button is clicked.
      */
+    @step()
     public async clickSideMenuLink(linkName: string): Promise<void> {
         await this.page.getByRole('link', { name: linkName, exact: true }).click();
     }
@@ -148,6 +249,7 @@ export class DashboardPage extends BasePage {
      * @param linkName - The name of the link to check.
      * @returns A promise that resolves to a boolean indicating whether the link is active or not.
      */
+    @step()
     public async isSideMenuLinkActive(linkName: string): Promise<boolean> {
         return this.page
             .getByRole('link', { name: linkName, exact: true })
@@ -158,6 +260,7 @@ export class DashboardPage extends BasePage {
      * Retrieves the last name from the page.
      * @returns A promise that resolves to a string representing the last name.
      */
+    @step()
     public async getLastName(): Promise<string> {
         return this.lastName.innerText();
     }
@@ -166,6 +269,7 @@ export class DashboardPage extends BasePage {
      * Retrieves the first name from the page.
      * @returns A promise that resolves to a string representing the first name.
      */
+    @step()
     public async getFirstName(): Promise<string> {
         return this.firstName.innerText();
     }
@@ -174,6 +278,7 @@ export class DashboardPage extends BasePage {
      * Retrieves the email from the page.
      * @returns A promise that resolves to the email as a string.
      */
+    @step()
     public async getEmail(): Promise<string> {
         return this.email.innerText();
     }
@@ -182,6 +287,7 @@ export class DashboardPage extends BasePage {
      * Retrieves the phone number from the page.
      * @returns A promise that resolves to a string representing the phone number.
      */
+    @step()
     public async getPhone(): Promise<string> {
         return this.phone.innerText();
     }
@@ -190,10 +296,11 @@ export class DashboardPage extends BasePage {
      * Clicks on the searched element.
      * Waits for the element to be visible before clicking.
      */
+    @step()
     public async clickSearchedElement(): Promise<void> {
         await this.page.waitForTimeout(1000);
         await this.searchedElements.first().waitFor({ state: 'visible' });
         await this.searchedElements.first().click();
-        await this.page.waitForTimeout(500);
+        await this.page.waitForTimeout(2500);
     }
 }

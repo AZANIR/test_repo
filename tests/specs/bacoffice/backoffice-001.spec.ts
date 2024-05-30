@@ -3,22 +3,21 @@ import { qase } from 'playwright-qase-reporter/dist/playwright';
 import { LogInPage } from '../../pageFactory/logIn-page.po';
 require('dotenv').config();
 
-let logInPage;
-LogInPage;
+let logInPage: LogInPage;
 let page: Page;
 
 test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
     logInPage = new LogInPage(page);
     await test.step('Open the page', async () => {
-        await logInPage.navigate('/');
+        await logInPage.navigate();
     });
 });
 
-test(qase([1], 'Login with invalid email @login'), async () => {
+test(qase([1], 'Login with invalid email'), async () => {
     await test.step('Fill input fields', async () => {
         await logInPage.setEmailInput('invalid@email');
-        await logInPage.setPasswordInput('invalidpassword');
+        await logInPage.setPasswordInput('invalidPassword');
     });
     await test.step('Click on the button', async () => {
         await logInPage.clickSignInButton();
@@ -31,7 +30,7 @@ test(qase([1], 'Login with invalid email @login'), async () => {
 test(qase([2], 'Login with invalid password @login'), async () => {
     await test.step('Fill input fields', async () => {
         await logInPage.setEmailInput(process.env.LOGIN_EMAIL);
-        await logInPage.setPasswordInput('invalidpassword');
+        await logInPage.setPasswordInput('invalidPassword');
     });
     await test.step('Click on the button', async () => {
         await logInPage.clickSignInButton();
@@ -52,4 +51,8 @@ test(qase([3], 'Login with valid credential @login'), async () => {
     await test.step('Check the dashboard is displayed', async () => {
         expect(await logInPage.isSearchInputVisible()).toBe(true);
     });
+});
+
+test.afterAll(async () => {
+    await page.close();
 });

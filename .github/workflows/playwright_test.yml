@@ -1,4 +1,4 @@
-name: "Playwright with JEST Test Reporting"
+name: "Playwright with pluggin"
 on:
     workflow_dispatch:
         inputs:
@@ -6,6 +6,10 @@ on:
                 description: 'Select an environment: "dev" , "local"'
                 required: true
                 default: "https://backoffice-dev.eu.ballerine.io"
+            workflow_definition_id:
+                description: 'Set a workflow definition id'
+                required: true
+                default: "kyb_dynamic_ui_session_example"
             qase_report:
                 description: "Choose qase report option: on(1) / off(0)"
                 required: false
@@ -22,7 +26,7 @@ on:
                 type: choice
                 description: "Choose trace option: on / off / retain-on-failure"
                 required: false
-                default: "retain-on-failure"
+                default: "off"
                 options:
                     - "retain-on-failure"
                     - "on"
@@ -43,7 +47,7 @@ on:
 jobs:
     Run_tests:
         timeout-minutes: 60
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         env:
             STAGE_URL: ${{ inputs.stage_url }}
             QASE_REPORT: ${{ inputs.qase_report }}
@@ -53,6 +57,7 @@ jobs:
             LOGIN: ${{ inputs.login }}
             PASSWORD: ${{ inputs.password }}
             API_TOKEN_GITHUB: ${{ inputs.api_token_github }}
+            WORKFLOW_DEFINITION_ID: ${{ inputs.workflow_definition_id }}
         permissions:
             contents: read
             issues: read
@@ -62,7 +67,7 @@ jobs:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
-                  node-version: 20
+                  node-version: 22
             # - name : Create app directory
             #   run: |
             #     sudo chown -R $USER:$USER .
@@ -104,32 +109,63 @@ jobs:
             #     sleep 120
             - name: Install dependencies and browsers
               run: |
-                  npm ci
-                  npx playwright install --with-deps
+                  npm install
+                  npx playwright install --with-deps chromium
             - name: Run Playwright Tests
-              run: export BASE_URL="$STAGE_URL" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json --trace "$TRACE"
-            - name: Wait for Artifacts to be ready
-              if: always()
-              run: |
-                  sleep 60
-                  ls -la
+              run: export BASE_URL="$STAGE_URL" WORKFLOW_DEFINITION_ID="$WORKFLOW_DEFINITION_ID" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && npx playwright test --trace "$TRACE"
             - name: Generate Report
               if: always()
-              run: npx run allure:generate
+              run: npx allure generate allure-results --clean
             - uses: actions/upload-artifact@v4
               if: always()
               with:
                   name: playwright-report
-                  path: |
-                    playwright-report
-                    allure-results
+                  path: playwright-report
                   retention-days: 25
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: allure-report
+                  path: allure-report
+                  retention-days: 25
+            - name: Wait for Artifacts to be ready
+              if: always()
+              run: |
+                sleep 10
+                  ls junit-report/ -la
             - name: Test Report
-              uses: phoenix-actions/test-reporting@v8
-              id: test-report # Set ID reference for step
+              uses: dorny/test-reporter@v1
               if: success() || failure() # run this step even if previous step failed
               with:
-                  name: JEST Tests # Name of the check run which will be created
-                  path: ./junit-report/junit-report.xml # Path to test results
-                  reporter: java-junit
-
+                  name: JEST Tests
+                  path: junit-report/jest-junit.xml
+                  reporter: jest-junit
+            # crsf pluggin 
+            - name: Publish CTRF Test Summary Results
+              run: npx github-actions-ctrf summary ctrf/ctrf-report.json
+              if: always()
+            # publish unit test results
+            # - name: Publish Test Results
+            #   uses: EnricoMi/publish-unit-test-result-action@v2
+            #   if: always()
+            #   with:
+            #       files: |
+            #           junit-report/*.xml
+            #           junit-report/*.json
+            # deploy to netlify
+            # - name: Deploy to Netlify
+            #   uses: nwtgck/actions-netlify@v3.0
+            #   if: always()
+            #   with:
+            #     publish-dir: './playwright-report'
+            #     production-branch: master
+            #     github-token: $API_TOKEN_GITHUB
+            #     deploy-message: "Deploy from GitHub Actions"
+            #     enable-pull-request-comment: false
+            #     enable-commit-comment: true
+            #     overwrites-pull-request-comment: true
+            #     production-deploy: true
+            #   env:
+            #     NETLIFY_AUTH_TOKEN: nfp_Npq22vH639TFDYM2MkviTsBXRkaNeR9V2407
+            #     NETLIFY_SITE_ID: 8306859d-ac02-4fe2-8a94-51a78ac4651f
+            #   timeout-minutes: 1

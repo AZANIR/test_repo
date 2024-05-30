@@ -1,0 +1,44 @@
+{
+  "results": {
+    "tool": {
+      "name": "playwright"
+    },
+    "summary": {
+      "tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "skipped": 0,
+      "other": 0,
+      "start": 1717095982165,
+      "stop": 1717095992962,
+      "suites": 0
+    },
+    "tests": [
+      {
+        "name": "Login with invalid email (Qase ID: 1)",
+        "status": "passed",
+        "duration": 709
+      },
+      {
+        "name": "Login with invalid password @login (Qase ID: 2)",
+        "status": "passed",
+        "duration": 598
+      },
+      {
+        "name": "Login with valid credential @login (Qase ID: 3)",
+        "status": "passed",
+        "duration": 861
+      }
+    ],
+    "environment": {
+      "appName": "MyApp",
+      "appVersion": "1.0.0",
+      "osPlatform": "linux",
+      "osRelease": "18.04",
+      "osVersion": "5.4.0",
+      "buildName": "MyApp Build",
+      "buildNumber": "100"
+    }
+  }
+}

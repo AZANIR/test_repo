@@ -1,11 +1,4 @@
 import { defineConfig } from '@playwright/test';
-
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-require('dotenv').config();
-
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -29,48 +22,67 @@ export default defineConfig({
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
-    retries: process.env.CI ? 0 : 0,
+    retries: 0,
     /* Opt out of parallel tests on CI. */
-    workers: process.env.CI ? 1 : 1,
+    workers: 1,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-    reporter: process.env.CI
-        ? [
-              ['junit', { outputFile: 'junit-report/junit-report.xml' }],
-              ['html', { open: 'never' }],
-              ['allure-playwright'],
-              ['list']
-          ]
-        : [
-              ['list'],
-              ['allure-playwright'],
-              ['junit', { outputFile: 'junit-report/junit-report.xml' }],
-              ['html', { open: 'never' }],
-              [
-                  'playwright-qase-reporter',
-                  {
-                      mode: 'testops',
-                      apiToken: process.env.QASE_TOKEN,
-                      projectCode: 'TODO',
-                      runComplete: true,
-                      sendScreenshot: true,
-                      basePath: 'https://api.qase.io/v1',
-                      logging: true,
-                      uploadAttachments: true
-                  }
-              ]
-          ],
+    reporter: [
+        ['junit', { outputFile: 'junit-report/jest-junit.xml' }],
+        ['html', { open: 'never' }],
+        ['allure-playwright'],
+        ['list', { printSteps: true }],
+        [
+            'playwright-ctrf-json-reporter',
+            {
+                outputFile: 'ctrf-report.json', // Optional: Output file name. Defaults to 'ctrf-report.json'.
+                // outputDir: 'custom-directory', // Optional: Output directory path. Defaults to '.' (project root).
+                minimal: true, // Optional: Generate a minimal report. Defaults to 'false'. Overrides screenshot and testType when set to true
+                screenshot: false, // Optional: Include screenshots in the report. Defaults to 'false'.
+                testType: 'e2e', // Optional: Specify the test type (e.g., 'api', 'e2e'). Defaults to 'e2e'.
+                appName: 'MyApp', // Optional: Specify the name of the application under test.
+                appVersion: '1.0.0', // Optional: Specify the version of the application under test.
+                osPlatform: 'linux', // Optional: Specify the OS platform.
+                osRelease: '18.04', // Optional: Specify the OS release version.
+                osVersion: '5.4.0', // Optional: Specify the OS version.
+                buildName: 'MyApp Build', // Optional: Specify the build name.
+                buildNumber: '100' // Optional: Specify the build number.
+            }
+        ]
+    ],
+    // reporter: [
+    //     ['list'],
+    //     ['allure-playwright'],
+    //     ['junit', { outputFile: 'junit-report/junit-report.xml' }],
+    //     ['html', { open: 'never' }],
+    //     [
+    //         'playwright-qase-reporter',
+    //         {
+    //             mode: 'testops',
+    //             apiToken: process.env.QASE_TOKEN,
+    //             projectCode: 'TODO',
+    //             runComplete: true,
+    //             sendScreenshot: true,
+    //             basePath: 'https://api.qase.io/v1',
+    //             logging: true,
+    //             uploadAttachments: true
+    //         }
+    //     ]
+    // ],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Maximum time to each action. */
         actionTimeout: 30 * 1000,
         /* Base URL to use in actions like `await page.goto('/')`. */
-        baseURL: process.env.BASE_URL || 'http://localhost:5137',
-        viewport: { width: 1920, height: 1080 },
+        // baseURL: process.env.BASE_URL || 'http://localhost:5137',
+        viewport: { width: 1440, height: 900 }, //1440 × 900,
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: process.env.CI ? 'on-first-retry' : 'on',
-        screenshot: process.env.CI ? 'only-on-failure' : 'on',
-        video: process.env.CI ? 'retain-on-failure' : 'on'
-
+        //screenshot: process.env.CI ? 'only-on-failure' : 'on',
+        //video: process.env.CI ? 'retain-on-failure' : 'on'
+        screenshot: {
+            mode: 'only-on-failure',
+            fullPage: true
+        }
         /* Set the timezone for the browser context */
         //timezoneId: process.env.CI ? 'UTC' : process.env.TIMEZONE_ID || 'UTC',
         //headless: process.env.CI ? true : false
@@ -106,7 +118,7 @@ export default defineConfig({
                 //Browser height and width
                 // viewport: { width: 1920, height: 1080 },
                 ignoreHTTPSErrors: true,
-
+                screenshot: { mode: 'only-on-failure', fullPage: true },
                 //Enable File Downloads in Chrome
                 acceptDownloads: true,
                 storageState: './tests/auth/defaultStorageState.json',

@@ -1,0 +1,590 @@
+{
+    "data": {
+        "context": {
+            "state": "personal_details",
+            "entity": {
+                "id": "my-user-1713351929",
+                "data": {
+                    "companyName": "Cole, Kling and Schaden",
+                    "additionalInfo": {
+                        "mainRepresentative": {
+                            "email": "ballerine@mailsac.com",
+                            "phone": "12345678909",
+                            "lastName": "Feil",
+                            "firstName": "Kylie",
+                            "dateOfBirth": "1991-05-08T21:00:00.000Z",
+                            "additionalInfo": {
+                                "jobTitle": "CEO"
+                            }
+                        },
+                        "registeredCapitalInUsd": 12341234,
+                        "headquarters": {
+                            "physical": {},
+                            "isDifferentFromPhysical": false,
+                            "street": "TestStreet",
+                            "streetNumber": 10,
+                            "city": "Rivne",
+                            "country": "AO"
+                        },
+                        "thereNoCompaniesWithMoreThan25": true,
+                        "imShareholder": true,
+                        "ubos": [{
+                                "additionalInfo": {
+                                    "__isGeneratedAutomatically": true,
+                                    "companyName": "Cole, Kling and Schaden",
+                                    "customerCompany": "OxPay",
+                                    "nationality": "AO",
+                                    "fullAddress": "test street",
+                                    "percentageOfOwnership": 25
+                                },
+                                "email": "ballerine@mailsac.com",
+                                "lastName": "Feil",
+                                "firstName": "Kylie",
+                                "nationalId": "1111111111111111hjk"
+                            }
+                        ],
+                        "imDirector": true,
+                        "directors": [{
+                                "additionalInfo": {
+                                    "__isGeneratedAutomatically": true,
+                                    "companyName": "Cole, Kling and Schaden",
+                                    "customerCompany": "OxPay",
+                                    "nationality": "AD",
+                                    "fullAddress": "23452345234,234523452356v3vhh"
+                                },
+                                "email": "ballerine@mailsac.com",
+                                "lastName": "Feil",
+                                "firstName": "Kylie",
+                                "nationalId": "234523452345"
+                            }
+                        ],
+                        "mainContact": {
+                            "firstName": "Leonid",
+                            "lastName": "Mayevskyi",
+                            "email": "test@mail.com",
+                            "phone": "12345678909"
+                        },
+                        "bank": {
+                            "companyAccountHolderName": "2346345dsfhdfghdfg",
+                            "holderFullAddress": "dfghdfghgfh dyjfyjtyuj",
+                            "accountNumber": "2234523452",
+                            "iban": "111111111111111111111",
+                            "swiftCode": "DLKJIHKLJGL",
+                            "routeNumber": 123456789,
+                            "bankName": "testBank",
+                            "bankCode": "1234",
+                            "bankAddress": "test adddreesss",
+                            "subBranch": "1234",
+                            "currency": "USD"
+                        },
+                        "store": {
+                            "hasMobileApp": false,
+                            "websiteUrls": "https://testsite.com",
+                            "dba": "descriptions",
+                            "industry": "Airlines and Aviation",
+                            "products": "some product",
+                            "established": "1991-05-07T21:00:00.000Z",
+                            "website": {
+                                "mainWebsite": "https://testsite.com",
+                                "contactDetails": "wdfghsdghdfgh",
+                                "returnPolicyUrl": "https://testsite.com",
+                                "shippingPolicyUrl": "https://testsite.com",
+                                "aboutUsUrl": "https://testsite.com",
+                                "termsOfUseUrl": "https://testsite.com",
+                                "privacyPolicyUrl": "https://testsite.com",
+                                "productQuantity": 7,
+                                "productDescription": "sdfghsdfghs dsdf ghsdfg sdfgsdfg",
+                                "productPrice": 100,
+                                "websiteLanguage": "english"
+                            },
+                            "processingDetails": {
+                                "isSpikeInSales": false,
+                                "monthlySalesVolume": 1000000,
+                                "monthlyTransactions": 500,
+                                "estimatedMonthlySales": 40000,
+                                "estimatedMonthlyTransactions": 158,
+                                "averageTicketAmount": 25,
+                                "minimumTicketAmount": 300,
+                                "maximumTicketAmount": 1999,
+                                "volumeInRegion": "70,30",
+                                "mainCategory": ["B2B", "B2C"],
+                                "businessModel": ["Membership", "Direct Purchase"]
+                            }
+                        },
+                        "hasConfirmed": true
+                    },
+                    "registrationNumber": "1111111111111111111",
+                    "country": "AR",
+                    "taxIdentificationNumber": "1234123412341",
+                    "numberOfEmployees": 10,
+                    "businessType": "Limited Partnership (LP)"
+                },
+                "type": "business",
+                "ballerineEntityId": "clv3pi2cg0001v61o1lrsup8i"
+            },
+            "metadata": {
+                "token": "62d94fb6-359d-4fcd-8e0a-28bb8dae5106",
+                "customerName": "OxPay",
+                "collectionFlowUrl": "https://collection-dev.eu.ballerine.io",
+                "customerNormalizedName": "oxpay"
+            },
+            "documents": [{
+                    "id": "document-certificate-of-incorporation",
+                    "type": "certificate_of_incorporation",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_registration",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "registrationNumber": {
+                                "pattern": "^[a-zA-Z0-9]*$",
+                                "type": "string"
+                            },
+                            "issueDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-18",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "clv58bvet000apa1n7nf45lnk",
+                            "fileName": "bank_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-business-registration-certificate",
+                    "type": "business_registration_certificate",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_registration",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "registrationNumber": {
+                                "pattern": "^[a-zA-Z0-9]*$",
+                                "type": "string"
+                            },
+                            "issueDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-18",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "clv58bxpo000as41o4xssoai7",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-proof-of-address",
+                    "type": "general_document",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_address",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {},
+                    "pages": [{
+                            "ballerineFileId": "clv58c1cj000epa1niipwmbin",
+                            "fileName": "domain_pushare.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-copy-of-business-license",
+                    "type": "business_license",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_registration",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58c55d000cs41oadnmx05o",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-memorandum-of-article",
+                    "type": "memorandum_of_article",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_registration",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58c99p000ipa1n1yvbd0nl",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-business-ownership-structure-chart",
+                    "type": "ownership_structure_chart",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_ownership",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58cd8r000lpa1n3egdkerk",
+                            "fileName": "company_seal.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-tenancy-agreement",
+                    "type": "tenancy_agreement",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_location",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58chsr000opa1n6lreg5ha",
+                            "fileName": "last_months.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-tax-return",
+                    "type": "tax_return",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "financial_information",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58cnm2000rpa1nzgiacyrz",
+                            "fileName": "domain_pushare.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-settlement-bank-account-statement",
+                    "type": "bank_statement",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_bank_account_ownership",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58cro7000upa1npwtn9j2a",
+                            "fileName": "domain_pushare.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-financial-statements",
+                    "type": "general_document",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "financial_information",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58cvag000es41ooscjh91q",
+                            "fileName": "financial.pdf",
+                            "type": "application/pdf"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-latest-3-months-processing-statements",
+                    "type": "card_processing_statements",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "financial_information",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58czhd000ypa1nn9redhiu",
+                            "fileName": "financial.pdf",
+                            "type": "application/pdf"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-transaction-information",
+                    "type": "transaction_records",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "financial_information",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58d3jq0011pa1n7towp1on",
+                            "fileName": "domain_pushare.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-psi-dss-documents",
+                    "type": "pci_dss_certification",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "compliance_documents",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58d7nn0014pa1njxohkn7s",
+                            "fileName": "bank_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-mailing-acknowledgement-or-form-sample",
+                    "type": "mailing_or_acknowledgement_sample",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "general_documents",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "clv58db7t000gs41ogurvyblf",
+                            "fileName": "company_seal.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }
+            ],
+            "flowConfig": {
+                "apiUrl": "https://api-dev.eu.ballerine.io",
+                "tokenId": "62d94fb6-359d-4fcd-8e0a-28bb8dae5106",
+                "appState": "finish",
+                "stepsProgress": {
+                    "store_info": {
+                        "number": 7,
+                        "isCompleted": true
+                    },
+                    "contacts_page": {
+                        "number": 5,
+                        "isCompleted": true
+                    },
+                    "banking_details": {
+                        "number": 6,
+                        "isCompleted": true
+                    },
+                    "personal_details": {
+                        "number": 1,
+                        "isCompleted": true
+                    },
+                    "company_documents": {
+                        "number": 10,
+                        "isCompleted": false
+                    },
+                    "company_ownership": {
+                        "number": 4,
+                        "isCompleted": true
+                    },
+                    "processing_details": {
+                        "number": 9,
+                        "isCompleted": true
+                    },
+                    "business_information": {
+                        "number": 2,
+                        "isCompleted": true
+                    },
+                    "website_basic_requirement": {
+                        "number": 8,
+                        "isCompleted": true
+                    },
+                    "business_address_information": {
+                        "number": 3,
+                        "isCompleted": true
+                    }
+                },
+                "customerCompany": "OxPay"
+            },
+            "customerName": "OxPay",
+            "pluginsOutput": {
+                "collection_invite_email": {},
+                "fetch_company_information": {
+                    "error": "Request Failed: Internal Server Error Error: {\"errorCode\":\"InternalServerError\",\"message\":\"Request failed with status code 404\",\"statusCode\":500,\"timestamp\":\"2024-04-18T12:35:10.912Z\",\"path\":\"/api/v1/collection-flow/business/business-information?token=62d94fb6-359d-4fcd-8e0a-28bb8dae5106&registrationNumber=1111111111111111111&countryCode=AR&state=&vendor=open-corporates\"}"
+                }
+            },
+            "workflowRuntimeId": "1"
+        },
+        "endUser": {
+            "email": "ballerine@mailsac.com",
+            "phone": "12345678909",
+            "lastName": "Feil",
+            "firstName": "Kylie",
+            "dateOfBirth": "1991-05-08T21:00:00.000Z",
+            "additionalInfo": {
+                "jobTitle": "CEO"
+            }
+        },
+        "business": {
+            "companyName": "Cole, Kling and Schaden",
+            "additionalInfo": {
+                "mainRepresentative": {
+                    "email": "ballerine@mailsac.com",
+                    "phone": "12345678909",
+                    "lastName": "Feil",
+                    "firstName": "Kylie",
+                    "dateOfBirth": "1991-05-08T21:00:00.000Z",
+                    "additionalInfo": {
+                        "jobTitle": "CEO"
+                    }
+                },
+                "registeredCapitalInUsd": 12341234,
+                "headquarters": {
+                    "physical": {},
+                    "isDifferentFromPhysical": false,
+                    "street": "TestStreet",
+                    "streetNumber": 10,
+                    "city": "Rivne",
+                    "country": "AO"
+                },
+                "thereNoCompaniesWithMoreThan25": true,
+                "imShareholder": true,
+                "ubos": [{
+                        "additionalInfo": {
+                            "__isGeneratedAutomatically": true,
+                            "companyName": "Cole, Kling and Schaden",
+                            "customerCompany": "OxPay",
+                            "nationality": "AO",
+                            "fullAddress": "test street",
+                            "percentageOfOwnership": 25
+                        },
+                        "email": "ballerine@mailsac.com",
+                        "lastName": "Feil",
+                        "firstName": "Kylie",
+                        "nationalId": "1111111111111111hjk"
+                    }
+                ],
+                "imDirector": true,
+                "directors": [{
+                        "additionalInfo": {
+                            "__isGeneratedAutomatically": true,
+                            "companyName": "Cole, Kling and Schaden",
+                            "customerCompany": "OxPay",
+                            "nationality": "AD",
+                            "fullAddress": "23452345234,234523452356v3vhh"
+                        },
+                        "email": "ballerine@mailsac.com",
+                        "lastName": "Feil",
+                        "firstName": "Kylie",
+                        "nationalId": "234523452345"
+                    }
+                ],
+                "mainContact": {
+                    "firstName": "Leonid",
+                    "lastName": "Mayevskyi",
+                    "email": "test@mail.com",
+                    "phone": "12345678909"
+                },
+                "bank": {
+                    "companyAccountHolderName": "2346345dsfhdfghdfg",
+                    "holderFullAddress": "dfghdfghgfh dyjfyjtyuj",
+                    "accountNumber": "2234523452",
+                    "iban": "111111111111111111111",
+                    "swiftCode": "DLKJIHKLJGL",
+                    "routeNumber": 123456789,
+                    "bankName": "testBank",
+                    "bankCode": "1234",
+                    "bankAddress": "test adddreesss",
+                    "subBranch": "1234",
+                    "currency": "USD"
+                },
+                "store": {
+                    "hasMobileApp": false,
+                    "websiteUrls": "https://testsite.com",
+                    "dba": "descriptions",
+                    "industry": "Airlines and Aviation",
+                    "products": "some product",
+                    "established": "1991-05-07T21:00:00.000Z",
+                    "website": {
+                        "mainWebsite": "https://testsite.com",
+                        "contactDetails": "wdfghsdghdfgh",
+                        "returnPolicyUrl": "https://testsite.com",
+                        "shippingPolicyUrl": "https://testsite.com",
+                        "aboutUsUrl": "https://testsite.com",
+                        "termsOfUseUrl": "https://testsite.com",
+                        "privacyPolicyUrl": "https://testsite.com",
+                        "productQuantity": 7,
+                        "productDescription": "sdfghsdfghs dsdf ghsdfg sdfgsdfg",
+                        "productPrice": 100,
+                        "websiteLanguage": "english"
+                    },
+                    "processingDetails": {
+                        "isSpikeInSales": false,
+                        "monthlySalesVolume": 1000000,
+                        "monthlyTransactions": 500,
+                        "estimatedMonthlySales": 40000,
+                        "estimatedMonthlyTransactions": 158,
+                        "averageTicketAmount": 25,
+                        "minimumTicketAmount": 300,
+                        "maximumTicketAmount": 1999,
+                        "volumeInRegion": "70,30",
+                        "mainCategory": ["B2B", "B2C"],
+                        "businessModel": ["Membership", "Direct Purchase"]
+                    }
+                },
+                "hasConfirmed": true
+            },
+            "registrationNumber": "1111111111111111111",
+            "country": "AR",
+            "taxIdentificationNumber": "1234123412341",
+            "numberOfEmployees": 10,
+            "businessType": "Limited Partnership (LP)"
+        },
+        "ballerineEntityId": "clv3pi2cg0001v61o1lrsup8i"
+    }
+}

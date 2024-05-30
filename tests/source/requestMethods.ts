@@ -43,6 +43,52 @@ class requestMethod extends Base {
         };
     }
 
+    postWithoutToken(
+        endPoint: string,
+        payload: object = {},
+        requestHeaders = {},
+        baseUrl: string = this.baseApiUrl
+    ): object {
+        return {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}${endPoint}`,
+            headers: requestHeaders,
+            data: payload
+        };
+    }
+
+    put(endPoint: string, payload: object = {}, requestHeaders = {}, baseUrl: string = this.baseApiUrl): object {
+        requestHeaders['Content-Type'] = 'application/json';
+        return {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}${endPoint}`,
+            headers: requestHeaders,
+            data: payload
+        };
+    }
+    patch(endPoint: string, payload: object = {}, requestHeaders = {}, baseUrl: string = this.baseApiUrl): object {
+        requestHeaders['Authorization'] = `Bearer ${this.clipsPayToken}`;
+        return {
+            method: 'patch',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}${endPoint}`,
+            headers: requestHeaders,
+            data: payload
+        };
+    }
+    postUpload(endPoint: string, payload: any, requestHeaders = {}, baseUrl: string = this.baseApiUrl): object {
+        requestHeaders['Content-Type'] = 'multipart/form-data';
+        return {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `${baseUrl}${endPoint}`,
+            headers: requestHeaders,
+            data: payload
+        };
+    }
+
     // put(endPoint: string, payload: object = {}): object {
     //     return {
     //         method: 'put',

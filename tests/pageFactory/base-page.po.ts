@@ -4,6 +4,8 @@
  */
 import { Locator, Page, Response } from '@playwright/test';
 import { Timeout } from '../enums/timeouts.enum';
+import { step } from '../source/step';
+require('dotenv').config();
 
 export class BasePage {
     page: Page;
@@ -21,6 +23,7 @@ export class BasePage {
      * Logs in to the application.
      * @returns {Promise<void>} A promise that resolves when the login process is complete.
      */
+    @step()
     async login() {
         await this.page.goto('/en/auth/sign-in');
         await this.waitForPageIsLoaded();
@@ -35,7 +38,8 @@ export class BasePage {
      *
      * @param path - The path to navigate to.
      */
-    async navigate(path) {
+    @step()
+    async navigate(path = process.env.BASE_URL) {
         await this.page.goto(path);
         await this.waitForPageIsLoaded();
         // const localStorage = await this.page.evaluate(() => localStorage.getItem('location'));
@@ -48,6 +52,7 @@ export class BasePage {
      * Clicks the search input field.
      * @returns A promise that resolves once the input field is clicked.
      */
+    @step()
     public async clickSearchInput(): Promise<void> {
         await this.inputSearch.click();
     }
@@ -56,11 +61,18 @@ export class BasePage {
      * Checks if the search input is visible.
      * @returns A promise that resolves to a boolean indicating the visibility of the search input.
      */
+    @step()
     public async isSearchInputVisible(): Promise<boolean> {
         await this.inputSearch.waitFor({ state: 'visible' });
         return this.inputSearch.isVisible();
     }
 
+    /**
+     * Sets the value of the search input field.
+     * @param value - The value to be set in the search input field.
+     * @returns A promise that resolves once the value is set.
+     */
+    @step()
     public async setSearchInputValue(value: string): Promise<void> {
         await this.inputSearch.fill(value);
     }
@@ -76,6 +88,7 @@ export class BasePage {
      * @param timeout time slot for waiting of the text value. By default is 1 seconds
      * @returns TRUE if there is such element on the page and it contains specified text value. Otherwise, returns FALSE
      */
+    @step()
     public async waitForFieldIncludesText(
         element: Locator,
         regExpPattern: string,
@@ -105,6 +118,7 @@ export class BasePage {
      * Wait for all of visible spinners to disappear
      * @param timeout optional with default value of 1 minute
      */
+    @step()
     async waitForSpinnersDetached(timeout = Timeout.ONE_MINUTE): Promise<void> {
         for (let i = 0; i < timeout; i += 100) {
             await this.page.waitForTimeout(100);
@@ -125,6 +139,7 @@ export class BasePage {
      * Scrolling page to the element
      * @param element : Locator
      */
+    @step()
     public async scrollToElement(element: Locator): Promise<void> {
         await element.scrollIntoViewIfNeeded();
     }
@@ -135,6 +150,7 @@ export class BasePage {
      * @param link - Locator of the link to click.
      * @returns A promise resolving to the new page.
      */
+    @step()
     async clickLinkAndReturnNewTab(link: Locator): Promise<Page> {
         const pagePromise = this.page.context().waitForEvent('page');
         await link.click();
@@ -149,6 +165,7 @@ export class BasePage {
      * Use this method when records in DB must be at time different from the previous action (DB record) time
      * @param startTime new Date() is the time from which wait for a new minute is started
      */
+    @step()
     async waitForNewMinuteStart(startTime = new Date()) {
         const startMinute = startTime.getMinutes();
         const currentMinute = new Date().getMinutes();
@@ -162,6 +179,7 @@ export class BasePage {
      * @param secondsLeft is the time in seconds to wait for a new minute is started
      * (this time is usually enough to Save action is finished and DB record with time is created)
      */
+    @step()
     async waitForNewMinuteStartAtTheEndOfCurrent(secondsLeft = 10) {
         const currentSeconds = new Date().getSeconds();
         if (60 - currentSeconds <= secondsLeft) {
@@ -172,6 +190,7 @@ export class BasePage {
     /**
      * Wait for page is loaded for both networkidle and domcontentloaded
      */
+    @step()
     async waitForPageIsLoaded(): Promise<void> {
         await this.page.waitForLoadState('networkidle');
         await this.page.waitForLoadState('domcontentloaded');
@@ -181,6 +200,7 @@ export class BasePage {
      * Wait for element to be clickable
      * @param element target element locator
      */
+    @step()
     async waitForElementToBeClickableByElement(element: Locator): Promise<void> {
         await element.waitFor({ timeout: 30000 });
     }
@@ -191,6 +211,7 @@ export class BasePage {
      * @param timeout time slot for waiting of the isVisible status. By default is 5 seconds
      * @returns TRUE if there is such element on the page and it is visible. Otherwise, returns FALSE
      */
+    @step()
     public async isElementAlreadyVisible(element: Locator, timeout: number = 7000): Promise<boolean> {
         for (let i = 0; i < Math.floor(timeout / 100); i++) {
             await this.page.waitForTimeout(100);
@@ -212,6 +233,7 @@ export class BasePage {
      * @param {number} codeValue - status code from caught API Response
      * @returns
      */
+    @step()
     async catchResponse(urlValue, codeValue, milliseconds = 40000) {
         return await this.page.waitForResponse(
             (response) => response.url() === `${urlValue}` && response.status() === codeValue,
@@ -226,10 +248,29 @@ export class BasePage {
      * @param milliseconds The maximum number of milliseconds to wait for the response. Default is 40000 milliseconds.
      * @returns A promise that resolves when the response is received.
      */
+    @step()
     async catchIncludesResponse(urlValue: string, codeValue: number, milliseconds: number = 40000): Promise<Response> {
         return await this.page.waitForResponse(
             (response) => response.url().includes(`${urlValue}`) && response.status() === codeValue,
             { timeout: milliseconds }
         );
+    }
+
+    async scrollToBottom(page) {
+        const [scrollY, scrollHeight] = await page.evaluate(() => [
+            window.scrollY,
+            window.document.documentElement.scrollHeight
+        ]);
+
+        for (let i = 0; scrollY * i < scrollHeight; i += 100) {
+            await page.evaluate((i) => {
+                window.scrollTo(0, i); // Remove the third argument '{ behavior: 'smooth' }'
+            }, i);
+            await this.sleep(0.1);
+        }
+    }
+
+    async sleep(seconds) {
+        return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
     }
 }

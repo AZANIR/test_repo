@@ -1,0 +1,818 @@
+{
+    "data": {
+        "context": {
+            "entity": {
+                "id": "my-user-1712418712937",
+                "data": {
+                    "companyName": "Hegmann - Collier",
+                    "additionalInfo": {
+                        "mainRepresentative": {
+                            "email": "ballerine@mailsac.com",
+                            "lastName": "Zboncak",
+                            "firstName": "Ansley",
+                            "additionalInfo": {
+                                "jobTitle": "Principal Usability Strategist"
+                            },
+                            "dateOfBirth": "1949-01-07T21:00:00.000Z",
+                            "phone": "50082716538"
+                        },
+                        "registeredCapitalInUsd": 249932,
+                        "headquarters": {
+                            "physical": {},
+                            "isDifferentFromPhysical": false,
+                            "street": "801 Russell Street",
+                            "streetNumber": 12,
+                            "city": "St. George",
+                            "country": "UG"
+                        },
+                        "imShareholder": true,
+                        "ubos": [{
+                                "additionalInfo": {
+                                    "__isGeneratedAutomatically": true,
+                                    "companyName": "Hegmann - Collier",
+                                    "customerCompany": "Clipspay",
+                                    "nationality": "CG",
+                                    "fullAddress": "298 Clarendon Road Apt. 387",
+                                    "percentageOfOwnership": 61
+                                },
+                                "email": "ballerine@mailsac.com",
+                                "lastName": "Zboncak",
+                                "firstName": "Ansley",
+                                "nationalId": "9290711687821"
+                            }
+                        ],
+                        "imDirector": true,
+                        "directors": [{
+                                "additionalInfo": {
+                                    "__isGeneratedAutomatically": true,
+                                    "companyName": "Hegmann - Collier",
+                                    "customerCompany": "Clipspay",
+                                    "nationality": "CG",
+                                    "fullAddress": "1831 Clark Street Apt. 624",
+                                    "documents": [{
+                                            "id": "directors:passport-selfie-[index:0]",
+                                            "type": "selfie",
+                                            "issuer": {
+                                                "country": "ZZ"
+                                            },
+                                            "version": "1",
+                                            "category": "proof_of_identity_ownership",
+                                            "properties": {},
+                                            "issuingVersion": 1,
+                                            "propertiesSchema": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "documentNumber": {
+                                                        "type": "string"
+                                                    },
+                                                    "firstName": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastName": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "pages": [{
+                                                    "ballerineFileId": "cluo9whu6000eu91nhi3t62rh",
+                                                    "fileName": "Selfie_ID.jpg",
+                                                    "type": "image/jpeg"
+                                                }
+                                            ],
+                                            "decision": {}
+                                        }, {
+                                            "id": "directors:passport-document-[index:0]",
+                                            "type": "passport",
+                                            "issuer": {
+                                                "country": "ZZ"
+                                            },
+                                            "version": "1",
+                                            "category": "proof_of_identity",
+                                            "properties": {},
+                                            "issuingVersion": 1,
+                                            "propertiesSchema": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "documentNumber": {
+                                                        "type": "string"
+                                                    },
+                                                    "firstName": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastName": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "pages": [{
+                                                    "ballerineFileId": "cluo9whyd001ux21o1vivhfqk",
+                                                    "fileName": "ID.jpg",
+                                                    "type": "image/jpeg"
+                                                }
+                                            ],
+                                            "decision": {}
+                                        }
+                                    ]
+                                },
+                                "email": "ballerine@mailsac.com",
+                                "lastName": "Zboncak",
+                                "firstName": "Ansley",
+                                "nationalId": "0045681329507"
+                            }
+                        ],
+                        "mainContact": {
+                            "firstName": "Raina",
+                            "lastName": "Flatley",
+                            "email": "Dayna.Hilpert27@gmail.com",
+                            "phone": "3464833812"
+                        },
+                        "bank": {
+                            "holderName": "Dr. Bryant Brekke",
+                            "holderFullAddress": "3472 Grady Crossing Apt. 518",
+                            "accountNumber": "2532934361018",
+                            "iban": "RS39002358746501087384",
+                            "swiftCode": "BLHZHMCWXXX",
+                            "routeNumber": 269009295,
+                            "bankName": "Jast Group",
+                            "bankCode": "8469",
+                            "bankAddress": "98684 W 3rd Street Apt. 411",
+                            "subBranch": "7753",
+                            "currency": "ZMW"
+                        },
+                        "store": {
+                            "hasMobileApp": false,
+                            "websiteUrls": "https://different-cape.org",
+                            "dba": "token",
+                            "industry": "Outsourcing and Offshoring",
+                            "products": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+                            "established": "2021-03-08T22:00:00.000Z",
+                            "website": {
+                                "mainWebsite": "https://milky-pan.name/",
+                                "contactDetails": "91396 Sycamore Drive Suite 631",
+                                "returnPolicyUrl": "https://disgusting-bongo.com",
+                                "shippingPolicyUrl": "https://twin-identity.net/",
+                                "aboutUsUrl": "https://reckless-infection.org/",
+                                "termsOfUseUrl": "https://parched-forager.com",
+                                "privacyPolicyUrl": "https://misty-boy.org/",
+                                "productQuantity": 33,
+                                "productDescription": "Defluo deludo coerceo.\nCedo truculenter antiquus absconditus teneo conventus villa subito thermae.",
+                                "productPrice": 39.91,
+                                "websiteLanguage": "interlingua (international auxiliary language association)"
+                            },
+                            "processingDetails": {
+                                "isSpikeInSales": false,
+                                "monthlySalesVolume": 61460,
+                                "monthlyTransactions": 27,
+                                "estimatedMonthlySales": 26779,
+                                "estimatedMonthlyTransactions": 97,
+                                "averageTicketAmount": 542.87,
+                                "minimumTicketAmount": 92.82,
+                                "maximumTicketAmount": 303.66,
+                                "volumeInRegion": "87.46",
+                                "mainCategory": ["B2C"],
+                                "businessModel": ["Membership", "Direct Purchase"]
+                            }
+                        },
+                        "hasConfirmed": true
+                    },
+                    "registrationNumber": "3360492520669",
+                    "country": "KZ",
+                    "taxIdentificationNumber": "4001308760125",
+                    "numberOfEmployees": 31,
+                    "businessType": "Non-Profit Organization"
+                },
+                "type": "business",
+                "ballerineEntityId": "cluo9vzln0001u91n8n4h8eqz"
+            },
+            "metadata": {
+                "token": "75562a9e-c030-4925-8425-fc439e388cc2",
+                "customerName": "Clipspay",
+                "collectionFlowUrl": "https://collection-dev.eu.ballerine.io",
+                "customerNormalizedName": "clipspay"
+            },
+            "documents": [{
+                    "id": "document-certificates-of-incorporation",
+                    "type": "certificate_of_incorporation",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_registration",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "registrationNumber": {
+                                "pattern": "^[a-zA-Z0-9]*$",
+                                "type": "string"
+                            },
+                            "issueDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-06",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wqm2002gr21ns9xdh43b",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-business-registration-certificate",
+                    "type": "business_registration_certificate",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_registration",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "registrationNumber": {
+                                "pattern": "^[a-zA-Z0-9]*$",
+                                "type": "string"
+                            },
+                            "issueDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-06",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wqph0020x21oc0yisw8o",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-corporate-tax-certificate",
+                    "type": "corporate_tax_certificate",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "financial_information",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "taxIdNumber": {
+                                "type": "string"
+                            },
+                            "issueDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-06",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wqy8000ku91n3md0qpo2",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-certificate-of-good-standing",
+                    "type": "certificate_of_good_standing",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_good_standing",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "issueDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-06",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wqyu0022x21ocpgp82yv",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-certificate-of-directors-and-shareholders",
+                    "type": "certificate_of_directors_and_shareholders",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_ownership",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "directors": {
+                                "type": "string"
+                            },
+                            "shareholders": {
+                                "type": "string"
+                            },
+                            "issueDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-06",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wr4f002jr21nv1696yub",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-picture-of-company-seal",
+                    "type": "company_seal",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_identity",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wr9e0024x21omj510vin",
+                            "fileName": "company_seal.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-proof-of-bank-account",
+                    "type": "proof_of_bank_account_ownership",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "financial_information",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "pages": [{
+                            "ballerineFileId": "cluo9wrhp002lr21nmkz9x6tq",
+                            "fileName": "bank_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-other-supplementary-information",
+                    "type": "supplementary_document",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "general_documents",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {},
+                    "pages": [{
+                            "ballerineFileId": "cluo9wrla0026x21oqr5prozd",
+                            "fileName": "cer_verif.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-website-pictures-domain-certificate",
+                    "type": "domain_purchase_record",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_domain_ownership",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "domainName": {
+                                "type": "string"
+                            },
+                            "ownerName": {
+                                "type": "string"
+                            },
+                            "purchaseDate": {
+                                "format": "date",
+                                "formatMaximum": "2024-04-06",
+                                "type": "string"
+                            },
+                            "expiryDate": {
+                                "format": "date",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wrqf002nr21nm0yhidbc",
+                            "fileName": "domain_pushare.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-office-front-door-pictures-1",
+                    "type": "front_door_photo",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_location",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wrz50028x21oybfxjgur",
+                            "fileName": "office1.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-office-interior-pictures-2",
+                    "type": "interior_office_photo",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_location",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wrzn002pr21n3tpq3vra",
+                            "fileName": "office2.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-transaction-data-last-months",
+                    "type": "transaction_data_last_3_6_months",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "financial_information",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "format": "date",
+                                "type": "string"
+                            },
+                            "to": {
+                                "format": "date",
+                                "type": "string"
+                            },
+                            "totalTransactions": {
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wsdg002rr21ndm3ap9k8",
+                            "fileName": "financial.pdf",
+                            "type": "application/pdf"
+                        }
+                    ],
+                    "decision": {}
+                }, {
+                    "id": "document-office-interior-pictures-3",
+                    "type": "interior_office_photo",
+                    "issuer": {
+                        "country": "ZZ"
+                    },
+                    "version": "1",
+                    "category": "proof_of_location",
+                    "properties": {},
+                    "issuingVersion": 1,
+                    "propertiesSchema": {
+                        "type": "object",
+                        "properties": {
+                            "businessName": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pages": [{
+                            "ballerineFileId": "cluo9wsfr000qu91ny5b16m91",
+                            "fileName": "office3.jpg",
+                            "type": "image/jpeg"
+                        }
+                    ],
+                    "decision": {}
+                }
+            ],
+            "flowConfig": {
+                "stepsProgress": {
+                    "store_info": {
+                        "number": 7,
+                        "isCompleted": true
+                    },
+                    "contacts_page": {
+                        "number": 5,
+                        "isCompleted": true
+                    },
+                    "banking_details": {
+                        "number": 6,
+                        "isCompleted": true
+                    },
+                    "personal_details": {
+                        "number": 1,
+                        "isCompleted": true
+                    },
+                    "company_documents": {
+                        "number": 10,
+                        "isCompleted": false
+                    },
+                    "directors_and_ubos": {
+                        "number": 4,
+                        "isCompleted": true
+                    },
+                    "processing_details": {
+                        "number": 9,
+                        "isCompleted": true
+                    },
+                    "business_information": {
+                        "number": 2,
+                        "isCompleted": true
+                    },
+                    "website_basic_requirement": {
+                        "number": 8,
+                        "isCompleted": true
+                    },
+                    "business_address_information": {
+                        "number": 3,
+                        "isCompleted": true
+                    }
+                },
+                "appState": "finish",
+                "apiUrl": "https://api-dev.eu.ballerine.io",
+                "tokenId": "b90bc3b4-9e8a-45ad-b2ce-eaa9af8d42e4",
+                "customerCompany": "Clipspay"
+            },
+            "customerName": "Clipspay",
+            "pluginsOutput": {
+                "collection_invite_email": {},
+                "fetch_company_information": {
+                    "error": "Request Failed: Internal Server Error Error: {\"errorCode\":\"InternalServerError\",\"message\":\"Request failed with status code 404\",\"statusCode\":500,\"timestamp\":\"2024-04-06T15:52:11.688Z\",\"path\":\"/api/v1/collection-flow/business/business-information?token=b90bc3b4-9e8a-45ad-b2ce-eaa9af8d42e4&registrationNumber=3360492520669&countryCode=KZ&state=&vendor=open-corporates\"}"
+                }
+            },
+            "state": "personal_details",
+            "workflowRuntimeId": "1"
+        },
+        "endUser": {
+            "email": "ballerine@mailsac.com",
+            "lastName": "Zboncak",
+            "firstName": "Ansley",
+            "additionalInfo": {
+                "jobTitle": "Principal Usability Strategist"
+            },
+            "dateOfBirth": "1949-01-07T21:00:00.000Z",
+            "phone": "50082716538"
+        },
+        "business": {
+            "companyName": "Hegmann - Collier",
+            "additionalInfo": {
+                "mainRepresentative": {
+                    "email": "ballerine@mailsac.com",
+                    "lastName": "Zboncak",
+                    "firstName": "Ansley",
+                    "additionalInfo": {
+                        "jobTitle": "Principal Usability Strategist"
+                    },
+                    "dateOfBirth": "1949-01-07T21:00:00.000Z",
+                    "phone": "50082716538"
+                },
+                "registeredCapitalInUsd": 249932,
+                "headquarters": {
+                    "physical": {},
+                    "isDifferentFromPhysical": false,
+                    "street": "801 Russell Street",
+                    "streetNumber": 12,
+                    "city": "St. George",
+                    "country": "UG"
+                },
+                "imShareholder": true,
+                "ubos": [{
+                        "additionalInfo": {
+                            "__isGeneratedAutomatically": true,
+                            "companyName": "Hegmann - Collier",
+                            "customerCompany": "Clipspay",
+                            "nationality": "CG",
+                            "fullAddress": "298 Clarendon Road Apt. 387",
+                            "percentageOfOwnership": 61
+                        },
+                        "email": "ballerine@mailsac.com",
+                        "lastName": "Zboncak",
+                        "firstName": "Ansley",
+                        "nationalId": "9290711687821"
+                    }
+                ],
+                "imDirector": true,
+                "directors": [{
+                        "additionalInfo": {
+                            "__isGeneratedAutomatically": true,
+                            "companyName": "Hegmann - Collier",
+                            "customerCompany": "Clipspay",
+                            "nationality": "CG",
+                            "fullAddress": "1831 Clark Street Apt. 624",
+                            "documents": [{
+                                    "id": "directors:passport-selfie-[index:0]",
+                                    "type": "selfie",
+                                    "issuer": {
+                                        "country": "ZZ"
+                                    },
+                                    "version": "1",
+                                    "category": "proof_of_identity_ownership",
+                                    "properties": {},
+                                    "issuingVersion": 1,
+                                    "propertiesSchema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "documentNumber": {
+                                                "type": "string"
+                                            },
+                                            "firstName": {
+                                                "type": "string"
+                                            },
+                                            "lastName": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "pages": [{
+                                            "ballerineFileId": "cluo9whu6000eu91nhi3t62rh",
+                                            "fileName": "Selfie_ID.jpg",
+                                            "type": "image/jpeg"
+                                        }
+                                    ],
+                                    "decision": {}
+                                }, {
+                                    "id": "directors:passport-document-[index:0]",
+                                    "type": "passport",
+                                    "issuer": {
+                                        "country": "ZZ"
+                                    },
+                                    "version": "1",
+                                    "category": "proof_of_identity",
+                                    "properties": {},
+                                    "issuingVersion": 1,
+                                    "propertiesSchema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "documentNumber": {
+                                                "type": "string"
+                                            },
+                                            "firstName": {
+                                                "type": "string"
+                                            },
+                                            "lastName": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "pages": [{
+                                            "ballerineFileId": "cluo9whyd001ux21o1vivhfqk",
+                                            "fileName": "ID.jpg",
+                                            "type": "image/jpeg"
+                                        }
+                                    ],
+                                    "decision": {}
+                                }
+                            ]
+                        },
+                        "email": "ballerine@mailsac.com",
+                        "lastName": "Zboncak",
+                        "firstName": "Ansley",
+                        "nationalId": "0045681329507"
+                    }
+                ],
+                "mainContact": {
+                    "firstName": "Raina",
+                    "lastName": "Flatley",
+                    "email": "Dayna.Hilpert27@gmail.com",
+                    "phone": "3464833812"
+                },
+                "bank": {
+                    "holderName": "Dr. Bryant Brekke",
+                    "holderFullAddress": "3472 Grady Crossing Apt. 518",
+                    "accountNumber": "2532934361018",
+                    "iban": "RS39002358746501087384",
+                    "swiftCode": "BLHZHMCWXXX",
+                    "routeNumber": 269009295,
+                    "bankName": "Jast Group",
+                    "bankCode": "8469",
+                    "bankAddress": "98684 W 3rd Street Apt. 411",
+                    "subBranch": "7753",
+                    "currency": "ZMW"
+                },
+                "store": {
+                    "hasMobileApp": false,
+                    "websiteUrls": "https://different-cape.org",
+                    "dba": "token",
+                    "industry": "Outsourcing and Offshoring",
+                    "products": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+                    "established": "2021-03-08T22:00:00.000Z",
+                    "website": {
+                        "mainWebsite": "https://milky-pan.name/",
+                        "contactDetails": "91396 Sycamore Drive Suite 631",
+                        "returnPolicyUrl": "https://disgusting-bongo.com",
+                        "shippingPolicyUrl": "https://twin-identity.net/",
+                        "aboutUsUrl": "https://reckless-infection.org/",
+                        "termsOfUseUrl": "https://parched-forager.com",
+                        "privacyPolicyUrl": "https://misty-boy.org/",
+                        "productQuantity": 33,
+                        "productDescription": "Defluo deludo coerceo.\nCedo truculenter antiquus absconditus teneo conventus villa subito thermae.",
+                        "productPrice": 39.91,
+                        "websiteLanguage": "interlingua (international auxiliary language association)"
+                    },
+                    "processingDetails": {
+                        "isSpikeInSales": false,
+                        "monthlySalesVolume": 61460,
+                        "monthlyTransactions": 27,
+                        "estimatedMonthlySales": 26779,
+                        "estimatedMonthlyTransactions": 97,
+                        "averageTicketAmount": 542.87,
+                        "minimumTicketAmount": 92.82,
+                        "maximumTicketAmount": 303.66,
+                        "volumeInRegion": "87.46",
+                        "mainCategory": ["B2C"],
+                        "businessModel": ["Membership", "Direct Purchase"]
+                    }
+                },
+                "hasConfirmed": true
+            },
+            "registrationNumber": "3360492520669",
+            "country": "KZ",
+            "taxIdentificationNumber": "4001308760125",
+            "numberOfEmployees": 31,
+            "businessType": "Non-Profit Organization"
+        },
+        "ballerineEntityId": "cluo9vzln0001u91n8n4h8eqz"
+    }
+}

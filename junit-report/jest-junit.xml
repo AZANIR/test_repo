@@ -1,0 +1,25 @@
+<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="10.842065999999999">
+<testsuite name="bacoffice\backoffice-001.spec.ts" timestamp="2024-05-30T19:06:22.074Z" hostname="Chrome" tests="3" failures="0" skipped="0" time="2.168" errors="0">
+<testcase name="Login with invalid email (Qase ID: 1)" classname="bacoffice\backoffice-001.spec.ts" time="0.709">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\bacoffice-backoffice-001-Login-with-invalid-email-Qase-ID-1--Chrome\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Login with invalid password @login (Qase ID: 2)" classname="bacoffice\backoffice-001.spec.ts" time="0.598">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\bacoffice-backoffice-001-Login-with-invalid-password-login-Qase-ID-2--Chrome\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Login with valid credential @login (Qase ID: 3)" classname="bacoffice\backoffice-001.spec.ts" time="0.861">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\bacoffice-backoffice-001-Login-with-valid-credential-login-Qase-ID-3--Chrome\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

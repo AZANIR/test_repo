@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './base-page.po';
+import { step } from '../source/step';
 
 export class LogInPage extends BasePage {
     private inputEmail: Locator;
@@ -23,6 +24,7 @@ export class LogInPage extends BasePage {
      * @param email - The email to be set in the input field.
      * @returns A promise that resolves once the email is set.
      */
+    @step()
     public async setEmailInput(email: string): Promise<void> {
         await this.inputEmail.fill(email);
     }
@@ -32,6 +34,7 @@ export class LogInPage extends BasePage {
      * @param password - The password to be set in the input field.
      * @returns A promise that resolves once the password is set.
      */
+    @step()
     public async setPasswordInput(password: string): Promise<void> {
         await this.inputPassword.fill(password);
     }
@@ -40,6 +43,7 @@ export class LogInPage extends BasePage {
      * Clicks the sign in button.
      * @returns A promise that resolves once the button is clicked.
      */
+    @step()
     public async clickSignInButton(): Promise<void> {
         await this.buttonSignIn.click();
         await this.waitForPageIsLoaded();
@@ -49,6 +53,7 @@ export class LogInPage extends BasePage {
      * Checks if the error message is visible.
      * @returns A promise that resolves to a boolean indicating whether the error message is visible.
      */
+    @step()
     public async isErrorMessageVisible(): Promise<boolean> {
         await this.errorMessage.waitFor({ state: 'visible' });
         return this.errorMessage.isVisible();
@@ -58,6 +63,7 @@ export class LogInPage extends BasePage {
      * Checks if the notice message for the email input is visible.
      * @returns A promise that resolves to a boolean indicating whether the notice message is visible.
      */
+    @step()
     public async isNoticeEmailInputVisible(): Promise<boolean> {
         await this.noticeEmailInput.waitFor({ state: 'visible' });
         return this.noticeEmailInput.isVisible();

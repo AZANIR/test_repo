@@ -1,5 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './base-page.po';
+import { Timeout } from '../enums/timeouts.enum';
+import { step } from '../source/step';
 
 export class CollectionPage extends BasePage {
     private readonly fieldSetRoot: Locator;
@@ -101,18 +103,19 @@ export class CollectionPage extends BasePage {
     private readonly iConfirmCheckbox: Locator;
     private readonly checkedIConfirmImage: Locator;
     private readonly destructiveText: Locator;
-
     private readonly destructiveDocumentInput: Locator;
+    private readonly associatedCompaniesButton: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.associatedCompaniesButton = this.page.locator('[data-testid="there-no-companies-with-more-than-25"]');
         this.destructiveDocumentInput = this.page
             .locator('//p[contains(@class,"text-destructive")]/../../../input')
             .first();
         this.destructiveText = this.page.locator('p.text-destructive').first();
         this.checkedIConfirmImage = this.page.locator('div>img[src*="checked"]');
         this.certificateOfIncorporationInput = this.page.locator(
-            '[for="root_document-certificates-of-incorporation"]+div [type="file"]'
+            '[for*="root_document-certificate"]+div [type="file"]'
         );
         this.businessRegistrationCertificateInput = this.page.locator(
             '[for="root_document-business-registration-certificate"]+div [type="file"]'
@@ -182,7 +185,9 @@ export class CollectionPage extends BasePage {
         this.establishedDateInput = this.page.locator(
             '[for="root_store-established-input"]+div [placeholder="MM/DD/YYYY"]'
         );
-        this.cardHolderNameInput = this.page.locator('[name="card-holder-name-input"]');
+        this.cardHolderNameInput = this.page.locator(
+            '//*[@name="card-holder-name-input"]|//*[@name="company-account-holder-name-input"]'
+        );
         this.residentAddressInput = this.page.locator('[name="resident-address-input"]');
         this.bankingAccountNumberInput = this.page.locator('[name="account-number-input"]');
         this.bankingIbanInput = this.page.locator('[name="iban-input"]');
@@ -531,9 +536,27 @@ export class CollectionPage extends BasePage {
     }
 
     /**
+     * Clicks the Associated Companies button.
+     *
+     * @param checkButton - Optional parameter to indicate whether to check if the button is visible before clicking.
+     * @returns A promise that resolves once the button is clicked.
+     */
+    @step()
+    public async clickAssociatedCompaniesButton(checkButton: boolean = true): Promise<void> {
+        if (checkButton) {
+            if (await this.associatedCompaniesButton.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.associatedCompaniesButton.click();
+            }
+        } else {
+            await this.associatedCompaniesButton.click();
+        }
+    }
+
+    /**
      * Checks if the destructive text is visible.
      * @returns A promise that resolves to a boolean indicating whether the text is visible or not.
      */
+    @step()
     public async isDestructiveTextVisible(): Promise<boolean> {
         return this.destructiveText.isVisible();
     }
@@ -542,6 +565,7 @@ export class CollectionPage extends BasePage {
      * Checks if the papers checked confirmation image is visible.
      * @returns A promise that resolves to a boolean indicating whether the image is visible.
      */
+    @step()
     public async papersCheckedIsVisible(): Promise<boolean> {
         return this.checkedIConfirmImage.isVisible();
     }
@@ -551,11 +575,25 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadCertificateOfIncorporation(filePath: string): Promise<void> {
-        await this.certificateOfIncorporationInput.waitFor({ state: 'visible' });
-        await this.certificateOfIncorporationInput.setInputFiles(filePath);
+    @step()
+    public async uploadCertificateOfIncorporation(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.certificateOfIncorporationInput.first().isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.certificateOfIncorporationInput.first().setInputFiles(filePath);
+            }
+        } else {
+            await this.certificateOfIncorporationInput.first().waitFor({ state: 'visible' });
+            await this.certificateOfIncorporationInput.first().setInputFiles(filePath);
+        }
     }
 
+    /**
+     * Reuploads a destructive document.
+     *
+     * @param filePath - The file path of the document to be uploaded.
+     * @returns A promise that resolves when the document is successfully reuploaded.
+     */
+    @step()
     public async reuploadDestructiveDocument(filePath: string): Promise<void> {
         await this.destructiveDocumentInput.waitFor({ state: 'visible' });
         await this.destructiveDocumentInput.setInputFiles(filePath);
@@ -566,9 +604,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadBusinessRegistrationCertificate(filePath: string): Promise<void> {
-        await this.businessRegistrationCertificateInput.waitFor({ state: 'visible' });
-        await this.businessRegistrationCertificateInput.setInputFiles(filePath);
+    @step()
+    public async uploadBusinessRegistrationCertificate(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.businessRegistrationCertificateInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.businessRegistrationCertificateInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.businessRegistrationCertificateInput.waitFor({ state: 'visible' });
+            await this.businessRegistrationCertificateInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -576,9 +621,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadCorporateTaxCertificate(filePath: string): Promise<void> {
-        await this.corporateTaxCertificateInput.waitFor({ state: 'visible' });
-        await this.corporateTaxCertificateInput.setInputFiles(filePath);
+    @step()
+    public async uploadCorporateTaxCertificate(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.corporateTaxCertificateInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.corporateTaxCertificateInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.corporateTaxCertificateInput.waitFor({ state: 'visible' });
+            await this.corporateTaxCertificateInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -586,9 +638,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadCertificateOfGoodStanding(filePath: string): Promise<void> {
-        await this.certificateOfGoodStandingInput.waitFor({ state: 'visible' });
-        await this.certificateOfGoodStandingInput.setInputFiles(filePath);
+    @step()
+    public async uploadCertificateOfGoodStanding(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.certificateOfGoodStandingInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.certificateOfGoodStandingInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.certificateOfGoodStandingInput.waitFor({ state: 'visible' });
+            await this.certificateOfGoodStandingInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -596,9 +655,19 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadCertificateOfDirectorsAndShareholders(filePath: string): Promise<void> {
-        await this.certificateOfDirectorsAndShareholdersInput.waitFor({ state: 'visible' });
-        await this.certificateOfDirectorsAndShareholdersInput.setInputFiles(filePath);
+    @step()
+    public async uploadCertificateOfDirectorsAndShareholders(
+        filePath: string,
+        checkInput: boolean = true
+    ): Promise<void> {
+        if (checkInput) {
+            if (await this.certificateOfDirectorsAndShareholdersInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.certificateOfDirectorsAndShareholdersInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.certificateOfDirectorsAndShareholdersInput.waitFor({ state: 'visible' });
+            await this.certificateOfDirectorsAndShareholdersInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -606,9 +675,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadCompanySealPicture(filePath: string): Promise<void> {
-        await this.companySealPictureInput.waitFor({ state: 'visible' });
-        await this.companySealPictureInput.setInputFiles(filePath);
+    @step()
+    public async uploadCompanySealPicture(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.companySealPictureInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.companySealPictureInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.companySealPictureInput.waitFor({ state: 'visible' });
+            await this.companySealPictureInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -616,9 +692,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadProofOfBankAccount(filePath: string): Promise<void> {
-        await this.proofOfBankAccountInput.waitFor({ state: 'visible' });
-        await this.proofOfBankAccountInput.setInputFiles(filePath);
+    @step()
+    public async uploadProofOfBankAccount(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.proofOfBankAccountInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.proofOfBankAccountInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.proofOfBankAccountInput.waitFor({ state: 'visible' });
+            await this.proofOfBankAccountInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -626,9 +709,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadOtherSupplementaryInformation(filePath: string): Promise<void> {
-        await this.otherSupplementaryInformationInput.waitFor({ state: 'visible' });
-        await this.otherSupplementaryInformationInput.setInputFiles(filePath);
+    @step()
+    public async uploadOtherSupplementaryInformation(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.otherSupplementaryInformationInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.otherSupplementaryInformationInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.otherSupplementaryInformationInput.waitFor({ state: 'visible' });
+            await this.otherSupplementaryInformationInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -636,9 +726,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadDomainPurchaseRecordCertificate(filePath: string): Promise<void> {
-        await this.domainPurchaseRecordCertificateInput.waitFor({ state: 'visible' });
-        await this.domainPurchaseRecordCertificateInput.setInputFiles(filePath);
+    @step()
+    public async uploadDomainPurchaseRecordCertificate(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.domainPurchaseRecordCertificateInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.domainPurchaseRecordCertificateInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.domainPurchaseRecordCertificateInput.waitFor({ state: 'visible' });
+            await this.domainPurchaseRecordCertificateInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -646,9 +743,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadFrontDoorPhoto(filePath: string): Promise<void> {
-        await this.frontDoorPhotoInput.waitFor({ state: 'visible' });
-        await this.frontDoorPhotoInput.setInputFiles(filePath);
+    @step()
+    public async uploadFrontDoorPhoto(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.frontDoorPhotoInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.frontDoorPhotoInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.frontDoorPhotoInput.waitFor({ state: 'visible' });
+            await this.frontDoorPhotoInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -656,9 +760,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadInteriorOfficePhoto1(filePath: string): Promise<void> {
-        await this.interiorOfficePhoto1Input.waitFor({ state: 'visible' });
-        await this.interiorOfficePhoto1Input.setInputFiles(filePath);
+    @step()
+    public async uploadInteriorOfficePhoto1(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.interiorOfficePhoto1Input.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.interiorOfficePhoto1Input.setInputFiles(filePath);
+            }
+        } else {
+            await this.interiorOfficePhoto1Input.waitFor({ state: 'visible' });
+            await this.interiorOfficePhoto1Input.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -666,9 +777,16 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadInteriorOfficePhoto2(filePath: string): Promise<void> {
-        await this.interiorOfficePhoto2Input.waitFor({ state: 'visible' });
-        await this.interiorOfficePhoto2Input.setInputFiles(filePath);
+    @step()
+    public async uploadInteriorOfficePhoto2(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.interiorOfficePhoto2Input.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.interiorOfficePhoto2Input.setInputFiles(filePath);
+            }
+        } else {
+            await this.interiorOfficePhoto2Input.waitFor({ state: 'visible' });
+            await this.interiorOfficePhoto2Input.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -676,15 +794,23 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadTransactionData(filePath: string): Promise<void> {
-        await this.transactionDataInput.waitFor({ state: 'visible' });
-        await this.transactionDataInput.setInputFiles(filePath);
+    @step()
+    public async uploadTransactionData(filePath: string, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.transactionDataInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.transactionDataInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.transactionDataInput.waitFor({ state: 'visible' });
+            await this.transactionDataInput.setInputFiles(filePath);
+        }
     }
 
     /**
      * Clicks the I confirm checkbox.
      * @returns A promise that resolves once the checkbox is clicked.
      */
+    @step()
     public async clickIConfirmCheckbox(): Promise<void> {
         await this.iConfirmCheckbox.waitFor({ state: 'visible' });
         await this.iConfirmCheckbox.click();
@@ -695,6 +821,7 @@ export class CollectionPage extends BasePage {
      * @param monthlySalesVolume - The value to be filled in the monthly sales volume input field.
      * @returns A promise that resolves once the input field is filled.
      * */
+    @step()
     public async fillMonthlySalesVolumeInput(monthlySalesVolume: string): Promise<void> {
         await this.monthlySalesVolumeInput.waitFor({ state: 'visible' });
         await this.monthlySalesVolumeInput.fill(monthlySalesVolume);
@@ -705,6 +832,7 @@ export class CollectionPage extends BasePage {
      * @param monthlyNumberOfTransactions - The value to be filled in the monthly number of transactions input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillMonthlyNumberOfTransactionsInput(monthlyNumberOfTransactions: string): Promise<void> {
         await this.monthlyNumberOfTransactionsInput.waitFor({ state: 'visible' });
         await this.monthlyNumberOfTransactionsInput.fill(monthlyNumberOfTransactions);
@@ -715,6 +843,7 @@ export class CollectionPage extends BasePage {
      * @param estMonthlySalesVolume - The value to be filled in the estimated monthly sales volume input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillEstMonthlySalesVolumeInput(estMonthlySalesVolume: string): Promise<void> {
         await this.estMonthlySalesVolumeInput.waitFor({ state: 'visible' });
         await this.estMonthlySalesVolumeInput.fill(estMonthlySalesVolume);
@@ -725,6 +854,7 @@ export class CollectionPage extends BasePage {
      * @param estMonthlyNumberOfTransactions - The value to be filled in the estimated monthly number of transactions input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillEstMonthlyNumberOfTransactionsInput(estMonthlyNumberOfTransactions: string): Promise<void> {
         await this.estMonthlyNumberOfTransactionsInput.waitFor({ state: 'visible' });
         await this.estMonthlyNumberOfTransactionsInput.fill(estMonthlyNumberOfTransactions);
@@ -735,6 +865,7 @@ export class CollectionPage extends BasePage {
      * @param averageTicketAmount - The value to be filled in the average ticket amount input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillAverageTicketAmountInput(averageTicketAmount: string): Promise<void> {
         await this.averageTicketAmountInput.waitFor({ state: 'visible' });
         await this.averageTicketAmountInput.fill(averageTicketAmount);
@@ -745,6 +876,7 @@ export class CollectionPage extends BasePage {
      * @param minimumTicketAmount - The value to be filled in the minimum ticket amount input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillMinimumTicketAmountInput(minimumTicketAmount: string): Promise<void> {
         await this.minimumTicketAmountInput.waitFor({ state: 'visible' });
         await this.minimumTicketAmountInput.fill(minimumTicketAmount);
@@ -755,6 +887,7 @@ export class CollectionPage extends BasePage {
      * @param maximumTicketAmount - The value to be filled in the maximum ticket amount input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillMaximumTicketAmountInput(maximumTicketAmount: string): Promise<void> {
         await this.maximumTicketAmountInput.waitFor({ state: 'visible' });
         await this.maximumTicketAmountInput.fill(maximumTicketAmount);
@@ -765,6 +898,7 @@ export class CollectionPage extends BasePage {
      * @param asia70Europe30 - The value to be filled in the asia 70 europe 30 input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillAsia70Europe30Input(asia70Europe30: string): Promise<void> {
         await this.asia70Europe30Input.waitFor({ state: 'visible' });
         await this.asia70Europe30Input.fill(asia70Europe30);
@@ -774,6 +908,7 @@ export class CollectionPage extends BasePage {
      * Fills the customer category select input with a random value.
      * @returns A promise that resolves once the input is filled.
      */
+    @step()
     public async selectCustomerCategorySelectInput(): Promise<void> {
         await this.customerCategorySelectButton.waitFor({ state: 'visible' });
         await this.customerCategorySelectButton.click();
@@ -785,6 +920,7 @@ export class CollectionPage extends BasePage {
      * Clicks the membership select checkbox.
      * @returns A promise that resolves once the checkbox is clicked.
      */
+    @step()
     public async clickMembershipSelectCheckbox(): Promise<void> {
         await this.membershipSelectCheckbox.waitFor({ state: 'visible' });
         await this.membershipSelectCheckbox.click();
@@ -794,6 +930,7 @@ export class CollectionPage extends BasePage {
      * Clicks the direct purchase select checkbox.
      * @returns A promise that resolves once the checkbox is clicked.
      */
+    @step()
     public async clickDirectPurchaseSelectCheckbox(): Promise<void> {
         await this.directPurchaseSelectCheckbox.waitFor({ state: 'visible' });
         await this.directPurchaseSelectCheckbox.click();
@@ -804,6 +941,7 @@ export class CollectionPage extends BasePage {
      * @param mainCompanyWebsite The value to be filled in the company main website input field.
      * @returns A promise that resolves when the input field is filled.
      */
+    @step()
     public async fillCompanyMainWebSiteInput(mainCompanyWebsite: string): Promise<void> {
         await this.companyMainWebSiteInput.waitFor({ state: 'visible' });
         await this.companyMainWebSiteInput.fill(mainCompanyWebsite);
@@ -814,6 +952,7 @@ export class CollectionPage extends BasePage {
      * @param contactDetails - The value to be filled in the company contacts detail address input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyContactsDetailAddressInput(contactDetails: string): Promise<void> {
         await this.companyContactsDetailAddressInput.waitFor({ state: 'visible' });
         await this.companyContactsDetailAddressInput.fill(contactDetails);
@@ -824,6 +963,7 @@ export class CollectionPage extends BasePage {
      * @param returnExchangePolicy - The value to be filled in the company return exchange policy input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyReturnExchangePolicyInput(returnExchangePolicy: string): Promise<void> {
         await this.companyReturnExchangePolicyInput.waitFor({ state: 'visible' });
         await this.companyReturnExchangePolicyInput.fill(returnExchangePolicy);
@@ -834,6 +974,7 @@ export class CollectionPage extends BasePage {
      * @param shippingPolicy - The value to be filled in the company shipping policy input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyShippingPolicyInput(shippingPolicy: string): Promise<void> {
         await this.companyShippingPolicyInput.waitFor({ state: 'visible' });
         await this.companyShippingPolicyInput.fill(shippingPolicy);
@@ -844,6 +985,7 @@ export class CollectionPage extends BasePage {
      * @param aboutUs - The value to be filled in the company about us input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyAboutUsInput(aboutUs: string): Promise<void> {
         await this.companyAboutUsInput.waitFor({ state: 'visible' });
         await this.companyAboutUsInput.fill(aboutUs);
@@ -854,6 +996,7 @@ export class CollectionPage extends BasePage {
      * @param termsOfUse - The value to be filled in the company terms of use input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyTermsOfUseInput(termsOfUse: string): Promise<void> {
         await this.companyTermsOfUseInput.waitFor({ state: 'visible' });
         await this.companyTermsOfUseInput.fill(termsOfUse);
@@ -864,6 +1007,7 @@ export class CollectionPage extends BasePage {
      * @param privacyPolicy - The value to be filled in the company privacy policy input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyPrivacyPolicyInput(privacyPolicy: string): Promise<void> {
         await this.companyPrivacyPolicyInput.waitFor({ state: 'visible' });
         await this.companyPrivacyPolicyInput.fill(privacyPolicy);
@@ -874,6 +1018,7 @@ export class CollectionPage extends BasePage {
      * @param productQuantity - The value to be filled in the company product quantity input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyProductQuantityInput(productQuantity: string): Promise<void> {
         await this.companyProductQuantityInput.waitFor({ state: 'visible' });
         await this.companyProductQuantityInput.fill(productQuantity);
@@ -884,6 +1029,7 @@ export class CollectionPage extends BasePage {
      * @param productDescription - The value to be filled in the company product description textarea.
      * @returns A promise that resolves once the textarea is filled.
      */
+    @step()
     public async fillCompanyProductDescriptionTextarea(productDescription: string): Promise<void> {
         await this.companyProductDescriptionTextarea.waitFor({ state: 'visible' });
         await this.companyProductDescriptionTextarea.fill(productDescription);
@@ -894,6 +1040,7 @@ export class CollectionPage extends BasePage {
      * @param productPrice - The value to be filled in the company product price input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCompanyProductPriceInput(productPrice: string): Promise<void> {
         await this.companyProductPriceInput.waitFor({ state: 'visible' });
         await this.companyProductPriceInput.fill(productPrice);
@@ -904,6 +1051,7 @@ export class CollectionPage extends BasePage {
      * @param language - The language to fill in the select input.
      * @returns A promise that resolves once the input is filled.
      */
+    @step()
     public async fillCompanyWebsiteLanguageInput(language: string): Promise<void> {
         await this.companyWebsiteLanguageSelectButton.waitFor({ state: 'visible' });
         await this.companyWebsiteLanguageSelectButton.click();
@@ -916,6 +1064,7 @@ export class CollectionPage extends BasePage {
      * @param websiteUrl - The website url to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillWebsiteUrlInput(websiteUrl: string): Promise<void> {
         await this.websiteUrlInput.waitFor({ state: 'visible' });
         await this.websiteUrlInput.fill(websiteUrl);
@@ -926,11 +1075,17 @@ export class CollectionPage extends BasePage {
      * @param dbaDescriptor - The dba descriptor to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillDbaDescriptorInput(dbaDescriptor: string): Promise<void> {
         await this.dbaDescriptorInput.waitFor({ state: 'visible' });
         await this.dbaDescriptorInput.fill(dbaDescriptor);
     }
 
+    /**
+     * Fills the industry select input with a random industry option.
+     * @returns A promise that resolves once the industry select input is filled.
+     */
+    @step()
     public async fillIndustrySelectInput(): Promise<void> {
         await this.industrySelectButton.waitFor({ state: 'visible' });
         await this.industrySelectButton.click();
@@ -943,6 +1098,7 @@ export class CollectionPage extends BasePage {
      * Retrieves the value of the industry select button.
      * @returns A promise that resolves to a string representing the industry value.
      */
+    @step()
     public async getIndustryValue(): Promise<string> {
         return await this.industrySelectButton.textContent();
     }
@@ -952,11 +1108,18 @@ export class CollectionPage extends BasePage {
      * @param productDescription - The product description to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillProductsDescriptionInput(productDescription: string): Promise<void> {
         await this.productsDescriptionInput.waitFor({ state: 'visible' });
         await this.productsDescriptionInput.fill(productDescription);
     }
 
+    /**
+     * Fills the established date input field with the specified value.
+     * @param establishedDate - The value to be filled in the established date input field.
+     * @returns A promise that resolves once the input field is filled.
+     */
+    @step()
     public async fillEstablishedDateInput(establishedDate: string): Promise<void> {
         await this.establishedDateInput.waitFor({ state: 'visible' });
         await this.establishedDateInput.click();
@@ -968,7 +1131,9 @@ export class CollectionPage extends BasePage {
      * @param cardHolderName - The value to be filled in the card holder name input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillCardHolderNameInput(cardHolderName: string): Promise<void> {
+        await this.page.waitForTimeout(1000);
         await this.cardHolderNameInput.waitFor({ state: 'visible' });
         await this.cardHolderNameInput.fill(cardHolderName);
     }
@@ -978,6 +1143,7 @@ export class CollectionPage extends BasePage {
      * @param residentAddress - The address to fill in the resident address input field.
      * @returns A promise that resolves once the address is filled.
      */
+    @step()
     public async fillResidentAddressInput(residentAddress: string): Promise<void> {
         await this.residentAddressInput.waitFor({ state: 'visible' });
         await this.residentAddressInput.fill(residentAddress);
@@ -988,6 +1154,7 @@ export class CollectionPage extends BasePage {
      * @param accountNumber - The account number to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingAccountNumberInput(accountNumber: string): Promise<void> {
         await this.bankingAccountNumberInput.waitFor({ state: 'visible' });
         await this.bankingAccountNumberInput.fill(accountNumber);
@@ -998,6 +1165,7 @@ export class CollectionPage extends BasePage {
      * @param iban - The IBAN to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingIbanInput(iban: string): Promise<void> {
         await this.bankingIbanInput.waitFor({ state: 'visible' });
         await this.bankingIbanInput.fill(iban);
@@ -1008,6 +1176,7 @@ export class CollectionPage extends BasePage {
      * @param swift - The value to be filled in the banking swift input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingSwiftInput(swift: string): Promise<void> {
         await this.bankingSwiftInput.waitFor({ state: 'visible' });
         await this.bankingSwiftInput.fill(swift);
@@ -1018,6 +1187,7 @@ export class CollectionPage extends BasePage {
      * @param routeNumber - The value to be filled in the banking route number input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingRouteNumberInput(routeNumber: string): Promise<void> {
         await this.bankingRouteNumberInput.waitFor({ state: 'visible' });
         await this.bankingRouteNumberInput.fill(routeNumber);
@@ -1028,6 +1198,7 @@ export class CollectionPage extends BasePage {
      * @param bankName - The value to be filled in the banking bank name input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingBankNameInput(bankName: string): Promise<void> {
         await this.bankingBankNameInput.waitFor({ state: 'visible' });
         await this.bankingBankNameInput.fill(bankName);
@@ -1038,6 +1209,7 @@ export class CollectionPage extends BasePage {
      * @param bankCode - The bank code to fill in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingBankCodeInput(bankCode: string): Promise<void> {
         await this.bankingBankCodeInput.waitFor({ state: 'visible' });
         await this.bankingBankCodeInput.fill(bankCode);
@@ -1048,6 +1220,7 @@ export class CollectionPage extends BasePage {
      * @param bankAddress - The value to be filled in the banking bank address input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingBankAddressInput(bankAddress: string): Promise<void> {
         await this.bankingBankAddressInput.waitFor({ state: 'visible' });
         await this.bankingBankAddressInput.fill(bankAddress);
@@ -1058,6 +1231,7 @@ export class CollectionPage extends BasePage {
      * @param subBranchNumber - The value to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBankingSubBranchNumberInput(subBranchNumber: string): Promise<void> {
         await this.bankingSubBranchNumberInput.waitFor({ state: 'visible' });
         await this.bankingSubBranchNumberInput.fill(subBranchNumber);
@@ -1069,6 +1243,7 @@ export class CollectionPage extends BasePage {
      * @param currency - The currency to fill in the select input.
      * @returns A promise that resolves once the input is filled.
      */
+    @step()
     public async fillBankingAccountCurrencySelectInput(currency: string): Promise<void> {
         await this.bankingAccountCurrencySelectButton.waitFor({ state: 'visible' });
         await this.bankingAccountCurrencySelectButton.click();
@@ -1080,6 +1255,7 @@ export class CollectionPage extends BasePage {
      * Checks if the field set root is visible.
      * @returns A promise that resolves to a boolean indicating whether the field set root is visible.
      */
+    @step()
     public async isFieldSetRootVisible(): Promise<boolean> {
         this.fieldSetRoot.first().waitFor({ state: 'visible' });
         return this.fieldSetRoot.first().isVisible();
@@ -1089,6 +1265,7 @@ export class CollectionPage extends BasePage {
      * Retrieves the value of the first name input field.
      * @returns A promise that resolves to a string representing the input value.
      */
+    @step()
     public async getFirstNameInputValue(): Promise<string> {
         return this.firstNameInput.inputValue();
     }
@@ -1097,6 +1274,7 @@ export class CollectionPage extends BasePage {
      * Retrieves the value of the last name input field.
      * @returns A promise that resolves to a string representing the value of the last name input field.
      */
+    @step()
     public async getLastNameInputValue(): Promise<string> {
         return this.lastNameInput.inputValue();
     }
@@ -1106,6 +1284,7 @@ export class CollectionPage extends BasePage {
      * @param jobTitle - The job title to be filled in the input field.
      * @returns A promise that resolves once the job title input field is filled.
      */
+    @step()
     public async fillJobTittleInput(jobTitle: string): Promise<void> {
         await this.jobTitleInput.waitFor({ state: 'visible' });
         await this.jobTitleInput.fill(jobTitle);
@@ -1116,6 +1295,7 @@ export class CollectionPage extends BasePage {
      * @param dateOfBirth - The date (MM/DD/YYYY) of birth to be filled in the input field.
      * @returns A promise that resolves once the date of birth input field is filled.
      */
+    @step()
     public async fillDateOfBirthInput(dateOfBirth: string): Promise<void> {
         await this.dateOfBirthInput.waitFor({ state: 'visible' });
         await this.dateOfBirthInput.click();
@@ -1127,9 +1307,10 @@ export class CollectionPage extends BasePage {
      * @param phone The phone number to fill in the input field.
      * @returns A promise that resolves once the phone input field is filled.
      */
+    @step()
     public async fillPhoneInput(phone: string): Promise<void> {
         await this.phoneInput.waitFor({ state: 'visible' });
-        await this.phoneInput.click();
+        await this.phoneInput.focus();
         await this.phoneInput.fill(phone);
     }
 
@@ -1137,6 +1318,7 @@ export class CollectionPage extends BasePage {
      * Clicks the sign checkbox.
      * @returns A promise that resolves when the checkbox is clicked.
      */
+    @step()
     public async clickSignCheckbox(): Promise<void> {
         await this.signCheckbox.waitFor({ state: 'visible' });
         await this.signCheckbox.click();
@@ -1146,10 +1328,12 @@ export class CollectionPage extends BasePage {
      * Clicks the continue button.
      * @returns A promise that resolves once the continue button is clicked.
      */
+    @step()
     public async clickContinueButton(): Promise<void> {
         await this.continueButton.waitFor({ state: 'visible' });
         await this.continueButton.click();
         await this.waitForPageIsLoaded();
+        await this.page.waitForTimeout(2000);
     }
 
     /**
@@ -1157,6 +1341,7 @@ export class CollectionPage extends BasePage {
      * !!! will be fixed in the future
      * @returns A promise that resolves once the continue button is clicked.
      */
+    @step()
     public async clickContinueButtonIfDisplayed(): Promise<void> {
         while ((await this.continueButton.innerText()).includes('Continue')) {
             await this.continueButton.click();
@@ -1169,6 +1354,7 @@ export class CollectionPage extends BasePage {
      * @param registrationNumber - The registration number to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillRegistrationNumberInput(registrationNumber: string): Promise<void> {
         await this.registrationNumberInput.waitFor({ state: 'visible' });
         await this.registrationNumberInput.fill(registrationNumber);
@@ -1178,6 +1364,7 @@ export class CollectionPage extends BasePage {
      * Retrieves the company name from the input field.
      * @returns A promise that resolves to the company name as a string.
      */
+    @step()
     public async getCompanyNameInputValue(): Promise<string> {
         return this.companyNameInput.inputValue();
     }
@@ -1188,6 +1375,7 @@ export class CollectionPage extends BasePage {
      *
      * @returns A promise that resolves once the button is clicked.
      */
+    @step()
     public async clickCountrySelectButton(): Promise<void> {
         await this.countrySelectButton.waitFor({ state: 'visible' });
         await this.countrySelectButton.click();
@@ -1198,6 +1386,7 @@ export class CollectionPage extends BasePage {
      * @param country - The country to fill in the select input.
      * @returns A promise that resolves once the country is filled in.
      */
+    @step()
     public async fillCountrySelectInput(country: string): Promise<void> {
         await this.countrySelectInput.waitFor({ state: 'visible' });
         await this.countrySelectInput.fill(country);
@@ -1209,6 +1398,7 @@ export class CollectionPage extends BasePage {
      * @param taxIdentificationNumber - The value to be filled in the tax identification number input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillTaxIdentificationNumberInput(taxIdentificationNumber: string): Promise<void> {
         await this.taxIdentificationNumberInput.waitFor({ state: 'visible' });
         await this.taxIdentificationNumberInput.fill(taxIdentificationNumber);
@@ -1219,6 +1409,7 @@ export class CollectionPage extends BasePage {
      * @param amountOfEmployees - The value to be filled in the amount of employees input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillAmountOfEmployeesInput(amountOfEmployees: string): Promise<void> {
         await this.amountOfEmployeesInput.waitFor({ state: 'visible' });
         await this.amountOfEmployeesInput.fill(amountOfEmployees);
@@ -1229,6 +1420,7 @@ export class CollectionPage extends BasePage {
      * Waits for the registeredCapitalInput to be visible before performing the action.
      * @returns A promise that resolves once the corporate type input is set.
      */
+    @step()
     public async setCorporateTypeInput(): Promise<void> {
         await this.registeredCapitalInput.waitFor({ state: 'visible' });
         await this.corporateTypeInput.click();
@@ -1240,6 +1432,7 @@ export class CollectionPage extends BasePage {
      * Retrieves the input value of the corporate type.
      * @returns A promise that resolves to the input value of the corporate type.
      */
+    @step()
     public async getCorporateTypeInputValue(): Promise<string> {
         return this.corporateTypeInput.inputValue();
     }
@@ -1249,6 +1442,7 @@ export class CollectionPage extends BasePage {
      * @param registeredCapital - The value to be filled in the registered capital input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillRegisteredCapitalInput(registeredCapital: string): Promise<void> {
         await this.registeredCapitalInput.waitFor({ state: 'visible' });
         await this.registeredCapitalInput.fill(registeredCapital);
@@ -1259,6 +1453,7 @@ export class CollectionPage extends BasePage {
      * @param street - The street value to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBusinessStreetInput(street: string): Promise<void> {
         await this.businessStreetInput.waitFor({ state: 'visible' });
         await this.businessStreetInput.fill(street);
@@ -1269,6 +1464,7 @@ export class CollectionPage extends BasePage {
      * @param streetNumber - The street number to fill in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillBusinessStreetNumberInput(streetNumber: string): Promise<void> {
         await this.businessStreetNumberInput.waitFor({ state: 'visible' });
         await this.businessStreetNumberInput.fill(streetNumber);
@@ -1279,6 +1475,7 @@ export class CollectionPage extends BasePage {
      * @param city - The city to be filled in the input field.
      * @returns A promise that resolves once the city is filled in the input field.
      */
+    @step()
     public async fillBusinessCityInput(city: string): Promise<void> {
         await this.businessCityInput.waitFor({ state: 'visible' });
         await this.businessCityInput.fill(city);
@@ -1289,6 +1486,7 @@ export class CollectionPage extends BasePage {
      * @param country - The country to fill in the input.
      * @returns A promise that resolves when the input is filled.
      */
+    @step()
     public async fillBusinessCountrySelectInput(country: string): Promise<void> {
         await this.businessCountrySelectButton.waitFor({ state: 'visible' });
         await this.businessCountrySelectButton.click();
@@ -1301,6 +1499,7 @@ export class CollectionPage extends BasePage {
      *
      * @returns A promise that resolves when the checkbox is clicked.
      */
+    @step()
     public async clickUboCheckbox(): Promise<void> {
         await this.uboCheckbox.waitFor({ state: 'visible' });
         await this.uboCheckbox.click();
@@ -1312,6 +1511,7 @@ export class CollectionPage extends BasePage {
      * @param national - The nationality value to fill.
      * @returns A promise that resolves once the input is filled.
      */
+    @step()
     public async fillUboNationalitySelectInput(national: string): Promise<void> {
         await this.uboNationalitySelectButton.waitFor({ state: 'visible' });
         await this.uboNationalitySelectButton.click();
@@ -1324,6 +1524,7 @@ export class CollectionPage extends BasePage {
      * @param identityNumber - The identity number to fill in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillUboIdentityNumberInput(identityNumber: string): Promise<void> {
         await this.uboIdentityNumberInput.waitFor({ state: 'visible' });
         await this.uboIdentityNumberInput.fill(identityNumber);
@@ -1334,6 +1535,7 @@ export class CollectionPage extends BasePage {
      * @param address - The address to fill in the UBO full address input field.
      * @returns A promise that resolves once the address is filled.
      */
+    @step()
     public async fillUboFullAddressInput(address: string): Promise<void> {
         await this.uboFullAddressInput.waitFor({ state: 'visible' });
         await this.uboFullAddressInput.fill(address);
@@ -1344,6 +1546,7 @@ export class CollectionPage extends BasePage {
      * @param ownershipPercentage - The ownership percentage to fill in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillUboOwnershipPercentageInput(ownershipPercentage: string): Promise<void> {
         await this.uboOwnershipPercentageInput.waitFor({ state: 'visible' });
         await this.uboOwnershipPercentageInput.fill(ownershipPercentage);
@@ -1353,6 +1556,7 @@ export class CollectionPage extends BasePage {
      * Clicks the directors checkbox.
      * @returns A promise that resolves when the checkbox is clicked.
      */
+    @step()
     public async clickDirectorsCheckbox(): Promise<void> {
         await this.directorsCheckbox.waitFor({ state: 'visible' });
         await this.directorsCheckbox.click();
@@ -1364,6 +1568,7 @@ export class CollectionPage extends BasePage {
      * @param national - The nationality value to fill in the input.
      * @returns A promise that resolves once the input is filled.
      */
+    @step()
     public async fillDirectorsNationalitySelectInput(national: string): Promise<void> {
         await this.directorsNationalitySelectButton.waitFor({ state: 'visible' });
         await this.directorsNationalitySelectButton.click();
@@ -1376,6 +1581,7 @@ export class CollectionPage extends BasePage {
      * @param identityNumber - The identity number to fill in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
+    @step()
     public async fillDirectorsIdentityNumberInput(identityNumber: string): Promise<void> {
         await this.directorsIdentityNumberInput.waitFor({ state: 'visible' });
         await this.directorsIdentityNumberInput.fill(identityNumber);
@@ -1386,6 +1592,7 @@ export class CollectionPage extends BasePage {
      * @param address - The address to fill in the input field.
      * @returns A promise that resolves once the address is filled.
      */
+    @step()
     public async fillDirectorsFullAddressInput(address: string): Promise<void> {
         await this.directorsFullAddressInput.waitFor({ state: 'visible' });
         await this.directorsFullAddressInput.fill(address);
@@ -1397,9 +1604,17 @@ export class CollectionPage extends BasePage {
      * @param filePath - The path of the file to upload.
      * @returns A promise that resolves when the file is uploaded successfully.
      */
-    public async uploadDirectorsIDPhotoFileInput(filePath): Promise<void> {
-        await this.directorsIDPhotoFileInput.waitFor({ state: 'visible' });
-        await this.directorsIDPhotoFileInput.setInputFiles(filePath);
+    @step()
+    public async uploadDirectorsIDPhotoFileInput(filePath, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.directorsIDPhotoFileInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.directorsIDPhotoFileInput.waitFor({ state: 'visible' });
+                await this.directorsIDPhotoFileInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.directorsIDPhotoFileInput.waitFor({ state: 'visible' });
+            await this.directorsIDPhotoFileInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -1407,9 +1622,17 @@ export class CollectionPage extends BasePage {
      * @param {string} filePath - The path of the file to upload.
      * @returns {Promise<void>} - A promise that resolves when the file is uploaded.
      */
-    public async uploadDirectorsSelfieIDPhotoFileInput(filePath): Promise<void> {
-        await this.directorsSelfieIDPhotoFileInput.waitFor({ state: 'visible' });
-        await this.directorsSelfieIDPhotoFileInput.setInputFiles(filePath);
+    @step()
+    public async uploadDirectorsSelfieIDPhotoFileInput(filePath, checkInput: boolean = true): Promise<void> {
+        if (checkInput) {
+            if (await this.directorsSelfieIDPhotoFileInput.isVisible({ timeout: Timeout.NO_WAIT })) {
+                await this.directorsSelfieIDPhotoFileInput.waitFor({ state: 'visible' });
+                await this.directorsSelfieIDPhotoFileInput.setInputFiles(filePath);
+            }
+        } else {
+            await this.directorsSelfieIDPhotoFileInput.waitFor({ state: 'visible' });
+            await this.directorsSelfieIDPhotoFileInput.setInputFiles(filePath);
+        }
     }
 
     /**
@@ -1417,7 +1640,8 @@ export class CollectionPage extends BasePage {
      * @param firstName - The first name to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
-    public async fillContatcsFirstNameInput(firstName: string): Promise<void> {
+    @step()
+    public async fillContactFirstNameInput(firstName: string): Promise<void> {
         await this.contatcsFirstNameInput.waitFor({ state: 'visible' });
         await this.contatcsFirstNameInput.fill(firstName);
     }
@@ -1427,7 +1651,8 @@ export class CollectionPage extends BasePage {
      * @param lastName - The last name to be filled in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
-    public async fillContatcsLastNameInput(lastName: string): Promise<void> {
+    @step()
+    public async fillContactLastNameInput(lastName: string): Promise<void> {
         await this.contatcsLastNameInput.waitFor({ state: 'visible' });
         await this.contatcsLastNameInput.fill(lastName);
     }
@@ -1437,7 +1662,8 @@ export class CollectionPage extends BasePage {
      * @param email - The email to be filled in the contacts email input field.
      * @returns A promise that resolves once the email has been filled.
      */
-    public async fillContatcsEmailInput(email: string): Promise<void> {
+    @step()
+    public async fillContactEmailInput(email: string): Promise<void> {
         await this.contatcsEmailInput.waitFor({ state: 'visible' });
         await this.contatcsEmailInput.fill(email);
     }
@@ -1447,7 +1673,8 @@ export class CollectionPage extends BasePage {
      * @param phone - The phone number to fill in the input field.
      * @returns A promise that resolves once the input field is filled.
      */
-    public async fillContatcsPhoneInput(phone: string): Promise<void> {
+    @step()
+    public async fillContactsPhoneInput(phone: string): Promise<void> {
         await this.contatcsPhoneInput.waitFor({ state: 'visible' });
         await this.contatcsPhoneInput.click();
         await this.contatcsPhoneInput.fill(phone);
