@@ -145,27 +145,27 @@ jobs:
               run: npx github-actions-ctrf tests ctrf/ctrf-report.json
               if: always()
             # publish unit test results
-            # - name: Publish Test Results
-            #   uses: EnricoMi/publish-unit-test-result-action@v2
-            #   if: always()
-            #   with:
-            #       files: |
-            #           junit-report/*.xml
-            #           junit-report/*.json
+            - name: Publish Test Results
+              uses: EnricoMi/publish-unit-test-result-action@v2
+              if: always()
+              with:
+                  files: |
+                      junit-report/*.xml
+                      junit-report/*.json
             # deploy to netlify
-            # - name: Deploy to Netlify
-            #   uses: nwtgck/actions-netlify@v3.0
-            #   if: always()
-            #   with:
-            #     publish-dir: './playwright-report'
-            #     production-branch: master
-            #     github-token: $API_TOKEN_GITHUB
-            #     deploy-message: "Deploy from GitHub Actions"
-            #     enable-pull-request-comment: false
-            #     enable-commit-comment: true
-            #     overwrites-pull-request-comment: true
-            #     production-deploy: true
-            #   env:
-            #     NETLIFY_AUTH_TOKEN: nfp_Npq22vH639TFDYM2MkviTsBXRkaNeR9V2407
-            #     NETLIFY_SITE_ID: 8306859d-ac02-4fe2-8a94-51a78ac4651f
-            #   timeout-minutes: 1
+            - name: Deploy to Netlify
+              uses: nwtgck/actions-netlify@v3.0
+              if: always()
+              with:
+                publish-dir: './playwright-report'
+                production-branch: master
+                github-token: $API_TOKEN_GITHUB
+                deploy-message: "Deploy from GitHub Actions"
+                enable-pull-request-comment: false
+                enable-commit-comment: true
+                overwrites-pull-request-comment: true
+                production-deploy: true
+              env:
+                NETLIFY_AUTH_TOKEN: nfp_Npq22vH639TFDYM2MkviTsBXRkaNeR9V2407
+                NETLIFY_SITE_ID: 8306859d-ac02-4fe2-8a94-51a78ac4651f
+              timeout-minutes: 1
