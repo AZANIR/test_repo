@@ -39,10 +39,6 @@ on:
                 description: "Set password option: default or custom"
                 required: true
                 default: "admin"
-            api_token_github:
-                description: "GitHub token"
-                required: true
-                default: ""
 
 jobs:
     Run_tests:
@@ -56,7 +52,6 @@ jobs:
             TRACE: ${{ inputs.trace }}
             LOGIN: ${{ inputs.login }}
             PASSWORD: ${{ inputs.password }}
-            API_TOKEN_GITHUB: ${{ inputs.api_token_github }}
             WORKFLOW_DEFINITION_ID: ${{ inputs.workflow_definition_id }}
         permissions:
             contents: read
