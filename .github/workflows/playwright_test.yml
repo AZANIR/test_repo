@@ -133,6 +133,15 @@ jobs:
               run: |
                 sleep 10
                   ls junit-report/ -la
+            # publish to github actions
+            - name: Publish Playwright Test on the github pages
+              if: always()
+              uses: peaceiris/actions-gh-pages@v4
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_branch: gh-pages
+                  publish_dir: ./playwright-report
+            # create Jest report
             - name: Test Report
               uses: dorny/test-reporter@v1
               if: success() || failure() # run this step even if previous step failed
