@@ -487,3 +487,8 @@ allure generate [allure_output_dir] && allure open
 This will generate a report (by default in ./allure-report), and open it in your browser.
 
 ![](https://webdriver.io/assets/images/allure-bb6c9b036b07594235a5aca5aff5ac43.png)
+
+
+[tests-allure-report](https://tests-allure-report.netlify.app/)
+
+[tests-pw-report](https://tests-pw-report.netlify.app/)

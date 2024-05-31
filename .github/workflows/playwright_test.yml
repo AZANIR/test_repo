@@ -152,20 +152,37 @@ jobs:
                   files: |
                       junit-report/*.xml
                       junit-report/*.json
-            # deploy to netlify
-            - name: Deploy to Netlify
+            # deploy to netlify tests-pw-report
+            - name: Deploy to Netlify tests-pw-report
               uses: nwtgck/actions-netlify@v3.0
               if: always()
               with:
                 publish-dir: './playwright-report'
                 production-branch: master
                 github-token: $API_TOKEN_GITHUB
-                deploy-message: "Deploy from GitHub Actions"
+                deploy-message: "Deploy from GitHub Actions tests-pw-report"
                 enable-pull-request-comment: false
                 enable-commit-comment: true
                 overwrites-pull-request-comment: true
                 production-deploy: true
               env:
-                NETLIFY_AUTH_TOKEN: nfp_Npq22vH639TFDYM2MkviTsBXRkaNeR9V2407
-                NETLIFY_SITE_ID: 8306859d-ac02-4fe2-8a94-51a78ac4651f
+                NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                NETLIFY_SITE_ID: 6dab82b5-d56c-4ce3-a6f2-90855b884bd6
               timeout-minutes: 1
+            # deploy to netlify tests-allure-report
+            - name: Deploy to Netlify tests-allure-report
+              uses: nwtgck/actions-netlify@v3.0
+              if: always()
+              with:
+                publish-dir: './allure-report'
+                production-branch: master
+                github-token: $API_TOKEN_GITHUB
+                deploy-message: "Deploy from GitHub Actions tests-allure-report"
+                enable-pull-request-comment: false
+                enable-commit-comment: true
+                overwrites-pull-request-comment: true
+                production-deploy: true
+              env:
+                NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                NETLIFY_SITE_ID: 36c92055-994a-4f81-8920-9e98c9ffb487
+              timeout-minutes: 1  

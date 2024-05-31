@@ -14,7 +14,7 @@ test.beforeAll(async ({ browser }) => {
     });
 });
 
-test(qase([1], 'Login with invalid email'), async () => {
+test(qase([1], 'Login with invalid email @login'), async () => {
     await test.step('Fill input fields', async () => {
         await logInPage.setEmailInput('invalid@email');
         await logInPage.setPasswordInput('invalidPassword');
