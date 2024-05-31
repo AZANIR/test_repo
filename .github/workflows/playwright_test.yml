@@ -138,9 +138,8 @@ jobs:
               if: always()
               uses: peaceiris/actions-gh-pages@v4
               with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  publish_branch: gh-pages
-                  publish_dir: ./playwright-report
+                  github_token: ${{ secrets.ACCES_TOKEN }}
+                  publish_dir: ./public
             # create Jest report
             - name: Test Report
               uses: dorny/test-reporter@v1
