@@ -48,6 +48,13 @@ export default defineConfig({
                 buildNumber: '100' // Optional: Specify the build number.
             }
         ]
+        // [
+        //     './node_modules/playwright-slack-report/dist/src/SlackReporter.js',
+        //     {
+        //         channels: ['ci-reports'], // provide one or more Slack channels
+        //         sendResults: 'always' // "always" , "on-failure", "off"
+        //     }
+        // ]
     ],
     // reporter: [
     //     ['list'],

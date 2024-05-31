@@ -63,45 +63,7 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 22
-            # - name : Create app directory
-            #   run: |
-            #     sudo chown -R $USER:$USER .
-            #     sudo mkdir app
-            #     ls -la
-            # - name: Load local env
-            #   working-directory: ./app
-            #   run: sudo git clone https://github.com/ballerine-io/ballerine.git --recursive
-            # - name: Setup and run local env
-            #   working-directory: ./app/ballerine
-            #   run: |
-            #     sudo chown -R $USER:$USER .
-            #     sudo npm install -g pnpm
-            #     sudo npm install -g concurrently
-            #     sudo git clone https://$API_TOKEN_GITHUB@github.com/ballerine-io/wf-data-migration.git services/workflows-service/prisma/data-migrations
-            # - name: Checkout data migration
-            #   working-directory: ./app/ballerine/services/workflows-service/prisma/data-migrations
-            #   run: sudo git checkout 697e912ea33d5c58d10d73fdf961ac17d1382fd8 -f
-            # - name: Run data setup
-            #   working-directory: ./app/ballerine
-            #   run: |
-            #     sudo chown -R $USER:$USER .
-            #     sudo pnpm install
-            #     sudo pnpm monorepo:init
-            # - name: Run db
-            #   working-directory: ./app/ballerine/services/workflows-service
-            #   run:  npm run docker:db
-            # - name: Run data migration
-            #   working-directory: ./app/ballerine/services/workflows-service
-            #   run: |
-            #     sudo chown -R $USER:$USER .
-            #     sudo pnpm run db:data-migration:migrate || true
-            # - name: Run server
-            #   working-directory: ./app/ballerine
-            #   run: |
-            #     sudo chown -R $USER:$USER .
-            #     npm pkg set scripts.testrun="concurrently \"nx run @ballerine/workflows-service:dev\" \"wait-on http://localhost:3000/api/v1/_health/ready && nx run-many --target=dev --projects=@ballerine/kyb-app,@ballerine/backoffice-v2\""
-            #     pnpm run testrun &
-            #     sleep 120
+
             - name: Install dependencies and browsers
               run: |
                   npm install
@@ -127,7 +89,7 @@ jobs:
               if: always()
               run: |
                 sleep 10
-                  ls junit-report/ -la
+                ls junit-report/ -la
             # publish to github actions
             - name: Publish Playwright Test on the github pages
               if: always()
@@ -142,6 +104,7 @@ jobs:
               with:
                   name: JEST Tests
                   path: junit-report/jest-junit.xml
+                  list-tests: 'all'
                   reporter: jest-junit
             # crsf pluggin 
             - name: Publish CTRF Test Summary Results
