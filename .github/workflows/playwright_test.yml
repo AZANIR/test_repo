@@ -134,7 +134,7 @@ jobs:
               uses: peaceiris/actions-gh-pages@v4
               with:
                   github_token: ${{ secrets.ACCES_TOKEN }}
-                  publish_dir: ./public
+                  publish_dir: ./allure-report
             # create Jest report
             - name: Test Report
               uses: dorny/test-reporter@v1
