@@ -44,6 +44,7 @@
     },
     "dependencies": {
         "@faker-js/faker": "^8.4.1",
+        "@slack/bolt": "^3.18.0",
         "@typescript-eslint/eslint-plugin": "^6.21.0",
         "@typescript-eslint/parser": "^6.21.0",
         "adm-zip": "^0.5.10",
