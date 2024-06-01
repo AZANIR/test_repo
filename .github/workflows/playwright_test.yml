@@ -97,26 +97,6 @@ jobs:
               with:
                   github_token: ${{ secrets.ACCES_TOKEN }}
                   publish_dir: ./allure-report
-            # create Jest report
-            - name: Test Report
-              uses: dorny/test-reporter@v1
-              if: always()
-              with:
-                  name: JEST Tests
-                  path: junit-report/jest-junit.xml
-                  list-tests: 'all'
-                  reporter: jest-junit
-
-            #phoenix-actions
-            - name: Test Report phoenix-actions
-              uses: phoenix-actions/test-reporting@v8
-              id: test-report               # Set ID reference for step
-              if: always()
-              with:
-                name: JEST Tests phoenix-actions          # Name of the check run which will be created
-                path: junit-report/jest-junit.xml
-                list-tests: 'all'  # Path to test results
-                reporter: jest-junit 
             # crsf pluggin 
             - name: Publish CTRF Test Summary Results
               run: npx github-actions-ctrf tests ctrf/ctrf-report.json
