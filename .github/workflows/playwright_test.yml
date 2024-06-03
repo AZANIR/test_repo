@@ -115,7 +115,7 @@ jobs:
               run: |
                 echo -e "/*    /.netlify/functions/require-auth    200" > playwright-report/_redirects
                 echo -e "azanir:{SHA}GCDfL8td9XFiQ97XOI/axXvRHgQ=" > playwright-report/.htpasswd
-                copy utils/require-auth.js playwright-report/functions/require-auth.js
+                cp utils/require-auth.js playwright-report/functions/require-auth.js
             # deploy to netlify tests-pw-report
             - name: Deploy to Netlify tests-pw-report
               uses: nwtgck/actions-netlify@v3.0
