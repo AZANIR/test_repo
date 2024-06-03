@@ -1,0 +1,154 @@
+name: "Playwright with pluggin"
+on:
+    workflow_dispatch:
+        inputs:
+            stage_url:
+                description: 'Select an environment: "dev" , "local"'
+                required: true
+                default: "https://backoffice-dev.eu.ballerine.io"
+            workflow_definition_id:
+                description: 'Set a workflow definition id'
+                required: true
+                default: "kyb_dynamic_ui_session_example"
+            qase_report:
+                description: "Choose qase report option: on(1) / off(0)"
+                required: false
+                default: "0"
+            base_api_url:
+                description: "Set api url default or custom"
+                required: true
+                default: "https://api-dev.eu.ballerine.io"
+            clips_pay_token:
+                description: "Set clips pay token default or custom"
+                required: true
+                default: ""
+            trace:
+                type: choice
+                description: "Choose trace option: on / off / retain-on-failure"
+                required: false
+                default: "off"
+                options:
+                    - "retain-on-failure"
+                    - "on"
+                    - "off"
+            login:
+                description: "Set login option: default or custom"
+                required: true
+                default: "admin@admin.com"
+            password:
+                description: "Set password option: default or custom"
+                required: true
+                default: "admin"
+
+jobs:
+    Run_tests:
+        timeout-minutes: 60
+        runs-on: ubuntu-20.04
+        env:
+            STAGE_URL: ${{ inputs.stage_url }}
+            QASE_REPORT: ${{ inputs.qase_report }}
+            BASE_API_URL: ${{ inputs.base_api_url }}
+            CLIPS_PAY_TOKEN: ${{ inputs.clips_pay_token }}
+            TRACE: ${{ inputs.trace }}
+            LOGIN: ${{ inputs.login }}
+            PASSWORD: ${{ inputs.password }}
+            WORKFLOW_DEFINITION_ID: ${{ inputs.workflow_definition_id }}
+        permissions:
+            contents: read
+            issues: read
+            checks: write
+            pull-requests: write
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 22
+
+            - name: Install dependencies and browsers
+              run: |
+                  npm install
+                  npx playwright install --with-deps chromium
+            - name: Run Playwright Tests
+              run: export BASE_URL="$STAGE_URL" WORKFLOW_DEFINITION_ID="$WORKFLOW_DEFINITION_ID" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && npx playwright test --trace "$TRACE"
+            - name: Generate Report
+              if: always()
+              run: npx allure generate allure-results --clean
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: playwright-report
+                  path: playwright-report
+                  retention-days: 25
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: allure-report
+                  path: allure-report
+                  retention-days: 25
+            - name: Wait for Artifacts to be ready
+              if: always()
+              run: |
+                sleep 10
+                ls junit-report/ -la
+            # publish to github actions
+            - name: Publish Playwright Test on the github pages
+              if: always()
+              uses: peaceiris/actions-gh-pages@v4
+              with:
+                  github_token: ${{ secrets.ACCES_TOKEN }}
+                  publish_dir: ./allure-report
+            # crsf pluggin 
+            - name: Publish CTRF Test Summary Results
+              run: npx github-actions-ctrf tests ctrf/ctrf-report.json
+              if: always()
+            # publish unit test results
+            - name: Publish Test Results
+              uses: EnricoMi/publish-unit-test-result-action@v2
+              if: always()
+              with:
+                  files: |
+                      junit-report/*.xml
+                      junit-report/*.json
+            # add passwoed access to the sites
+            - name: Add password access to the sites
+              if: always()
+              run: |
+                echo -e "/*    /functions/require-auth    200" > playwright-report/_redirects
+                echo -e "azanir:{SHA}GCDfL8td9XFiQ97XOI/axXvRHgQ=" > playwright-report/.htpasswd
+                mkdir -p ./playwright-report/functions
+                cp ./utils/require-auth.js ./playwright-report/functions/require-auth.js
+                ls -la playwright-report/
+            # deploy to netlify tests-pw-report
+            - name: Deploy to Netlify tests-pw-report
+              uses: nwtgck/actions-netlify@v3.0
+              if: always()
+              with:
+                publish-dir: './playwright-report'
+                production-branch: master
+                github-token: $API_TOKEN_GITHUB
+                deploy-message: "Deploy from GitHub Actions tests-pw-report"
+                enable-pull-request-comment: false
+                enable-commit-comment: true
+                overwrites-pull-request-comment: true
+                production-deploy: true
+              env:
+                NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                NETLIFY_SITE_ID: 6dab82b5-d56c-4ce3-a6f2-90855b884bd6
+              timeout-minutes: 1
+            # deploy to netlify tests-allure-report
+            - name: Deploy to Netlify tests-allure-report
+              uses: nwtgck/actions-netlify@v3.0
+              if: always()
+              with:
+                publish-dir: './allure-report'
+                production-branch: master
+                github-token: $API_TOKEN_GITHUB
+                deploy-message: "Deploy from GitHub Actions tests-allure-report"
+                enable-pull-request-comment: false
+                enable-commit-comment: true
+                overwrites-pull-request-comment: true
+                production-deploy: true
+              env:
+                NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                NETLIFY_SITE_ID: 36c92055-994a-4f81-8920-9e98c9ffb487
+              timeout-minutes: 1  
