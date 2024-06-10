@@ -53,6 +53,7 @@ jobs:
             LOGIN: ${{ inputs.login }}
             PASSWORD: ${{ inputs.password }}
             WORKFLOW_DEFINITION_ID: ${{ inputs.workflow_definition_id }}
+            SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
         permissions:
             contents: read
             issues: read
@@ -153,12 +154,10 @@ jobs:
                 NETLIFY_SITE_ID: 36c92055-994a-4f81-8920-9e98c9ffb487
               timeout-minutes: 1  
 
-    Slack_notification webhook:
-        steps:
-          - uses: 8398a7/action-slack@v3
-            if: always()
-            with:
-                status: custom
+            - name: Slack_notification webhook
+              uses: 8398a7/action-slack@v3
+              with:
+                status: ${{ job.status }}
                 fields: workflow,job,commit,repo,ref,author,took
                 custom_payload: |
                   {
@@ -167,6 +166,3 @@ jobs:
                       text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
                     }]
                   }
-            env:
-                SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
-          if: always()
