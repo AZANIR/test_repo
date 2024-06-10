@@ -1,5 +1,5 @@
 import { defineConfig } from '@playwright/test';
-import { generateCustomLayoutAsync } from './my_custom_layout';
+import generateCustomLayoutAsync from './my_custom_layout';
 import { LogLevel } from '@slack/web-api';
 /**
  * See https://playwright.dev/docs/test-configuration.
