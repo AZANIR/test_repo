@@ -58,7 +58,7 @@ jobs:
             PASSWORD: ${{ inputs.password }}
             WORKFLOW_DEFINITION_ID: ${{ inputs.workflow_definition_id }}
             SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
-            
+            SLACK_BOT_USER_OAUTH_TOKEN: ${{ inputs.slack_token }}
         permissions:
             contents: read
             issues: read
@@ -75,7 +75,7 @@ jobs:
                   npm install
                   npx playwright install --with-deps chromium
             - name: Run Playwright Tests
-              run: export BASE_URL="$STAGE_URL" WORKFLOW_DEFINITION_ID="$WORKFLOW_DEFINITION_ID" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && npx playwright test --trace "$TRACE"
+              run: export SLACK_BOT_USER_OAUTH_TOKEN="$SLACK_BOT_USER_OAUTH_TOKEN" BASE_URL="$STAGE_URL" WORKFLOW_DEFINITION_ID="$WORKFLOW_DEFINITION_ID" LOGIN_EMAIL="$LOGIN" LOGIN_PASSWORD="$PASSWORD" BASE_API_URL="$BASE_API_URL" CLIPS_PAY_TOKEN="$CLIPS_PAY_TOKEN" && npx playwright test --trace "$TRACE"
             - name: Generate Report
               if: always()
               run: npx allure generate allure-results --clean
