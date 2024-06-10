@@ -1,5 +1,5 @@
 import { defineConfig } from '@playwright/test';
-import generateCustomLayoutAsync from './my_custom_layout';
+import { generateCustomLayoutAsync } from './my_custom_layout';
 import { LogLevel } from '@slack/web-api';
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -58,14 +58,14 @@ export default defineConfig({
                 layout: generateCustomLayoutAsync,
                 maxNumberOfFailuresToShow: 40,
                 meta: [
-                    {
-                        key: 'BUILD_NUMBER',
-                        value: '0.0.11111'
-                    },
-                    {
-                        key: 'WHATEVER_ENV_VARIABLE',
-                        value: 'SOME_ENV_VARIABLE' // depending on your CI environment, this can be the branch name, build id, etc
-                    },
+                    // {
+                    //     key: 'BUILD_NUMBER',
+                    //     value: '0.0.11111'
+                    // },
+                    // {
+                    //     key: 'WHATEVER_ENV_VARIABLE',
+                    //     value: 'SOME_ENV_VARIABLE' // depending on your CI environment, this can be the branch name, build id, etc
+                    // },
                     {
                         key: 'HTML Results',
                         value: '<https://tests-allure-report.netlify.app/|📊>'

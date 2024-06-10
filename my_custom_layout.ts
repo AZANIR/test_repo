@@ -100,8 +100,12 @@ export async function generateCustomLayoutAsync(summaryResults: SummaryResults):
     return [header, summary, { type: 'divider' }, ...fails];
 }
 
+// import { Block, KnownBlock } from '@slack/types';
+// import { SummaryResults } from 'playwright-slack-report/dist/src';
+
 // export default function generateCustomLayoutAsync(summaryResults: SummaryResults): Array<Block | KnownBlock> {
 //     const meta: { type: string; text: { type: string; text: string } }[] = [];
+
 //     if (summaryResults.meta) {
 //         for (let i = 0; i < summaryResults.meta.length; i += 1) {
 //             const { key, value } = summaryResults.meta[i];
