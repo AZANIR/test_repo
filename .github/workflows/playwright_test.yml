@@ -57,7 +57,6 @@ jobs:
             LOGIN: ${{ inputs.login }}
             PASSWORD: ${{ inputs.password }}
             WORKFLOW_DEFINITION_ID: ${{ inputs.workflow_definition_id }}
-            SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
             SLACK_BOT_USER_OAUTH_TOKEN: ${{ inputs.slack_token }}
         permissions:
             contents: read
@@ -161,6 +160,8 @@ jobs:
 
             - name: Slack_notification webhook
               uses: 8398a7/action-slack@v3
+              env:
+                SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
               with:
                 status: ${{ job.status }}
                 fields: workflow,job,commit,repo,ref,author,took
