@@ -39,6 +39,10 @@ on:
                 description: "Set password option: default or custom"
                 required: true
                 default: "admin"
+            slack_token:
+                description: "Slack token"
+                required: true
+                default: ""
 
 jobs:
     Run_tests:
@@ -54,6 +58,7 @@ jobs:
             PASSWORD: ${{ inputs.password }}
             WORKFLOW_DEFINITION_ID: ${{ inputs.workflow_definition_id }}
             SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
+            
         permissions:
             contents: read
             issues: read
