@@ -5,30 +5,30 @@
     },
     "summary": {
       "tests": 3,
-      "passed": 3,
-      "failed": 0,
+      "passed": 2,
+      "failed": 1,
       "pending": 0,
       "skipped": 0,
       "other": 0,
-      "start": 1717161647023,
-      "stop": 1717161652456,
+      "start": 1717949150781,
+      "stop": 1717949188175,
       "suites": 0
     },
     "tests": [
       {
         "name": "Login with invalid email @login (Qase ID: 1)",
         "status": "passed",
-        "duration": 678
+        "duration": 610
       },
       {
         "name": "Login with invalid password @login (Qase ID: 2)",
         "status": "passed",
-        "duration": 608
+        "duration": 583
       },
       {
         "name": "Login with valid credential @login (Qase ID: 3)",
-        "status": "passed",
-        "duration": 808
+        "status": "failed",
+        "duration": 30627
       }
     ],
     "environment": {

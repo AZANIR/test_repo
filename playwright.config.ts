@@ -1,4 +1,6 @@
 import { defineConfig } from '@playwright/test';
+import { generateCustomLayoutAsync } from './my_custom_layout';
+import { LogLevel } from '@slack/web-api';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -47,14 +49,34 @@ export default defineConfig({
                 buildName: 'MyApp Build', // Optional: Specify the build name.
                 buildNumber: '100' // Optional: Specify the build number.
             }
+        ],
+        [
+            './node_modules/playwright-slack-report/dist/src/SlackReporter.js',
+            {
+                channels: ['report'], // provide one or more Slack channels
+                sendResults: 'always', // "always" , "on-failure", "off"
+                layout: generateCustomLayoutAsync,
+                maxNumberOfFailuresToShow: 40,
+                meta: [
+                    {
+                        key: 'BUILD_NUMBER',
+                        value: '0.0.11111'
+                    },
+                    {
+                        key: 'WHATEVER_ENV_VARIABLE',
+                        value: 'SOME_ENV_VARIABLE' // depending on your CI environment, this can be the branch name, build id, etc
+                    },
+                    {
+                        key: 'HTML Results',
+                        value: '<https://tests-allure-report.netlify.app/|📊>'
+                    }
+                ],
+                slackOAuthToken: process.env.SLACK_BOT_USER_OAUTH_TOKEN,
+                slackLogLevel: LogLevel.DEBUG,
+                disableUnfurl: true,
+                showInThread: true
+            }
         ]
-        // [
-        //     './node_modules/playwright-slack-report/dist/src/SlackReporter.js',
-        //     {
-        //         channels: ['ci-reports'], // provide one or more Slack channels
-        //         sendResults: 'always' // "always" , "on-failure", "off"
-        //     }
-        // ]
     ],
     // reporter: [
     //     ['list'],
