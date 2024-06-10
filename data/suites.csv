@@ -1,4 +1,4 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Mon Jun 10 09:49:17 UTC 2024","Mon Jun 10 09:49:23 UTC 2024","5764","Chrome","bacoffice/backoffice-001.spec.ts","","","","Login with invalid email @login (Qase ID: 1)",""
-"passed","Mon Jun 10 09:49:23 UTC 2024","Mon Jun 10 09:49:23 UTC 2024","645","Chrome","bacoffice/backoffice-001.spec.ts","","","","Login with invalid password @login (Qase ID: 2)",""
-"passed","Mon Jun 10 09:49:23 UTC 2024","Mon Jun 10 09:49:25 UTC 2024","1319","Chrome","bacoffice/backoffice-001.spec.ts","","","","Login with valid credential @login (Qase ID: 3)",""
+"passed","Mon Jun 10 10:02:52 UTC 2024","Mon Jun 10 10:02:54 UTC 2024","1261","Chrome","bacoffice/backoffice-001.spec.ts","","","","Login with valid credential @login (Qase ID: 3)",""
+"passed","Mon Jun 10 10:02:52 UTC 2024","Mon Jun 10 10:02:52 UTC 2024","584","Chrome","bacoffice/backoffice-001.spec.ts","","","","Login with invalid password @login (Qase ID: 2)",""
+"passed","Mon Jun 10 10:02:46 UTC 2024","Mon Jun 10 10:02:52 UTC 2024","5485","Chrome","bacoffice/backoffice-001.spec.ts","","","","Login with invalid email @login (Qase ID: 1)",""
