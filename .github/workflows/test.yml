@@ -40,9 +40,9 @@ jobs:
       - name: Set dynamic variable
         id: set_var
         run: |
-          if [ "${{ github.event.inputs.company }}" == "CLIPSPAY" ]; then
+          if [ "${{ inputs.customer_company }}" == "CLIPSPAY" ]; then
             echo "COMPANY=${{ vars.CLIPSPAY_COMPANY }}" >> $GITHUB_ENV
-          elif [ "${{ github.event.inputs.company }}" == "OXPAY" ]; then
+          elif [ "${{ inputs.customer_company }}" == "OXPAY" ]; then
             echo "COMPANY=${{ vars.OXPAY_COMPANY }}" >> $GITHUB_ENV
           fi
 
