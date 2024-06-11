@@ -1,0 +1,42 @@
+run-name: Deploy to "${{ inputs.environment_version }}" by "${{ github.ref_name }}"
+on:
+    workflow_dispatch:
+        inputs:
+            environment_version:
+                type: choice
+                description: "Choose env"
+                required: false
+                default: "test"
+                options:
+                    - "local"
+                    - "test"
+jobs:
+    Run_tests:
+        timeout-minutes: 60
+        runs-on: ubuntu-20.04
+        environment: ${{ inputs.environment_version }}
+        env:
+            CUSTOMER_COMPANY: ${{ vars.CUSTOMER_COMPANY }}
+        permissions:
+            contents: read
+            issues: read
+            checks: write
+            pull-requests: write
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 22
+
+            - name: Install dependencies and browsers
+              run: |
+                  npm install
+                  npx playwright install --with-deps chromium
+           
+            - name: Wait for Artifacts to be ready
+              if: always()
+              run: |
+                sleep 10
+                ls junit-report/ -la
+                echo "CUSTOMER_COMPANY: $CUSTOMER_COMPANY"
+           
