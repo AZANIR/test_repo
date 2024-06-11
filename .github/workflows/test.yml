@@ -15,7 +15,7 @@ on:
         type: choice
         description: "Choose customer company like clipspay or oxpay"
         required: false
-        default: "OxPay"
+        default: "OXPAY"
         options:
           - "CLIPSPAY"
           - "OXPAY"
@@ -37,22 +37,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 22
-
-      - name: Set CUSTOMER_COMPANY variable
+      - name: Set dynamic variable
         id: set_var
-        run: echo "::set-output name=customer_company::$(echo $COMPANY_MAP | jq -r .${{ inputs.customer_company }})"
-
-      - name: Set environment variable
-        run: echo "CUSTOMER_COMPANY=${{ steps.set_var.outputs.customer_company }}" >> $GITHUB_ENV
-
-      - name: Install dependencies and browsers
         run: |
-          npm install
-          npx playwright install --with-deps chromium
+          if [ "${{ github.event.inputs.company }}" == "CLIPSPAY" ]; then
+            echo "COMPANY=${{ vars.CLIPSPAY_COMPANY }}" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.company }}" == "OXPAY" ]; then
+            echo "COMPANY=${{ vars.OXPAY_COMPANY }}" >> $GITHUB_ENV
+          fi
 
-      - name: Wait for Artifacts to be ready
-        if: always()
-        run: |
-          sleep 10
-          ls junit-report/ -la
-          echo "CUSTOMER_COMPANY: $CUSTOMER_COMPANY"
+      - name: Print selected company
+        run: echo "Selected Company $COMPANY"
