@@ -30,6 +30,8 @@ jobs:
       issues: read
       checks: write
       pull-requests: write
+    env:
+      COMPANY_MAP: '{"CLIPSPAY":"CLIPSPAY_COMPANY", "OXPAY":"OXPAY_COMPANY"}'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
