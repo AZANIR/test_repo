@@ -1,4 +1,4 @@
-name: "Playwright with Environment Variables"
+run-name: Deploy to ${{ inputs.environment_version }} by @${{ github.repository_owner }}
 on:
     workflow_dispatch:
         inputs:
@@ -10,7 +10,6 @@ on:
                 options:
                     - "local"
                     - "test"
-
 jobs:
     Run_tests:
         timeout-minutes: 60
