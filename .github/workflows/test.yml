@@ -1,42 +1,58 @@
-run-name: Deploy to "${{ inputs.environment_version }}" by "${{ github.ref_name }}"
-on:
-    workflow_dispatch:
-        inputs:
-            environment_version:
-                type: choice
-                description: "Choose env"
-                required: false
-                default: "test"
-                options:
-                    - "local"
-                    - "test"
-jobs:
-    Run_tests:
-        timeout-minutes: 60
-        runs-on: ubuntu-20.04
-        environment: ${{ inputs.environment_version }}
-        env:
-            CUSTOMER_COMPANY: ${{ vars.CUSTOMER_COMPANY }}
-        permissions:
-            contents: read
-            issues: read
-            checks: write
-            pull-requests: write
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 22
+run-name: Playwright tests =>branch - "${{ github.ref_name }}", env -"${{ inputs.environment_version }}",  customer - "${{ inputs.customer_company }}".
 
-            - name: Install dependencies and browsers
-              run: |
-                  npm install
-                  npx playwright install --with-deps chromium
-           
-            - name: Wait for Artifacts to be ready
-              if: always()
-              run: |
-                sleep 10
-                ls junit-report/ -la
-                echo "CUSTOMER_COMPANY: $CUSTOMER_COMPANY"
-           
+on:
+  workflow_dispatch:
+    inputs:
+      environment_version:
+        type: choice
+        description: "Choose env"
+        required: false
+        default: "test"
+        options:
+          - "local"
+          - "test"
+      customer_company:
+        type: choice
+        description: "Choose customer company like clipspay or oxpay"
+        required: false
+        default: "OxPay"
+        options:
+          - "CLIPSPAY"
+          - "OXPAY"
+
+jobs:
+  Run_tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-20.04
+    environment: ${{ inputs.environment_version }}
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    env:
+      COMPANY_MAP: '{"CLIPSPAY":"CLIPSPAY_COMPANY", "OXPAY":"OXPAY_COMPANY"}'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Set CUSTOMER_COMPANY variable
+        id: set_var
+        run: echo "::set-output name=customer_company::$(echo $COMPANY_MAP | jq -r .${{ inputs.customer_company }})"
+
+      - name: Set environment variable
+        run: echo "CUSTOMER_COMPANY=${{ steps.set_var.outputs.customer_company }}" >> $GITHUB_ENV
+
+      - name: Install dependencies and browsers
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+
+      - name: Wait for Artifacts to be ready
+        if: always()
+        run: |
+          sleep 10
+          ls junit-report/ -la
+          echo "CUSTOMER_COMPANY: $CUSTOMER_COMPANY"
