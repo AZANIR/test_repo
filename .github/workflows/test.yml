@@ -45,7 +45,7 @@ jobs:
       - name: Set dynamic variables
         run: |
           if [ "${{ inputs.customer_company }}" == "CLIPSPAY" ]; then
-            echo "COMPANY=${{ vars.CLIPSPAY_COMPANY }}" >> $GITHUB_ENV
+            echo "COMPANY=${{ vars.CLIPSPAY_CUSTOMER_COMPANY }}" >> $GITHUB_ENV
             echo "WORKFLOW_DEFINITION_ID=${{ vars.CLIPSPAY_WORKFLOW_DEFINITION_ID }}" >> $GITHUB_ENV
             echo "BASE_URL=${{ vars.CLIPSPAY_BASE_URL }}" >> $GITHUB_ENV
             echo "BASE_API_URL=${{ vars.CLIPSPAY_BASE_API_URL }}" >> $GITHUB_ENV
@@ -53,7 +53,7 @@ jobs:
             echo "LOGIN_EMAIL=${{ secrets.CLIPSPAY_LOGIN_EMAIL }}" >> $GITHUB_ENV
             echo "LOGIN_PASSWORD=${{ secrets.CLIPSPAY_LOGIN_PASSWORD }}" >> $GITHUB_ENV
           elif [ "${{ inputs.customer_company }}" == "OXPAY" ]; then
-            echo "COMPANY=${{ vars.OXPAY_COMPANY }}" >> $GITHUB_ENV
+            echo "COMPANY=${{ vars.OXPAY_CUSTOMER_COMPANY }}" >> $GITHUB_ENV
             echo "WORKFLOW_DEFINITION_ID=${{ vars.OXPAY_WORKFLOW_DEFINITION_ID }}" >> $GITHUB_ENV
             echo "BASE_URL=${{ vars.OXPAY_BASE_URL }}" >> $GITHUB_ENV
             echo "BASE_API_URL=${{ vars.OXPAY_BASE_API_URL }}" >> $GITHUB_ENV
