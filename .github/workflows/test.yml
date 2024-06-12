@@ -1,19 +1,20 @@
-run-name: Playwright tests =>branch - "${{ github.ref_name }}", env -"${{ inputs.environment_version }}",  customer - "${{ inputs.customer_company }}".
+run-name: Playwright tests - branch -> "${{ github.ref_name }}", env -> "${{ inputs.environment_version }}", customer -> "${{ inputs.customer_company }}".
 
 on:
   workflow_dispatch:
     inputs:
       environment_version:
         type: choice
-        description: "Choose env"
+        description: "Choose env like dev or sb"
         required: false
-        default: "test"
+        default: "dev"
         options:
-          - "local"
-          - "test"
+          - "dev"
+          - "sb"
+          - "production"
       customer_company:
         type: choice
-        description: "Choose customer company like clipspay or oxpay"
+        description: "Choose customer company like CLIPSPAY or OXPAY"
         required: false
         default: "OXPAY"
         options:
@@ -30,21 +31,43 @@ jobs:
       issues: read
       checks: write
       pull-requests: write
-    env:
-      COMPANY_MAP: '{"CLIPSPAY":"CLIPSPAY_COMPANY", "OXPAY":"OXPAY_COMPANY"}'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 22
-      - name: Set dynamic variable
-        id: set_var
+
+      - name: Install dependencies and browsers
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+
+      - name: Set dynamic variables
         run: |
           if [ "${{ inputs.customer_company }}" == "CLIPSPAY" ]; then
             echo "COMPANY=${{ vars.CLIPSPAY_COMPANY }}" >> $GITHUB_ENV
+            echo "WORKFLOW_DEFINITION_ID=${{ vars.CLIPSPAY_WORKFLOW_DEFINITION_ID }}" >> $GITHUB_ENV
+            echo "BASE_URL=${{ vars.CLIPSPAY_BASE_URL }}" >> $GITHUB_ENV
+            echo "BASE_API_URL=${{ vars.CLIPSPAY_BASE_API_URL }}" >> $GITHUB_ENV
+            echo "CLIPS_PAY_TOKEN=${{ secrets.CLIPSPAY_PAY_TOKEN }}" >> $GITHUB_ENV
+            echo "LOGIN_EMAIL=${{ secrets.CLIPSPAY_LOGIN_EMAIL }}" >> $GITHUB_ENV
+            echo "LOGIN_PASSWORD=${{ secrets.CLIPSPAY_LOGIN_PASSWORD }}" >> $GITHUB_ENV
           elif [ "${{ inputs.customer_company }}" == "OXPAY" ]; then
             echo "COMPANY=${{ vars.OXPAY_COMPANY }}" >> $GITHUB_ENV
+            echo "WORKFLOW_DEFINITION_ID=${{ vars.OXPAY_WORKFLOW_DEFINITION_ID }}" >> $GITHUB_ENV
+            echo "BASE_URL=${{ vars.OXPAY_BASE_URL }}" >> $GITHUB_ENV
+            echo "BASE_API_URL=${{ vars.OXPAY_BASE_API_URL }}" >> $GITHUB_ENV
+            echo "CLIPS_PAY_TOKEN=${{ secrets.OXPAY_PAY_TOKEN }}" >> $GITHUB_ENV
+            echo "LOGIN_EMAIL=${{ secrets.OXPAY_LOGIN_EMAIL }}" >> $GITHUB_ENV
+            echo "LOGIN_PASSWORD=${{ secrets.OXPAY_LOGIN_PASSWORD }}" >> $GITHUB_ENV
           fi
 
-      - name: Print selected company
-        run: echo "Selected Company $COMPANY"
+      - name: Debug variables
+        run: |
+          echo "COMPANY: $COMPANY"
+          echo "WORKFLOW_DEFINITION_ID: $WORKFLOW_DEFINITION_ID"
+          echo "BASE_URL: $BASE_URL"
+          echo "BASE_API_URL: $BASE_API_URL"
+          echo "CLIPS_PAY_TOKEN: $CLIPS_PAY_TOKEN"
+          echo "LOGIN_EMAIL: $LOGIN_EMAIL"
+          echo "LOGIN_PASSWORD: $LOGIN_PASSWORD"
