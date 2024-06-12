@@ -45,7 +45,7 @@ jobs:
       - name: Set dynamic variables
         run: |
           if [ "${{ inputs.customer_company }}" == "CLIPSPAY" ]; then
-            echo "COMPANY=${{ vars.CLIPSPAY_CUSTOMER_COMPANY }}" >> $GITHUB_ENV
+            echo "CUSTOMER=${{ vars.CLIPSPAY_CUSTOMER_COMPANY }}" >> $GITHUB_ENV
             echo "WORKFLOW_DEFINITION_ID=${{ vars.CLIPSPAY_WORKFLOW_DEFINITION_ID }}" >> $GITHUB_ENV
             echo "BASE_URL=${{ vars.CLIPSPAY_BASE_URL }}" >> $GITHUB_ENV
             echo "BASE_API_URL=${{ vars.CLIPSPAY_BASE_API_URL }}" >> $GITHUB_ENV
@@ -64,7 +64,7 @@ jobs:
 
       - name: Debug variables
         run: |
-          echo "COMPANY: $COMPANY"
+          echo "CUSTOMER: $CUSTOMER"
           echo "WORKFLOW_DEFINITION_ID: $WORKFLOW_DEFINITION_ID"
           echo "BASE_URL: $BASE_URL"
           echo "BASE_API_URL: $BASE_API_URL"
